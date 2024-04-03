@@ -1,4 +1,5 @@
-import { Theme, extendTheme, withDefaultColorScheme, baseTheme } from '@chakra-ui/react';
+import { Theme, extendTheme, baseTheme, withDefaultColorScheme } from '@chakra-ui/react';
+import { inputStyle } from './components/input';
 
 
 export const theme: Theme = extendTheme(
@@ -33,16 +34,16 @@ export const theme: Theme = extendTheme(
         200: '#25C34C',
       },
       primary: {
-        '50': '#4699B7',
-        '100': '#4699B7',
-        '200': '#4699B7',
-        '300': '#4699B7',
-        '400': '#4699B7',
-        '500': '#4699B7',
-        '600': '#4699B7',
-        '700': '#4699B7',
-        '800': '#4699B7',
-        '900': '#4699B7',
+        '50': '#231E5B',
+        '100': '#231E5B',
+        '200': '#231E5B',
+        '300': '#231E5B',
+        '400': '#231E5B',
+        '500': '#231E5B',
+        '600': '#231E5B',
+        '700': '#231E5B',
+        '800': '#231E5B',
+        '900': '#231E5B',
       },
       secondary: {
         '50': '#5F6B99',
@@ -60,7 +61,7 @@ export const theme: Theme = extendTheme(
     semanticTokens: {
       colors: {
         text: 'white',
-        primary: '#4699B7',
+        primary: '#231E5B',
         base: '#161B43',
         accent: '#5F6B9938',
         secondary: '#4A5A89',
@@ -74,11 +75,12 @@ export const theme: Theme = extendTheme(
       body: "'Brown', -apple-system, system-ui, sans-serif",
     },
     components: {
+      Input: inputStyle,
     },
     config: {
       initialColorMode: 'dark',
       useSystemColorMode: false,
     },
   },
-//   withDefaultColorScheme({ colorScheme: 'primary' }),
+  withDefaultColorScheme({ colorScheme: 'primary' }),
 ) as Theme;
