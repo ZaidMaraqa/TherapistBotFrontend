@@ -71,7 +71,7 @@ const Login = () => {
               }}
             />
             <Flex justifyContent={"flex-end"} py={".2rem"}>
-              <Link>Forgot Password?</Link>
+              <Link color={'primary'} href="/forgot-password">Forgot Password?</Link>
             </Flex>
             <Flex
               w={"100%"}
