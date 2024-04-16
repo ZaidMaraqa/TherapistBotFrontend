@@ -6,7 +6,6 @@ import {
   InputGroup,
   InputLeftElement,
   FormErrorMessage,
-  useMultiStyleConfig
 } from "@chakra-ui/react";
 import { IconType } from 'react-icons';
 

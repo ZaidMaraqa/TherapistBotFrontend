@@ -83,7 +83,6 @@ const SignUp = () => {
               gap="1rem"
               mb={".5rem"}
             >
-              <Flex direction={"column"} grow={1}>
                 <FloatingLabel
                   id="first_name"
                   label="First Name"
@@ -97,8 +96,6 @@ const SignUp = () => {
                     errors,
                   }}
                 />
-              </Flex>
-              <Flex direction={"column"} grow={1}>
                 <FloatingLabel
                   id="last_name"
                   label="Last Name"
@@ -112,7 +109,6 @@ const SignUp = () => {
                     errors,
                   }}
                 />
-              </Flex>
             </Flex>
             <FloatingLabel
               id="email"
@@ -154,7 +150,6 @@ const SignUp = () => {
               }}
             />
             <Flex direction={{ base: "column", md: "row" }} gap="1rem">
-              <Flex direction="column" grow={1}>
                 <FloatingLabel
                   id="password"
                   label="Password"
@@ -168,8 +163,6 @@ const SignUp = () => {
                     errors,
                   }}
                 />
-              </Flex>
-              <Flex direction="column" grow={1}>
                 <FloatingLabel
                   id="passwordC"
                   label="Password Confirmation"
@@ -183,7 +176,6 @@ const SignUp = () => {
                     errors,
                   }}
                 />
-              </Flex>
             </Flex>
             <Flex
               w={"100%"}

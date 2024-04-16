@@ -27,14 +27,15 @@ const Otp = () => {
       h={"100vh"}
       w={"100vw"}
       justifyContent={"center"}
-      bg={"#FAFAFC"}
+      bg={"white"}
       alignItems={"center"}
     >
       <Flex
         boxShadow={"lg"}
         borderRadius={"lg"}
-        bg={"white"}
+        bg={"#FAFAFC"}
         direction={"column"}
+        mb={'10%'}
         maxH={"28.75rem"}
         maxW={"23rem"}
         alignItems={"center"}
