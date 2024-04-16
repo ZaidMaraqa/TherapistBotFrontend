@@ -1,5 +1,6 @@
 import { Theme, extendTheme, baseTheme, withDefaultColorScheme } from '@chakra-ui/react';
 import { inputStyle } from './components/input';
+import { AlertStyles } from './components/alert';
 
 
 
@@ -14,6 +15,30 @@ const activeLabelStyles = {
 
 export const theme: Theme = extendTheme(
   {
+    styles: {
+      global: {
+        // 'html, body': {
+        //   backgroundColor: 'base',
+        //   cursor: 'default',
+        //   color: 'white',
+        // },
+        // body: {
+        //   color: 'text',
+        //   scrollbarWidth: 'thin',
+        //   height: '100vh',
+        // },
+        // '::-webkit-scrollbar': {
+        //   width: '0.3125rem',
+        //   height: '0.3125rem',
+        //   backgroundColor: '#4F5B8F',
+        // },
+
+        // '::-webkit-scrollbar-thumb': {
+        //   background: 'rgba(217, 217, 217, 0.80)',
+        //   borderRadius: '7.5rem',
+        // },
+      },
+    },
     colors: {
       green: {
         ...baseTheme.colors.green,
@@ -53,7 +78,6 @@ export const theme: Theme = extendTheme(
         secondary: '#4A5A89',
         light: '#F0F0EE',
         dark: '#2A3640',
-        greenMint: '#93FFDE',
       },
     },
     fonts: {
@@ -89,6 +113,7 @@ export const theme: Theme = extendTheme(
           },
         },
       },
+      Alert: AlertStyles,
     },
     config: {
       initialColorMode: 'dark',

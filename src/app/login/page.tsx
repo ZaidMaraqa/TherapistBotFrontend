@@ -33,17 +33,6 @@ const Login = () => {
   return (
     <Flex w={"100vw"} h={"100vh"} overflow={"hidden"}>
       <Flex w={["100%", "100%", "50%"]} direction={"column"}>
-        <Flex>
-          <Text
-            fontSize={"2.5rem"}
-            h={"20%"}
-            fontWeight={"bold"}
-            padding={"1.0625rem"}
-            color={"primary"}
-          >
-            Solace
-          </Text>
-        </Flex>
         <Flex
           justifyContent={"center"}
           direction={"column"}
@@ -104,7 +93,7 @@ const Login = () => {
 
           <Text align={"center"}>
             Don't have an account? Log In{" "}
-            <Link color={"primary"} href="/signup">
+            <Link color={"primary"} href="/sign-up">
               here
             </Link>
           </Text>
