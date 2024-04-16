@@ -5,9 +5,7 @@ import AuthContext from "@/context/auth";
 import {
   Button,
   Flex,
-  FormControl,
   FormErrorMessage,
-  FormHelperText,
   FormLabel,
   Image,
   Input,
@@ -62,17 +60,6 @@ const SignUp = () => {
   return (
     <Flex w={"100vw"} h={"100vh"}  overflow={"hidden"}>
       <Flex w={["100%", "100%", "50%"]} direction={"column"}>
-        <Flex>
-          <Text
-            fontSize={"2.5rem"}
-            h={"20%"}
-            fontWeight={"bold"}
-            padding={"1.0625rem"}
-            color={"#231E5B"}
-          >
-            Solace
-          </Text>
-        </Flex>
         <Flex
           justifyContent={"center"}
           direction={"column"}
