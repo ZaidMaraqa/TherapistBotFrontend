@@ -2,28 +2,20 @@
 
 import { ASSETS } from "@/assets";
 import AuthContext from "@/context/auth";
-import {
-  Button,
-  Flex,
-  FormErrorMessage,
-  FormLabel,
-  Image,
-  Input,
-  InputGroup,
-  InputLeftElement,
-  Link,
-  Text,
-} from "@chakra-ui/react";
+import { Box, Button, Flex, Image, Link, Text } from "@chakra-ui/react";
 import { useFormik } from "formik";
 import { useContext } from "react";
 import { AiOutlineMail } from "react-icons/ai";
 import * as Yup from "yup";
 import { MdLockOutline } from "react-icons/md";
-import { CiUser } from "react-icons/ci";
+import { CiUser, CiCalendarDate, CiPhone } from "react-icons/ci";
+import FloatingLabel from "@/components/FloatingLabel";
+
 
 const validationSchema = Yup.object({
   first_name: Yup.string().required("First name is required"),
   last_name: Yup.string().required("Last name is required"),
+  number: Yup.string().required("Phone Number is required"),
   email: Yup.string()
     .email("Invalid email address")
     .required("Email is required"),
@@ -36,7 +28,14 @@ const validationSchema = Yup.object({
   passwordC: Yup.string()
     .oneOf([Yup.ref("password")], "Passwords must match")
     .required("Password confirmation is required"),
+  dob: Yup.string()
+    .matches(/^(0[1-9]|[12][0-9]|3[01])\/(0[1-9]|1[012])\/([0-9]{2})$/, {
+      message: "DOB must be in dd/mm/yy format",
+      excludeEmptyString: true
+    })
+    .required("DOB is required")
 });
+
 
 const SignUp = () => {
   const { signup } = useContext(AuthContext);
@@ -47,6 +46,8 @@ const SignUp = () => {
         first_name: "",
         last_name: "",
         email: "",
+        dob: "",
+        number: "",
         password: "",
         passwordC: "",
       },
@@ -58,7 +59,7 @@ const SignUp = () => {
     });
 
   return (
-    <Flex w={"100vw"} h={"100vh"}  overflow={"hidden"}>
+    <Flex w={"100vw"} h={"100vh"} overflow={"hidden"}>
       <Flex w={["100%", "100%", "50%"]} direction={"column"}>
         <Flex
           justifyContent={"center"}
@@ -67,9 +68,14 @@ const SignUp = () => {
           gap={"1.5rem"}
           px={"1rem"}
         >
-          <Text color={"#231E5B"} fontSize={"2.5rem"} align={"center"}>
-            Welcome Back
-          </Text>
+          <Box>
+            <Text color={"#231E5B"} fontSize={"2rem"} align={"center"}>
+              Create an account
+            </Text>
+            <Text color={"gray"} fontSize={"1rem"} align={"center"}>
+              A step towards a better emitional health.
+            </Text>
+          </Box>
 
           <form onSubmit={handleSubmit}>
             <Flex
@@ -77,118 +83,108 @@ const SignUp = () => {
               gap="1rem"
               mb={".5rem"}
             >
-              <Flex direction={"column"}grow={1}>
-                <FormLabel> First Name</FormLabel>
-                <InputGroup>
-                  <InputLeftElement>
-                    <CiUser />
-                  </InputLeftElement>
-                  <Input
-                    placeholder="John"
-                    name="first_name"
-                    onChange={handleChange}
-                    value={values.first_name}
-                    onBlur={handleBlur}
-                    isInvalid={!!(touched.first_name && !!errors.first_name)}
-                    borderWidth={"2px"}
-                    borderColor={"primary"}
-                    _focus={{ boxShadow: "none", borderColor: "primary" }}
-                    _hover={{ borderColor: "primary" }}
-                  />
-                </InputGroup>
+              <Flex direction={"column"} grow={1}>
+                <FloatingLabel
+                  id="first_name"
+                  label="First Name"
+                  type="text"
+                  icon={CiUser}
+                  formik={{
+                    handleBlur,
+                    handleChange,
+                    values,
+                    touched,
+                    errors,
+                  }}
+                />
               </Flex>
               <Flex direction={"column"} grow={1}>
-                <FormLabel> Last Name</FormLabel>
-                <InputGroup>
-                  <InputLeftElement>
-                    <CiUser />
-                  </InputLeftElement>
-
-                  <Input
-                    placeholder="Doe"
-                    name="last_name"
-                    onChange={handleChange}
-                    value={values.last_name}
-                    onBlur={handleBlur}
-                    isInvalid={!!(touched.last_name && !!errors.last_name)}
-                    borderWidth={"2px"}
-                    borderColor={"primary"}
-                    _focus={{ boxShadow: "none", borderColor: "primary" }}
-                    _hover={{ borderColor: "primary" }}
-                  />
-                </InputGroup>
+                <FloatingLabel
+                  id="last_name"
+                  label="Last Name"
+                  type="text"
+                  icon={CiUser}
+                  formik={{
+                    handleBlur,
+                    handleChange,
+                    values,
+                    touched,
+                    errors,
+                  }}
+                />
               </Flex>
             </Flex>
-            <FormLabel> Email</FormLabel>
-            <InputGroup flexDir={"column"} mb={".5rem"}>
-              <InputLeftElement>
-                <AiOutlineMail />
-              </InputLeftElement>
-              <Input
-                type="email"
-                placeholder="test@example.com"
-                name="email"
-                onChange={handleChange}
-                value={values.email}
-                onBlur={handleBlur}
-                isInvalid={!!(touched.email && !!errors.email)}
-                borderColor={"#231E5B"}
-                borderWidth={"2px"}
-                borderRadius={".75rem"}
-                _focus={{ boxShadow: "none", borderColor: "#231E5B" }}
-                _hover={{ borderColor: "#231E5B" }}
-              />
-              <FormErrorMessage color={"red"} fontSize={"4rem"}>
-                {errors.email}
-              </FormErrorMessage>
-            </InputGroup>
+            <FloatingLabel
+              id="email"
+              label="Email"
+              type="email"
+              icon={AiOutlineMail}
+              formik={{
+                handleBlur,
+                handleChange,
+                values,
+                touched,
+                errors,
+              }}
+            />
+            <FloatingLabel
+              id="dob"
+              label="Date of Birth"
+              type="text"
+              icon={CiCalendarDate}
+              formik={{
+                handleBlur,
+                handleChange,
+                values,
+                touched,
+                errors,
+              }}
+            />
+            <FloatingLabel
+              id="number"
+              label="Phone Number"
+              type="text"
+              icon={CiPhone}
+              formik={{
+                handleBlur,
+                handleChange,
+                values,
+                touched,
+                errors,
+              }}
+            />
             <Flex direction={{ base: "column", md: "row" }} gap="1rem">
               <Flex direction="column" grow={1}>
-                <FormLabel> Password</FormLabel>
-                <InputGroup flexDir={"column"}>
-                  <InputLeftElement>
-                    <MdLockOutline />
-                  </InputLeftElement>
-                  <Input
-                    type="password"
-                    placeholder="*********"
-                    onChange={handleChange}
-                    name="password"
-                    value={values.password}
-                    onBlur={handleBlur}
-                    isInvalid={!!(touched.password && !!errors.password)}
-                    borderColor={"#231E5B"}
-                    borderWidth={"2px"}
-                    borderRadius={".75rem"}
-                    _hover={{ borderColor: "#231E5B" }}
-                    _focus={{ boxShadow: "none", borderColor: "#231E5B" }}
-                  />
-                  <FormErrorMessage>{errors.password}</FormErrorMessage>
-                </InputGroup>
+                <FloatingLabel
+                  id="password"
+                  label="Password"
+                  type="password"
+                  icon={MdLockOutline}
+                  formik={{
+                    handleBlur,
+                    handleChange,
+                    values,
+                    touched,
+                    errors,
+                  }}
+                />
               </Flex>
               <Flex direction="column" grow={1}>
-                <FormLabel> Password Confirmation</FormLabel>
-                <InputGroup flexDir={"column"}>
-                  <InputLeftElement>
-                    <MdLockOutline />
-                  </InputLeftElement>
-                  <Input
-                    placeholder="*********"
-                    name="passwordC"
-                    type="password"
-                    onChange={handleChange}
-                    value={values.passwordC}
-                    onBlur={handleBlur}
-                    isInvalid={!!(touched.passwordC && !!errors.passwordC)}
-                    borderWidth={"2px"}
-                    borderColor={"primary"}
-                    _focus={{ boxShadow: "none", borderColor: "primary" }}
-                    _hover={{ borderColor: "primary" }}
-                  />
-                </InputGroup>
+                <FloatingLabel
+                  id="passwordC"
+                  label="Password Confirmation"
+                  type="password"
+                  icon={MdLockOutline}
+                  formik={{
+                    handleBlur,
+                    handleChange,
+                    values,
+                    touched,
+                    errors,
+                  }}
+                />
               </Flex>
             </Flex>
-
             <Flex
               w={"100%"}
               alignItems={"center"}
@@ -202,14 +198,14 @@ const SignUp = () => {
                 color={"white"}
                 _hover={{ cursor: "pointer", opacity: "80%" }}
               >
-                Log In
+                Sign Up
               </Button>
             </Flex>
           </form>
 
           <Text align={"center"}>
             Already have an account? Log in{" "}
-            <Link color={"#231E5B"} fontWeight={'bold'} href="/login">
+            <Link color={"#231E5B"} fontWeight={"bold"} href="/login">
               here
             </Link>
           </Text>
@@ -218,18 +214,25 @@ const SignUp = () => {
       <Flex
         w={"50%"}
         h={"100%"}
-        direction={'column'}
+        direction={"column"}
         position={"fixed"}
-        top={'5.9375rem'}
+        top={"5.9375rem"}
         right={0}
-        p={"2rem"}
-        alignItems={'center'}
+        p={"1rem"}
+        alignItems={"center"}
         display={["none", "none", "flex"]}
       >
-        <Image src={ASSETS.signup} h={'50%'} w={'80%'} borderRadius={'.625rem'} />
-        <Text fontSize={'1.5625rem'} color={'#231E5B'} maxW={'77%'}>
-        A place where you will be <span style={{ fontWeight: 'bold' }}>loved</span> and <span style={{ fontWeight: 'bold' }}>supported</span>, you are not alone here.
-
+        <Image
+          src={ASSETS.signup}
+          h={"50%"}
+          w={"80%"}
+          borderRadius={".625rem"}
+        />
+        <Text fontSize={"1.5625rem"} color={"#231E5B"} maxW={"100%"}>
+          A place where you will be{" "}
+          <span style={{ fontWeight: "bold" }}>loved</span> and{" "}
+          <span style={{ fontWeight: "bold" }}>supported</span>, you are not
+          alone here.
         </Text>
       </Flex>
     </Flex>

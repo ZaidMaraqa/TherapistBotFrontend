@@ -3,29 +3,40 @@ import { inputStyle } from './components/input';
 import { AlertStyles } from './components/alert';
 
 
+
+
+
+const activeLabelStyles = {
+  transform: "scale(0.875) translateY(-30px) translateX(-20px)",
+  backgroundColor: "white",
+  zIndex: 2,
+};
+
+
 export const theme: Theme = extendTheme(
   {
     styles: {
       global: {
-        'html, body': {
-          backgroundColor: 'white',
-          cursor: 'default',
-          color: 'black',
-        },
-        body: {
-          color: 'text',
-          scrollbarWidth: 'thin',
-          height: '100vh',
-        },
-        '::-webkit-scrollbar': {
-          width: '0.3125rem',
-          height: '0.3125rem',
-          backgroundColor: '#4F5B8F',
-        },
-        '::-webkit-scrollbar-thumb': {
-          background: 'rgba(217, 217, 217, 0.80)',
-          borderRadius: '7.5rem',
-        },
+        // 'html, body': {
+        //   backgroundColor: 'base',
+        //   cursor: 'default',
+        //   color: 'white',
+        // },
+        // body: {
+        //   color: 'text',
+        //   scrollbarWidth: 'thin',
+        //   height: '100vh',
+        // },
+        // '::-webkit-scrollbar': {
+        //   width: '0.3125rem',
+        //   height: '0.3125rem',
+        //   backgroundColor: '#4F5B8F',
+        // },
+
+        // '::-webkit-scrollbar-thumb': {
+        //   background: 'rgba(217, 217, 217, 0.80)',
+        //   borderRadius: '7.5rem',
+        // },
       },
     },
     colors: {
@@ -75,6 +86,33 @@ export const theme: Theme = extendTheme(
     },
     components: {
       Input: inputStyle,
+      Form: {
+        variants: {
+          floating: {
+            container: {
+              _focusWithin: {
+                label: {
+                  ...activeLabelStyles,
+                },
+              },
+              "input:not(:placeholder-shown) + label, .chakra-select__wrapper + label, textarea:not(:placeholder-shown) ~ label": {
+                ...activeLabelStyles,
+              },
+              label: {
+                position: "absolute",
+                left: "2rem",
+                top: "10px",
+                transition: "all 0.2s",
+                transformOrigin: "left top",
+                mx: 3,
+                px: 1,
+                my: 2,
+                pointerEvents: "none",
+              },
+            },
+          },
+        },
+      },
       Alert: AlertStyles,
     },
     config: {
