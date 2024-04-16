@@ -8,7 +8,7 @@ import { useContext } from "react";
 import { AiOutlineMail } from "react-icons/ai";
 import * as Yup from "yup";
 import { MdLockOutline } from "react-icons/md";
-import { CiUser, CiCalendarDate } from "react-icons/ci";
+import { CiUser, CiCalendarDate, CiPhone } from "react-icons/ci";
 import FloatingLabel from "@/components/FloatingLabel";
 import { TiWorldOutline } from "react-icons/ti";
 
@@ -16,7 +16,7 @@ import { TiWorldOutline } from "react-icons/ti";
 const validationSchema = Yup.object({
   first_name: Yup.string().required("First name is required"),
   last_name: Yup.string().required("Last name is required"),
-  country: Yup.string().required("Country is required"),
+  number: Yup.string().required("Phone Number is required"),
   email: Yup.string()
     .email("Invalid email address")
     .required("Email is required"),
@@ -47,8 +47,8 @@ const SignUp = () => {
         first_name: "",
         last_name: "",
         email: "",
-        country: "",
         dob: "",
+        number: "",
         password: "",
         passwordC: "",
       },
@@ -140,10 +140,10 @@ const SignUp = () => {
               }}
             />
             <FloatingLabel
-              id="country"
-              label="Country"
+              id="dob"
+              label="Date of Birth"
               type="text"
-              icon={TiWorldOutline}
+              icon={CiCalendarDate}
               formik={{
                 handleBlur,
                 handleChange,
@@ -153,10 +153,10 @@ const SignUp = () => {
               }}
             />
             <FloatingLabel
-              id="dob"
-              label="Date of Birth"
+              id="number"
+              label="Phone Number"
               type="text"
-              icon={CiCalendarDate}
+              icon={CiPhone}
               formik={{
                 handleBlur,
                 handleChange,
@@ -210,7 +210,7 @@ const SignUp = () => {
                 color={"white"}
                 _hover={{ cursor: "pointer", opacity: "80%" }}
               >
-                Log In
+                Sign Up
               </Button>
             </Flex>
           </form>

@@ -4,15 +4,15 @@ import { ASSETS } from "@/assets";
 import AuthContext from "@/context/auth";
 import { Button, Flex, Image, Link, Text } from "@chakra-ui/react";
 import { useFormik } from "formik";
-import { useContext, useState } from "react";
+import { useContext } from "react";
 import { AiOutlineMail } from "react-icons/ai";
 import * as Yup from "yup";
 import { MdLockOutline } from "react-icons/md";
 import FloatingLabel from "@/components/FloatingLabel";
 
 const validationSchema = Yup.object({
-  email: Yup.string().required("email is required"),
-  password: Yup.string().required("password is required"),
+  email: Yup.string().required("Email is required"),
+  password: Yup.string().required("Password is required"),
 });
 
 const Login = () => {

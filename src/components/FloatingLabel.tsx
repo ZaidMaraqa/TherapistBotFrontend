@@ -26,13 +26,8 @@ interface FloatingLabelProps {
 
 const FloatingLabel: React.FC<FloatingLabelProps> = ({ id, label, type, formik, icon: Icon }) => {
     const [isFocused, setIsFocused] = useState(false);
-    const styles = useMultiStyleConfig("FormControl", { variant: "floating" });
   
     const handleFocus = () => setIsFocused(true);
-    const handleBlur = () => {
-      setIsFocused(false);
-      formik.handleBlur({ target: { name: id } } as React.FocusEvent<any>);
-    };
   
     const error = formik.touched[id] && formik.errors[id];
     const isInvalid = Boolean(error);
@@ -40,12 +35,12 @@ const FloatingLabel: React.FC<FloatingLabelProps> = ({ id, label, type, formik, 
     return (
       <FormControl isInvalid={isInvalid} variant={'floating'} id={id} mt={4}>
         <InputGroup flexDirection="column">
-          <InputLeftElement pointerEvents="none" children={<Icon />} fontSize={'1.25rem'}/>
+          <InputLeftElement pointerEvents="none" children={<Icon />} fontSize={'1.55rem'}/>
           <Input
             id={id}
             type={type}
             onChange={formik.handleChange}
-            onBlur={handleBlur}
+            onBlur={formik.handleBlur}
             onFocus={handleFocus}
             value={formik.values[id]}
             placeholder=" "
