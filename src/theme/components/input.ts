@@ -6,15 +6,15 @@ const { definePartsStyle, defineMultiStyleConfig } = createMultiStyleConfigHelpe
 const baseStyle = definePartsStyle({
   field: {
     border: '2px solid',
-    borderColor: 'primary.500', // Using a color from the theme
-    borderRadius: '.7rem',
-    bg: 'yellow',
+    borderColor: 'primary', // Using a color from the theme
+    borderRadius: '1rem',
+    height: '3.75rem',
     _focus: {
       boxShadow: 'none',
-      borderColor: 'primary.600', // Adjust for focus state
+      borderColor: 'primary.600',
     },
     _hover: {
-      borderColor: 'primary.400', // Adjust for hover state
+      borderColor: 'primary.400', 
     },
   },
 });

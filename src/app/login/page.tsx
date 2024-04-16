@@ -2,25 +2,13 @@
 
 import { ASSETS } from "@/assets";
 import AuthContext from "@/context/auth";
-import {
-  Button,
-  Flex,
-  FormControl,
-  FormErrorMessage,
-  FormHelperText,
-  FormLabel,
-  Image,
-  Input,
-  InputGroup,
-  InputLeftElement,
-  Link,
-  Text,
-} from "@chakra-ui/react";
+import { Button, Flex, Image, Link, Text } from "@chakra-ui/react";
 import { useFormik } from "formik";
 import { useContext, useState } from "react";
 import { AiOutlineMail } from "react-icons/ai";
 import * as Yup from "yup";
 import { MdLockOutline } from "react-icons/md";
+import FloatingLabel from "@/components/FloatingLabel";
 
 const validationSchema = Yup.object({
   email: Yup.string().required("email is required"),
@@ -42,10 +30,9 @@ const Login = () => {
       },
     });
 
-
   return (
-    <Flex w={"100vw"} h={"100vh"} bg={"#FAFAFC"} overflow={"hidden"}>
-      <Flex w={["100%", '100%', '50%']} direction={"column"}>
+    <Flex w={"100vw"} h={"100vh"} overflow={"hidden"}>
+      <Flex w={["100%", "100%", "50%"]} direction={"column"}>
         <Flex>
           <Text
             fontSize={"2.5rem"}
@@ -68,53 +55,32 @@ const Login = () => {
             Welcome Back
           </Text>
           <form onSubmit={handleSubmit}>
-            <FormLabel> Email</FormLabel>
-            <InputGroup flexDir={"column"} mb={".5rem"}>
-              <InputLeftElement>
-                <AiOutlineMail />
-              </InputLeftElement>
-              <Input
-                type="email"
-                placeholder="test@example.com"
-                name="email"
-                onChange={handleChange}
-                value={values.email}
-                onBlur={handleBlur}
-                isInvalid={!!(touched.email && !!errors.email)}
-                borderWidth={'2px'}
-                borderColor={'primary'}
-                _focus={{ boxShadow: "none", borderColor: 'primary' }}
-                _hover={{ borderColor: "primary" }}
-              />
-            <FormErrorMessage color={'red'} fontSize={'4rem'}>
-                {errors.email}
-              </FormErrorMessage>
-            </InputGroup>
-            <FormLabel> Password</FormLabel>
-            <InputGroup flexDir={"column"}>
-              <InputLeftElement>
-                <MdLockOutline />
-              </InputLeftElement>
-              <Input
-                type="password"
-                placeholder="*********"
-                onChange={handleChange}
-                name="password"
-                value={values.password}
-                onBlur={handleBlur}
-                isInvalid={!!(touched.password && !!errors.password)}
-                borderWidth={'2px'}
-                borderColor={'primary'}
-                _focus={{ boxShadow: "none", borderColor: 'primary' }}
-                _hover={{ borderColor: "primary" }}
-              />
-              <FormErrorMessage>
-                {errors.password}
-              </FormErrorMessage>
-            </InputGroup>
-            <FormErrorMessage>
-                {errors.password}
-              </FormErrorMessage>
+            <FloatingLabel
+              id="email"
+              label="Email"
+              type="email"
+              icon={AiOutlineMail}
+              formik={{
+                handleBlur,
+                handleChange,
+                values,
+                touched,
+                errors,
+              }}
+            />
+            <FloatingLabel
+              id="password"
+              label="Password"
+              type="password"
+              icon={MdLockOutline}
+              formik={{
+                handleBlur,
+                handleChange,
+                values,
+                touched,
+                errors,
+              }}
+            />
             <Flex justifyContent={"flex-end"} py={".2rem"}>
               <Link>Forgot Password?</Link>
             </Flex>
@@ -136,8 +102,11 @@ const Login = () => {
             </Flex>
           </form>
 
-          <Text align={'center'}>
-            Don't have an account? Log In <Link color={'primary'} href="/signup">here</Link>
+          <Text align={"center"}>
+            Don't have an account? Log In{" "}
+            <Link color={"primary"} href="/signup">
+              here
+            </Link>
           </Text>
         </Flex>
       </Flex>
@@ -148,7 +117,7 @@ const Login = () => {
         top={0}
         right={0}
         p={"2rem"}
-        display={['none', 'none', 'flex']}
+        display={["none", "none", "flex"]}
         objectFit={"contain"}
         justifyContent={"flex-end"}
       >
