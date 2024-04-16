@@ -5,9 +5,7 @@ import AuthContext from "@/context/auth";
 import {
   Button,
   Flex,
-  FormControl,
   FormErrorMessage,
-  FormHelperText,
   FormLabel,
   Image,
   Input,
@@ -17,7 +15,7 @@ import {
   Text,
 } from "@chakra-ui/react";
 import { useFormik } from "formik";
-import { useContext, useState } from "react";
+import { useContext} from "react";
 import { AiOutlineMail } from "react-icons/ai";
 import * as Yup from "yup";
 import { MdLockOutline } from "react-icons/md";
@@ -46,17 +44,6 @@ const Login = () => {
   return (
     <Flex w={"100vw"} h={"100vh"} bg={"#FAFAFC"} overflow={"hidden"}>
       <Flex w={["100%", '100%', '50%']} direction={"column"}>
-        <Flex>
-          <Text
-            fontSize={"2.5rem"}
-            h={"20%"}
-            fontWeight={"bold"}
-            padding={"1.0625rem"}
-            color={"primary"}
-          >
-            Solace
-          </Text>
-        </Flex>
         <Flex
           justifyContent={"center"}
           direction={"column"}

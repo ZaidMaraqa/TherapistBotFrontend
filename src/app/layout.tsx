@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import { Providers } from './providers';
+import NavBar from '../components/navBar';
 
 export const metadata: Metadata = {
   title: 'Therapist ChatBot',
@@ -15,7 +16,8 @@ export default async function RootLayout({
     <html lang='en'>
       <body>
         <Providers>
-            {children}
+          <NavBar />
+          {children}
         </Providers>
       </body>
     </html>
