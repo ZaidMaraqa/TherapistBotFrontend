@@ -37,3 +37,10 @@ export const questions = [
       ],
     },
   ];
+
+export const chatPageQuestions = [
+  "I've been feeling really overwhelmed lately and don't know what to do.",
+  "I'm trying to be more positive but find it challenging",
+  "What can I expect from these therapy sessions?",
+  "I feel like I need help but don't know where to start",
+]  
