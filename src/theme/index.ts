@@ -1,8 +1,7 @@
 import { Theme, extendTheme, baseTheme, withDefaultColorScheme } from '@chakra-ui/react';
 import { inputStyle } from './components/input';
 import { AlertStyles } from './components/alert';
-
-
+// import { ModalStyles } from './components/model';
 
 
 
@@ -17,26 +16,26 @@ export const theme: Theme = extendTheme(
   {
     styles: {
       global: {
-        // 'html, body': {
-        //   backgroundColor: 'base',
-        //   cursor: 'default',
-        //   color: 'white',
-        // },
-        // body: {
-        //   color: 'text',
-        //   scrollbarWidth: 'thin',
-        //   height: '100vh',
-        // },
-        // '::-webkit-scrollbar': {
-        //   width: '0.3125rem',
-        //   height: '0.3125rem',
-        //   backgroundColor: '#4F5B8F',
-        // },
+        'html, body': {
+          backgroundColor: 'white',
+          cursor: 'default',
+          color: 'black',
+        },
+        body: {
+          color: 'text',
+          scrollbarWidth: 'thin',
+          height: '100vh',
+        },
+        '::-webkit-scrollbar': {
+          width: '0.3125rem',
+          height: '0.3125rem',
+          backgroundColor: '#4F5B8F',
+        },
 
-        // '::-webkit-scrollbar-thumb': {
-        //   background: 'rgba(217, 217, 217, 0.80)',
-        //   borderRadius: '7.5rem',
-        // },
+        '::-webkit-scrollbar-thumb': {
+          background: 'rgba(217, 217, 217, 0.80)',
+          borderRadius: '7.5rem',
+        },
       },
     },
     colors: {
@@ -114,6 +113,7 @@ export const theme: Theme = extendTheme(
         },
       },
       Alert: AlertStyles,
+      // Model:ModalStyles
     },
     config: {
       initialColorMode: 'dark',
