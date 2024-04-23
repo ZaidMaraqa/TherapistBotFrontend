@@ -15,7 +15,7 @@ import FloatingLabel from "@/components/FloatingLabel";
 const validationSchema = Yup.object({
   first_name: Yup.string().required("First name is required"),
   last_name: Yup.string().required("Last name is required"),
-  number: Yup.string().required("Phone Number is required"),
+  phone_number: Yup.string().required("Phone Number is required"),
   email: Yup.string()
     .email("Invalid email address")
     .required("Email is required"),
@@ -40,21 +40,25 @@ const validationSchema = Yup.object({
 const SignUp = () => {
   const { signup } = useContext(AuthContext);
 
-  const { handleSubmit, errors, values, handleChange, handleBlur, touched } =
+  const { handleSubmit, errors, values, handleChange, handleBlur, touched, isSubmitting, setSubmitting } =
     useFormik({
       initialValues: {
         first_name: "",
         last_name: "",
         email: "",
         date_of_birth: "",
-        number: "",
+        phone_number: "",
+        country: "",
         password: "",
         passwordC: "",
       },
       validationSchema,
       onSubmit: (values) => {
         console.log(values);
-        signup(values);
+        signup(values)
+          .finally(() => {
+            setSubmitting(false); // Ensure isSubmitting is set to false after login attempt
+          });
       },
     });
 
@@ -124,7 +128,7 @@ const SignUp = () => {
               }}
             />
             <FloatingLabel
-              id="dob"
+              id="date_of_birth"
               label="Date of Birth"
               type="text"
               icon={CiCalendarDate}
@@ -137,7 +141,7 @@ const SignUp = () => {
               }}
             />
             <FloatingLabel
-              id="number"
+              id="phone_number"
               label="Phone Number"
               type="text"
               icon={CiPhone}
@@ -187,6 +191,7 @@ const SignUp = () => {
                 w={"30%"}
                 type="submit"
                 bg={"#231E5B"}
+                isLoading={isSubmitting}
                 color={"white"}
                 _hover={{ cursor: "pointer", opacity: "80%" }}
               >

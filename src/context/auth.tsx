@@ -7,10 +7,15 @@ import { useToast } from '@chakra-ui/react'
 
 
 
+
 interface User {
-  id: string;
-  name: string;
+  first_name: string;
+  last_name: string;
+  otp: number;
+  phone_number: string;
+  date_of_birth: string;
   email: string;
+  uuid:string;
 }
 
 interface AuthContextType {
@@ -78,16 +83,22 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
       const data = await response.json();
       console.log({data: data})
       
-      if (!response.ok) {
-        throw new Error(data.error || "Signup failed");
+      if(response.status === 400){
+        toast({
+          title: "An error occurred.",
+          description: "Invalid values.",
+          position: "top-right",
+          status: "error",
+          duration: 9000,
+          isClosable: true,
+        })
       }
 
       if (data.access_token) {
         const decodedToken = jwtDecode<User>(data.access_token);
         setAuthTokens(data.access_token);
         setUser(decodedToken);
-        Cookie.set('token', data.access_token); 
-        router.push("/");
+        router.push("/otp");
       }
     } catch (error) {
       console.error("Signup error:", error);

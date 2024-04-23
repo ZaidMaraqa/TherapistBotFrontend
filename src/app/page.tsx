@@ -1,12 +1,15 @@
 'use client'
 import withAuth from "@/components/PrivateRoute";
-import { Box } from "@chakra-ui/react";
+import AuthContext from "@/context/auth";
+import { Box, Button } from "@chakra-ui/react";
+import { useContext } from "react";
 const Home = () => {
 
+  const { logout } = useContext(AuthContext);
   return (
-    <Box>
-      HI
-    </Box>
+    <Button onClick={logout}>
+      Log out
+    </Button>
   );
 }
 

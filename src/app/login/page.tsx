@@ -18,7 +18,7 @@ const validationSchema = Yup.object({
 const Login = () => {
   const { login } = useContext(AuthContext);
 
-  const { handleSubmit, errors, values, handleChange, handleBlur, touched, isSubmitting } =
+  const { handleSubmit, errors, values, handleChange, handleBlur, touched, isSubmitting, setSubmitting } =
     useFormik({
       initialValues: {
         email: "",
@@ -26,7 +26,10 @@ const Login = () => {
       },
       validationSchema,
       onSubmit: (values) => {
-        login(values.email, values.password);
+        login(values.email, values.password)
+        .finally(() => {
+          setSubmitting(false); // Ensure isSubmitting is set to false after login attempt
+        });
       },
     });
 
