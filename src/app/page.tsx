@@ -1,8 +1,7 @@
 'use client'
+import withAuth from "@/components/PrivateRoute";
 import { Box } from "@chakra-ui/react";
-export default function Home() {
-
-
+const Home = () => {
 
   return (
     <Box>
@@ -10,3 +9,5 @@ export default function Home() {
     </Box>
   );
 }
+
+export default withAuth(Home);

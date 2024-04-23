@@ -18,7 +18,7 @@ const validationSchema = Yup.object({
 const Login = () => {
   const { login } = useContext(AuthContext);
 
-  const { handleSubmit, errors, values, handleChange, handleBlur, touched } =
+  const { handleSubmit, errors, values, handleChange, handleBlur, touched, isSubmitting } =
     useFormik({
       initialValues: {
         email: "",
@@ -84,6 +84,7 @@ const Login = () => {
                 type="submit"
                 bg={"primary"}
                 color={"white"}
+                isLoading={isSubmitting}
                 _hover={{ cursor: "pointer", opacity: "80%" }}
               >
                 Log In
@@ -92,7 +93,7 @@ const Login = () => {
           </form>
 
           <Text align={"center"}>
-            Don't have an account? Log In{" "}
+            Don't have an account? Sign up{" "}
             <Link color={"primary"} href="/sign-up">
               here
             </Link>

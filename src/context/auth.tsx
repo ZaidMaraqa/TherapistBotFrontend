@@ -2,6 +2,9 @@ import React, { createContext, useState, useEffect, ReactNode } from "react";
 import { jwtDecode } from "jwt-decode";
 import { useRouter } from "next/navigation";
 import Cookie from "js-cookie";
+import config from "@/config";
+import { useToast } from '@chakra-ui/react'
+
 
 
 interface User {
@@ -19,10 +22,7 @@ interface AuthContextType {
   loading: boolean;
 }
 
-interface UserData {
-  email: string;
-  password: string;
-}
+
 
 const defaultContextValue: AuthContextType = {
   signup: async () => { console.warn("signup function not implemented"); },
@@ -46,6 +46,7 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
   const [user, setUser] = useState<User | null>(null);
   const [authTokens, setAuthTokens] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
+  const toast = useToast();
 
   useEffect(() => {
     const token = Cookie.get('token');
@@ -62,10 +63,11 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
     setLoading(false);
   }, []);
 
-  const signup = async (userData: UserData) => {
+  const signup = async (userData: any) => {
     setLoading(true);
+    console.log('yes')
     try {
-      const response = await fetch("/api/signup", {
+      const response = await fetch(`${config.apiUrl}/user_signup`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -84,7 +86,7 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
         const decodedToken = jwtDecode<User>(data.access_token);
         setAuthTokens(data.access_token);
         setUser(decodedToken);
-        Cookie.set('token', data.access_token); // Store token in cookie
+        Cookie.set('token', data.access_token); 
         router.push("/");
       }
     } catch (error) {
@@ -97,7 +99,7 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
   const login = async (email: string, password: string) => {
     setLoading(true);
     try {
-      const response = await fetch("/api/login", {
+      const response = await fetch(`${config.apiUrl}/user_login`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -106,10 +108,22 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
       });
       console.log("Sending values:", { email, password });
 
+      console.log("Response:", response); 
+
 
       const data = await response.json();
-      if (!response.ok) {
-        throw new Error(data.error || "Login failed");
+
+      console.log(response)
+
+      if(response.status === 401){
+        toast({
+          title: "An error occurred.",
+          description: "Invalid email or password.",
+          position: "top-right",
+          status: "error",
+          duration: 9000,
+          isClosable: true,
+        })
       }
 
       if (data.access_token) {
