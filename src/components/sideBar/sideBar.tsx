@@ -19,13 +19,9 @@ import { Badge, Menu, MenuItem } from "@mui/material";
 import AccountCircle from "@mui/icons-material/AccountCircle";
 import NotificationsIcon from "@mui/icons-material/Notifications";
 import MoreIcon from "@mui/icons-material/MoreVert";
+import {Props} from "../sideBar/sideBar.interface"
 
-const drawerWidth = 200;
-
-interface Props {
-  window?: () => Window;
-  children?: React.ReactNode;
-}
+const drawerWidth = 190;
 
 export default function ResponsiveDrawer(props: Props) {
   const { window, children } = props;

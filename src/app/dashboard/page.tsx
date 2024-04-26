@@ -4,16 +4,17 @@ import DateCalendarServerRequest from "@/components/calendarPicker";
 import DatePickerOpenTo from "@/components/datePicker";
 import GaugeChart from "@/components/gaugeChart/gaugeChart";
 import SessionItem from "@/components/sessionItem/sessionItem";
-import SidebarWithHeader from "@/components/sideBar";
-import { sessions ,dataset} from "../../../public/constants";
+import { sessions, dataset } from "../../../public/constants";
 import { Typography, Box, Divider, Avatar, Button } from "@mui/material";
 import Stack from "@mui/material/Stack";
+import ResponsiveDrawer from "@/components/sideBar/sideBar";
+import { ASSETS } from "@/assets";
 
 export default function DashBoard() {
   return (
-    <SidebarWithHeader>
+    <ResponsiveDrawer>
       <Stack direction={"row"} sx={{ height: "100vh" }}>
-        <Box sx={{ flex: 1 }}>
+        <Box>
           <Stack sx={{ height: "100%" }}>
             <Box
               sx={{
@@ -22,12 +23,47 @@ export default function DashBoard() {
                 justifyContent: "center",
               }}
             >
-              <Stack direction={"row"} alignItems="center">
-                <Box sx={{ width: "100%", height: "15rem" }}>
+              <Stack direction={"row"} alignItems="center" flexGrow={1}>
+                <Box
+                  sx={{
+                    width: "100%",
+                    height: "15rem",
+                    border: ".125rem solid #231E5B",
+                    borderRadius: ".5rem",
+                    padding: "1rem",
+                    position: "relative",
+                  }}
+                >
                   <Stack spacing={3}>
-                    <Box> Quick check your condition</Box>
-                    <Box> Checking regular help improve your!</Box>
-                    <Button variant="contained">Contained</Button>
+                    <Stack direction={"row"} spacing={2} alignItems="center">
+                      <Box sx={{ fontSize: "1.2rem", color: "#231E5B" }}>
+                        Chat with ECHO Now<br/>
+                        It will take only few minutes to feel better
+                      </Box>
+                      <Avatar
+                        alt="ECHO"
+                        src={ASSETS.icons.bot}
+                        sx={{ width: 100, height: 100 }}
+                      />
+                    </Stack>
+                    <Box sx={{ color: "#231E5B" }}>
+                      Checking regularly helps improve your wellbeing!
+                    </Box>
+                    <Button
+                      variant="contained"
+                      sx={{
+                        backgroundColor: "#231E5B",
+                        color: "white",
+                        position: "absolute",
+                        bottom: "1rem",
+                        left: 10,
+                        right: 10,
+                        transform: "none",
+                        boxShadow: 'none'
+                      }}
+                    >
+                      Chat with ECHO
+                    </Button>
                   </Stack>
                 </Box>
                 <Divider orientation="vertical" sx={{ mx: "1rem" }} />
@@ -65,10 +101,7 @@ export default function DashBoard() {
                 </Box>
               </Stack>
             </Box>
-            <Divider
-              orientation="horizontal"
-              sx={{ my: "1rem", width: "85%" }}
-            />
+            <Divider orientation="horizontal" sx={{ my: "1rem" }} />
             <Stack direction={"row"}>
               <Box sx={{ width: "100%" }}>
                 <Box>
@@ -154,6 +187,6 @@ export default function DashBoard() {
           </Stack>
         </Box>
       </Stack>
-    </SidebarWithHeader>
+    </ResponsiveDrawer>
   );
 }

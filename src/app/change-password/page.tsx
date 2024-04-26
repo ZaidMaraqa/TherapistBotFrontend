@@ -2,7 +2,7 @@
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import { Button, Flex, Text } from "@chakra-ui/react";
-import FloatingLabel from "@/components/FloatingLabel";
+import FloatingLabel from "@/components/floatingLabel/FloatingLabel";
 import { MdLockOutline } from "react-icons/md";
 
 
