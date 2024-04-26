@@ -9,6 +9,9 @@ import { Typography, Box, Divider, Avatar, Button } from "@mui/material";
 import Stack from "@mui/material/Stack";
 import ResponsiveDrawer from "@/components/sideBar/sideBar";
 import { ASSETS } from "@/assets";
+import CallIcon from "@mui/icons-material/Call";
+import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
+import AccessAlarmIcon from "@mui/icons-material/AccessAlarm";
 
 export default function DashBoard() {
   return (
@@ -37,7 +40,8 @@ export default function DashBoard() {
                   <Stack spacing={3}>
                     <Stack direction={"row"} spacing={2} alignItems="center">
                       <Box sx={{ fontSize: "1.2rem", color: "#231E5B" }}>
-                        Chat with ECHO Now<br/>
+                        Chat with ECHO Now
+                        <br />
                         It will take only few minutes to feel better
                       </Box>
                       <Avatar
@@ -59,7 +63,7 @@ export default function DashBoard() {
                         left: 10,
                         right: 10,
                         transform: "none",
-                        boxShadow: 'none'
+                        boxShadow: "none",
                       }}
                     >
                       Chat with ECHO
@@ -67,35 +71,84 @@ export default function DashBoard() {
                   </Stack>
                 </Box>
                 <Divider orientation="vertical" sx={{ mx: "1rem" }} />
-                <Box sx={{ width: "100%", height: "15rem" }}>
-                  <Stack>
+                <Box>
+                  <Stack sx={{ display: "flex", flexDirection: "column" }}>
                     <Box
                       sx={{
                         width: "100%",
+                        height: "15rem",
+                        border: ".125rem solid #231E5B",
+                        borderRadius: ".5rem",
+                        padding: "1rem",
+                        position: "relative",
                       }}
                     >
                       <Stack direction={"row"}>
-                        <Stack direction={"row"}>
+                        <Stack
+                          direction={"row"}
+                          alignItems={"center"}
+                          spacing={3}
+                        >
                           <Avatar
-                            alt="Remy Sharp"
-                            src="/static/images/avatar/1.jpg"
-                            sx={{ width: 50, height: 50 }}
+                            alt="ECHO"
+                            src={ASSETS.icons.bot}
+                            sx={{ width: 100, height: 100 }}
                           />
-                          <Stack>
-                            <Box>kjlj</Box>
-                            <Box>kjlj</Box>
+                          <Stack spacing={1}>
+                            <Box sx={{ color: "#231E5B", fontSize: "1.2rem" }}>
+                              Yazan Sharawi
+                            </Box>
+                            <Box sx={{ color: "#231E5B", fontSize: "1rem" }}>
+                              Psychologists
+                            </Box>
                           </Stack>
+                          <Button
+                            variant="contained"
+                            sx={{
+                              backgroundColor: "#231E5B",
+                              color: "white",
+                              borderRadius: ".5rem",
+                              padding: "1rem",
+                              "& svg": {
+                                color: "white",
+                              },
+                              boxShadow: "none",
+                              height: "5rem",
+                            }}
+                          >
+                            <CallIcon />
+                          </Button>
                         </Stack>
-                        <Box>
-                          <Box>fsffs</Box>
-                        </Box>
                       </Stack>
-                    </Box>
-                    <Box>
-                      <Stack direction={"row"}>
-                        <Box>adasd</Box>
-                        <Box>dasdas</Box>
-                      </Stack>
+                      <Box
+                        sx={{
+                          width: "auto",
+                          border: ".125rem solid #231E5B",
+                          borderRadius: ".5rem",
+                          padding: "1rem",
+                          position: "absolute",
+                          bottom: 10,
+                        }}
+                      >
+                        <Stack direction={"row"} spacing={4}>
+                          <Box>
+                            <Stack direction={"row"} spacing={2}>
+                              <Box>
+                                <CalendarMonthIcon sx={{ color: "#231E5B" }} />
+                              </Box>
+                              <Box fontSize={'1.1rem'} sx={{color: "#231E5B"}}>14 mar 2022</Box>
+                            </Stack>
+                          </Box>
+                          <Box>
+                            <Stack direction={"row"} spacing={2}>
+                              <Box>
+                                <AccessAlarmIcon sx={{ color: "#231E5B" }} />
+                              </Box>
+                              <Box fontSize={'1.1rem'} sx={{color: "#231E5B"}}>9:00 AM</Box>
+                            </Stack>
+                          </Box>
+                        </Stack>
+                      </Box>
                     </Box>
                   </Stack>
                 </Box>
