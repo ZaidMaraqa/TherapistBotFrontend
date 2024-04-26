@@ -24,7 +24,6 @@ export default function CrisisSupport({ open, onClose: handleClose }: CrisisSupp
         window.open("https://findahelpline.com/", "_blank");
     };
 
-    const { isOpen, onOpen } = useDisclosure();
 
     return (
         <Modal isOpen={open} onClose={handleClose} isCentered>

@@ -25,7 +25,7 @@ const WelcomeSection: React.FC<WelcomeSectionProps> = ({ onStart }) => {
                 transition={{ duration: 0.6, ease: "easeInOut" }}
             >
                 <VStack justifyContent={'center'} alignItems={'center'} spacing={6}>
-                    <Heading as='h1' size='xl' noOfLines={1} color={'#231e5b'}>Welcome to Solace, {user?.first_name}</Heading>
+                    <Heading as='h1' size='xl' noOfLines={1} color={'#231e5b'}>Welcome to Echo, {user?.first_name}</Heading>
                     <Box textAlign={'center'} maxW={'37.5rem'}>
                         <Text fontSize='lg'>
                             It's great to have you! Let's personalize your support journey with a

@@ -67,7 +67,7 @@ const OnBoarding = () => {
         throw new Error(data.message || "Verification failed");
       }else{
         setIsSubmitting(false);
-        router.push("/");
+        router.push("/chat");
       }
   };
 

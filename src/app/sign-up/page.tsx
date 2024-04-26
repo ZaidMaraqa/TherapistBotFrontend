@@ -30,10 +30,10 @@ const validationSchema = Yup.object({
     .oneOf([Yup.ref("password")], "Passwords must match")
     .required("Password confirmation is required"),
   date_of_birth: Yup.string()
-    .matches(/^(0[1-9]|[12][0-9]|3[01])\/(0[1-9]|1[012])\/([0-9]{2})$/, {
-      message: "DOB must be in dd/mm/yy format",
-      excludeEmptyString: true
-    })
+    // .matches(/^(0[1-9]|[12][0-9]|3[01])\/(0[1-9]|1[012])\/([0-9]{2})$/, {
+    //   message: "DOB must be in dd/mm/yy format",
+    //   excludeEmptyString: true
+    // })
     .required("DOB is required")
 });
 

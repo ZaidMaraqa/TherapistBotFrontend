@@ -21,10 +21,10 @@ interface MoodTrackerProps {
 
 export default function MoodTracker({ open, onClose: handleClose }: MoodTrackerProps) {
     const navigateToHelpline = () => {
-        window.open("https://findahelpline.com/", "_blank");
+        console.log('woo')
+        
     };
 
-    const { isOpen, onOpen } = useDisclosure();
 
     return (
         <Modal isOpen={open} onClose={handleClose} isCentered>
@@ -41,7 +41,7 @@ export default function MoodTracker({ open, onClose: handleClose }: MoodTrackerP
                             _placeholder={{ color: 'gray' }}
                             _hover={{ borderColor: 'primary' }}
                         />
-                        <Button w={'100%'} colorScheme='primary' color={'white'} onClick={navigateToHelpline} mb={'0.5rem'}>Add My Mood</Button>
+                        <Button w={'100%'} colorScheme='primary' color={'white'} onClick={handleClose} mb={'0.5rem'}>Add My Mood</Button>
                     </VStack>
                 </ModalBody>
             </ModalContent>
