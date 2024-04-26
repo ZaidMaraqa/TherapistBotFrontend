@@ -3,7 +3,7 @@ import TickPlacementBars from "@/components/barChart/barChart";
 import DateCalendarServerRequest from "@/components/calendarPicker";
 import DatePickerOpenTo from "@/components/datePicker";
 import SessionItem from "@/components/sessionItem/sessionItem";
-import { sessions, dataset } from "../../public/constants";
+import { sessions, dataset } from "../../../public/constants";
 import { Typography, Box, Divider, Avatar, Button } from "@mui/material";
 import Stack from "@mui/material/Stack";
 import ResponsiveDrawer from "@/components/sideBar/sideBar";

@@ -5,13 +5,18 @@ import { theme } from "@/theme";
 import Fonts from "@/theme/fonts";
 import { AuthProvider } from "@/context/auth";
 import { usePathname } from "next/navigation";
-import { MainPage } from "../components/MainPage";
+import { MainPage } from "../../components/MainPage";
+import { I18nextProvider } from 'react-i18next';
+import { createInstance } from 'i18next';
+
+
 
 const queryClient = new QueryClient();
 
 export function Providers({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
   const isMainPage = pathname === "/"; 
+
 
   return (
     <ChakraProvider

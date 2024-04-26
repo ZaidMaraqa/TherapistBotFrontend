@@ -10,6 +10,9 @@ import * as Yup from "yup";
 import { MdLockOutline } from "react-icons/md";
 import FloatingLabel from "@/components/floatingLabel/FloatingLabel";
 import NavBar from "@/components/Navbars/navBar";
+import { useTranslation } from 'next-i18next';
+
+
 const validationSchema = Yup.object({
   email: Yup.string().required("Email is required"),
   password: Yup.string().required("Password is required"),
@@ -17,6 +20,7 @@ const validationSchema = Yup.object({
 
 const Login = () => {
   const { login } = useContext(AuthContext);
+  const { t } = useTranslation('login');
 
   const { handleSubmit, errors, values, handleChange, handleBlur, touched, isSubmitting, setSubmitting } =
     useFormik({
@@ -45,7 +49,7 @@ const Login = () => {
           px={"1rem"}
         >
           <Text color={"primary"} fontSize={"2.5rem"} align={"center"}>
-            Welcome Back
+          {t('welcome_back')}
           </Text>
           <form onSubmit={handleSubmit}>
             <FloatingLabel
