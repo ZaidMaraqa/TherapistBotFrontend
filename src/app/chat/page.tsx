@@ -36,6 +36,24 @@ import { keyframes } from "@emotion/react";
 import useToastNotification from "@/components/toast";
 import CrisisSupport from "@/components/dialogs/crisisSupport";
 
+type Language = 'en' | 'ar';
+
+
+interface Translation {
+  wearHeadphones: string;
+  forBetterExperience: string;
+  start: string;
+  clickMicrophone: string;
+  howCanIHelp: string;
+  permissionError: string;
+  suggestedMessages: string[];
+  switchToArabic: string;
+  switchToEnglish: string;
+  typeMessage: string;
+}
+
+
+
 interface Message {
   sender: "user" | "bot";
   content: string;
@@ -396,8 +414,8 @@ const ChatPage = () => {
             {messages.length === 0 && (
               <Flex direction={"column"} h={"100%"} px={4} py={0}>
                 <Center mb={4} flex={1}>
-                  <Text fontSize="2xl" fontWeight={300}>
-                    {text.howCanIHelp}
+                  <Text fontSize={['1rem','1rem','1rem','2xl']} fontWeight={300}>
+                  {text.howCanIHelp}
                   </Text>
                 </Center>
                 <Grid templateColumns="repeat(2, 1fr)" gap={2}>
@@ -415,6 +433,7 @@ const ChatPage = () => {
                       justifyContent="center"
                       display={"flex"}
                       alignItems={"center"}
+                      fontSize={['0.6rem','1rem','1rem','1rem']}
                     >
                       <Text>{message}</Text>
                     </Box>
