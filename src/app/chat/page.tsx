@@ -22,6 +22,7 @@ import { ASSETS } from "@/assets";
 import withAuth from "@/components/PrivateRoute";
 import AuthContext from "@/context/auth";
 import MoodTracker from "@/components/dialogs/moodTracker";
+import CrisisSupport from "@/components/dialogs/crisisSupport";
 
 interface Message {
   sender: "user" | "bot";
@@ -38,9 +39,9 @@ const ChatPage = () => {
   const [streamingMessage, setStreamingMessage] = useState<string>("");
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const {
-    isOpen: isCrisisModalOpen,
-    onOpen: onOpenCrisisModal,
-    onClose: onCloseCrisisModal,
+    isOpen: isCrisisSupportOpen,
+    onOpen: onOpenCrisisSupport,
+    onClose: onCloseCrisisSupport,
   } = useDisclosure();
   const {
     isOpen: isMoodModalOpen,
@@ -59,27 +60,14 @@ const ChatPage = () => {
 
 
   const handleIncomingMessage = (data: any) => {
-    switch (data.message_type) {
-      case "start":
-        setIsLoading(true);
-        ongoingMessageAccumulator = "";
-        setStreamingMessage("");
-        break;
-      case "stream":
-        setIsLoading(false);
-        ongoingMessageAccumulator += data.message;
-        setStreamingMessage(ongoingMessageAccumulator);
-        break;
-      case "end":
-        const newMessage: Message = {
-          sender: "bot",
-          content: ongoingMessageAccumulator,
-        };
-        setMessages((prevMessages) => [...prevMessages, newMessage]);
-        setStreamingMessage("");
-        break;
-      default:
-        console.log("Unknown message type");
+    const newMessage: Message = {
+      sender: "bot",
+      content: data.response, // Only displaying the response part
+    };
+    setMessages((prevMessages) => [...prevMessages, newMessage]);
+
+    if (data.self_harm_flag === "True") {
+      onOpenCrisisSupport(); // Trigger crisis support modal if flag is true
     }
   };
 
@@ -97,6 +85,8 @@ const ChatPage = () => {
       };
 
       webSocket.onmessage = (event) => {
+        setIsLoading(false)
+
         console.log("WebSocket Message", event);
         const data = JSON.parse(event.data);
         console.log("WebSocket Message", data);
@@ -150,12 +140,14 @@ const ChatPage = () => {
     ws?.send(JSON.stringify({ u_message: inputValue }));
 
     setInputValue("");
+    setIsLoading(true);
   };
 
   return (
     <Flex direction={"column"} w={"100vw"} h={"100vh"}>
       <ChatNavBar onMoodClick={onOpenMoodModal} /> 
       <MoodTracker open={isMoodModalOpen} onClose={onCloseMoodModal} />
+      <CrisisSupport open={isCrisisSupportOpen} onClose={onCloseCrisisSupport} /> 
 
       <Flex flex="1" px={4} overflowY="auto" direction="column" gap={3}>
         <VStack spacing={4} align="stretch">
