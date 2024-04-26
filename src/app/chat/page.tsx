@@ -33,6 +33,7 @@ import HeadphonesIcon from "@mui/icons-material/Headphones";
 import { Button } from "@chakra-ui/react";
 import { keyframes } from "@emotion/react";
 import useToastNotification from "@/components/toast";
+import CrisisSupport from "@/components/dialogs/crisisSupport";
 
 interface Message {
   sender: "user" | "bot";
@@ -116,9 +117,9 @@ const ChatPage = () => {
     useState(false);
   const toast = useToastNotification();
   const {
-    isOpen: isCrisisModalOpen,
-    onOpen: onOpenCrisisModal,
-    onClose: onCloseCrisisModal,
+    isOpen: isCrisisSupportOpen,
+    onOpen: onOpenCrisisSupport,
+    onClose: onCloseCrisisSupport,
   } = useDisclosure();
   const {
     isOpen: isMoodModalOpen,
@@ -173,27 +174,14 @@ const ChatPage = () => {
   };
 
   const handleIncomingMessage = (data: any) => {
-    switch (data.message_type) {
-      case "start":
-        setIsLoading(true);
-        ongoingMessageAccumulator = "";
-        setStreamingMessage("");
-        break;
-      case "stream":
-        setIsLoading(false);
-        ongoingMessageAccumulator += data.message;
-        setStreamingMessage(ongoingMessageAccumulator);
-        break;
-      case "end":
-        const newMessage: Message = {
-          sender: "bot",
-          content: ongoingMessageAccumulator,
-        };
-        setMessages((prevMessages) => [...prevMessages, newMessage]);
-        setStreamingMessage("");
-        break;
-      default:
-        console.log("Unknown message type");
+    const newMessage: Message = {
+      sender: "bot",
+      content: data.response, // Only displaying the response part
+    };
+    setMessages((prevMessages) => [...prevMessages, newMessage]);
+
+    if (data.self_harm_flag === "True") {
+      onOpenCrisisSupport(); // Trigger crisis support modal if flag is true
     }
   };
 
@@ -210,6 +198,7 @@ const ChatPage = () => {
       };
 
       webSocket.onmessage = (event) => {
+        console.log("WebSocket Message", event);
         const data = JSON.parse(event.data);
         if (active) {
           handleIncomingMessage(data);
@@ -261,6 +250,7 @@ const ChatPage = () => {
     ws?.send(JSON.stringify({ u_message: inputValue }));
 
     setInputValue("");
+    setIsLoading(true);
   };
 
   return (
