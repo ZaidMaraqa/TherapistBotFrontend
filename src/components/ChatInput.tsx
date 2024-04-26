@@ -19,7 +19,7 @@ const ChatInput: React.FC<SearchInputProps> = ({
     <Box m="1rem" w="100%" pr={0}>
       <InputGroup>
         <Input
-          placeholder="Type your question here..."
+          placeholder="Type your thoughts here..."
           h="4.375rem"
           value={inputValue}
           onChange={(e) => setInputValue(e.target.value)}
@@ -27,13 +27,13 @@ const ChatInput: React.FC<SearchInputProps> = ({
           borderColor="primary"
           _focus={{ boxShadow: "none", borderColor: "primary" }}
           pr={'6%'}
+          border={".125rem solid"}
+          _placeholder={{ color: 'primary' }} 
         />
         <InputRightElement h="100%" w="15%" display="flex" justifyContent="flex-end" >
-          {inputValue && (
-            <Button size="sm" onClick={sendMessage} background="transparent" _hover={'none'}>
+            <Button size="sm" onClick={sendMessage} background="transparent">
               <MdOutlineSend color="#231E5B" size="2rem" />
             </Button>
-          )}
         </InputRightElement>
       </InputGroup>
     </Box>

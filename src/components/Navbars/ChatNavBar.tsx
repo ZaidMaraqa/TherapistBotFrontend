@@ -1,21 +1,16 @@
-import {
-  Button,
-  Flex,
-  Icon,
-  IconButton,
-  Text,
-  Tooltip,
-} from "@chakra-ui/react";
+import { Flex, IconButton, Text, Tooltip } from "@chakra-ui/react";
 import { IoHappyOutline } from "react-icons/io5";
 import { RiChatNewLine } from "react-icons/ri";
 import { IoLogOutOutline } from "react-icons/io5";
 import { useRouter } from "next/navigation";
+import RecordVoiceOverOutlinedIcon from '@mui/icons-material/RecordVoiceOverOutlined';
 
 interface ChatNavBarProps {
-  onMoodClick: () => void; 
+  onMoodClick: () => void;
+  onSpeechClick: () => void;
 }
 
-const ChatNavBar: React.FC<ChatNavBarProps> = ({ onMoodClick }) => {
+const ChatNavBar: React.FC<ChatNavBarProps> = ({ onMoodClick, onSpeechClick }) => {
   const router = useRouter();
   return (
     <Flex
@@ -38,10 +33,21 @@ const ChatNavBar: React.FC<ChatNavBarProps> = ({ onMoodClick }) => {
         Echo
       </Text>
       <Flex alignItems={"center"} gap={"1rem"}>
+        <Tooltip label="Talk to Echo">
+          <IconButton
+            bg={"none"}
+            fontSize={"1.875rem"}
+            _hover={{ bg: "none" }}
+            color={"primary"}
+            aria-label="Talk to Echo"
+            icon={<RecordVoiceOverOutlinedIcon />}
+            onClick={onSpeechClick}
+          />
+        </Tooltip>
         <Tooltip label="New Chat">
           <IconButton
             bg={"none"}
-            fontSize={"30px"}
+            fontSize={"1.6rem"}
             _hover={{ bg: "none" }}
             color={"primary"}
             aria-label="Mood Tracker"
@@ -51,7 +57,7 @@ const ChatNavBar: React.FC<ChatNavBarProps> = ({ onMoodClick }) => {
         <Tooltip label="Mood?">
           <IconButton
             bg={"none"}
-            fontSize={"30px"}
+            fontSize={"1.7rem"}
             _hover={{ bg: "none" }}
             onClick={onMoodClick}
             color={"primary"}
@@ -62,7 +68,7 @@ const ChatNavBar: React.FC<ChatNavBarProps> = ({ onMoodClick }) => {
         <Tooltip label="Exit Chat">
           <IconButton
             bg={"none"}
-            fontSize={"30px"}
+            fontSize={"1.7rem"}
             _hover={{ bg: "none" }}
             color={"primary"}
             aria-label="Mood Tracker"
