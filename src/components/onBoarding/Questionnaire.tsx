@@ -2,7 +2,6 @@ import { useState, useEffect } from "react";
 import { VStack, Text, Button, HStack, Heading, Box } from "@chakra-ui/react";
 import { motion } from "framer-motion";
 import useToastNotification from "../toast";
-import { useRouter } from "next/navigation";
 
 interface Question {
     text: string;
@@ -18,6 +17,7 @@ interface Props {
     questionNumber: number;
     totalQuestions: number;
     selectedOptions: string[];
+    isSubmitting: boolean;
 }
 
 export default function Questionnaire({
@@ -29,10 +29,10 @@ export default function Questionnaire({
     totalQuestions,
     selectedOptions,
     onFinish,
+    isSubmitting,
 }: Props) {
     const [selectedOptionsState, setSelectedOptionsState] = useState<string[]>([]);
     const showToast = useToastNotification();
-    const router = useRouter();
 
     useEffect(() => {
         setSelectedOptionsState(selectedOptions);
@@ -51,7 +51,6 @@ export default function Questionnaire({
     const handleNextClick = () => {
         if (isLast) {
             onFinish(selectedOptionsState);
-            router.push("/chat-page");
         } else {
             if (selectedOptionsState.length > 0) {
                 onNext(selectedOptionsState);
@@ -140,6 +139,7 @@ export default function Questionnaire({
                     borderRadius={'full'}
                     px={'2rem'}
                     py={'1.5rem'}
+                    isLoading={isSubmitting}
                 >
                     {isLast ? "Finish" : "Next"}
                 </Button>

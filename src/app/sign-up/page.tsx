@@ -10,12 +10,14 @@ import * as Yup from "yup";
 import { MdLockOutline } from "react-icons/md";
 import { CiUser, CiCalendarDate, CiPhone } from "react-icons/ci";
 import FloatingLabel from "@/components/floatingLabel/FloatingLabel";
+import NavBar from "@/components/Navbars/navBar";
+
 
 
 const validationSchema = Yup.object({
   first_name: Yup.string().required("First name is required"),
   last_name: Yup.string().required("Last name is required"),
-  number: Yup.string().required("Phone Number is required"),
+  phone_number: Yup.string().required("Phone Number is required"),
   email: Yup.string()
     .email("Invalid email address")
     .required("Email is required"),
@@ -28,7 +30,7 @@ const validationSchema = Yup.object({
   passwordC: Yup.string()
     .oneOf([Yup.ref("password")], "Passwords must match")
     .required("Password confirmation is required"),
-  dob: Yup.string()
+  date_of_birth: Yup.string()
     .matches(/^(0[1-9]|[12][0-9]|3[01])\/(0[1-9]|1[012])\/([0-9]{2})$/, {
       message: "DOB must be in dd/mm/yy format",
       excludeEmptyString: true
@@ -40,27 +42,32 @@ const validationSchema = Yup.object({
 const SignUp = () => {
   const { signup } = useContext(AuthContext);
 
-  const { handleSubmit, errors, values, handleChange, handleBlur, touched } =
+  const { handleSubmit, errors, values, handleChange, handleBlur, touched, isSubmitting, setSubmitting } =
     useFormik({
       initialValues: {
         first_name: "",
         last_name: "",
         email: "",
-        dob: "",
-        number: "",
+        date_of_birth: "",
+        phone_number: "",
+        country: "",
         password: "",
         passwordC: "",
       },
       validationSchema,
       onSubmit: (values) => {
         console.log(values);
-        signup(values);
+        signup(values)
+          .finally(() => {
+            setSubmitting(false); // Ensure isSubmitting is set to false after login attempt
+          });
       },
     });
 
   return (
     <Flex w={"100vw"} h={"100vh"} overflow={"hidden"}>
       <Flex w={["100%", "100%", "50%"]} direction={"column"}>
+      <NavBar />
         <Flex
           justifyContent={"center"}
           direction={"column"}
@@ -124,7 +131,7 @@ const SignUp = () => {
               }}
             />
             <FloatingLabel
-              id="dob"
+              id="date_of_birth"
               label="Date of Birth"
               type="text"
               icon={CiCalendarDate}
@@ -137,7 +144,7 @@ const SignUp = () => {
               }}
             />
             <FloatingLabel
-              id="number"
+              id="phone_number"
               label="Phone Number"
               type="text"
               icon={CiPhone}
@@ -187,6 +194,7 @@ const SignUp = () => {
                 w={"30%"}
                 type="submit"
                 bg={"#231E5B"}
+                isLoading={isSubmitting}
                 color={"white"}
                 _hover={{ cursor: "pointer", opacity: "80%" }}
               >

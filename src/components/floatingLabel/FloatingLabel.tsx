@@ -7,7 +7,7 @@ import {
   InputLeftElement,
   FormErrorMessage,
 } from "@chakra-ui/react";
-import {FloatingLabelProps} from "../floatingLabel/floatingLabel"
+import {FloatingLabelProps} from "../floatingLabel/floatingLabel.interface"
 
 const FloatingLabel: React.FC<FloatingLabelProps> = ({ id, label, type, formik, icon: Icon }) => {
     const [isFocused, setIsFocused] = useState(false);

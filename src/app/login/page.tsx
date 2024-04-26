@@ -9,7 +9,7 @@ import { AiOutlineMail } from "react-icons/ai";
 import * as Yup from "yup";
 import { MdLockOutline } from "react-icons/md";
 import FloatingLabel from "@/components/floatingLabel/FloatingLabel";
-
+import NavBar from "@/components/Navbars/navBar";
 const validationSchema = Yup.object({
   email: Yup.string().required("Email is required"),
   password: Yup.string().required("Password is required"),
@@ -18,7 +18,7 @@ const validationSchema = Yup.object({
 const Login = () => {
   const { login } = useContext(AuthContext);
 
-  const { handleSubmit, errors, values, handleChange, handleBlur, touched } =
+  const { handleSubmit, errors, values, handleChange, handleBlur, touched, isSubmitting, setSubmitting } =
     useFormik({
       initialValues: {
         email: "",
@@ -26,13 +26,17 @@ const Login = () => {
       },
       validationSchema,
       onSubmit: (values) => {
-        login(values.email, values.password);
+        login(values.email, values.password)
+        .finally(() => {
+          setSubmitting(false); // Ensure isSubmitting is set to false after login attempt
+        });
       },
     });
 
   return (
     <Flex w={"100vw"} h={"100vh"} overflow={"hidden"}>
       <Flex w={["100%", "100%", "50%"]} direction={"column"}>
+      <NavBar />
         <Flex
           justifyContent={"center"}
           direction={"column"}
@@ -84,6 +88,7 @@ const Login = () => {
                 type="submit"
                 bg={"primary"}
                 color={"white"}
+                isLoading={isSubmitting}
                 _hover={{ cursor: "pointer", opacity: "80%" }}
               >
                 Log In
@@ -92,7 +97,7 @@ const Login = () => {
           </form>
 
           <Text align={"center"}>
-            Don't have an account? Log In{" "}
+            Don't have an account? Sign up{" "}
             <Link color={"primary"} href="/sign-up">
               here
             </Link>
