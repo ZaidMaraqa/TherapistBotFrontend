@@ -9,8 +9,14 @@ import {
 import { IoHappyOutline } from "react-icons/io5";
 import { RiChatNewLine } from "react-icons/ri";
 import { IoLogOutOutline } from "react-icons/io5";
+import { useRouter } from "next/navigation";
 
-export default function ChatNavBar() {
+interface ChatNavBarProps {
+  onMoodClick: () => void; 
+}
+
+const ChatNavBar: React.FC<ChatNavBarProps> = ({ onMoodClick }) => {
+  const router = useRouter();
   return (
     <Flex
       justifyContent={"space-between"}
@@ -20,7 +26,7 @@ export default function ChatNavBar() {
       left={0}
       right={0}
       position="sticky"
-      p={'1rem'}
+      p={"1rem"}
     >
       <Text
         fontSize={"2.5rem"}
@@ -33,15 +39,40 @@ export default function ChatNavBar() {
       </Text>
       <Flex alignItems={"center"} gap={"1rem"}>
         <Tooltip label="New Chat">
-          <IconButton bg={'none'} fontSize={'30px'}  _hover={{ bg: 'none'}}  color={'primary'} aria-label="Mood Tracker" icon={<RiChatNewLine   />} />
+          <IconButton
+            bg={"none"}
+            fontSize={"30px"}
+            _hover={{ bg: "none" }}
+            color={"primary"}
+            aria-label="Mood Tracker"
+            icon={<RiChatNewLine />}
+          />
         </Tooltip>
         <Tooltip label="Mood?">
-          <IconButton bg={'none'} fontSize={'30px'} _hover={{ bg: 'none'}}  color={'primary'} aria-label="Mood Tracker" icon={<IoHappyOutline />} />
+          <IconButton
+            bg={"none"}
+            fontSize={"30px"}
+            _hover={{ bg: "none" }}
+            onClick={onMoodClick}
+            color={"primary"}
+            aria-label="Mood Tracker"
+            icon={<IoHappyOutline />}
+          />
         </Tooltip>
         <Tooltip label="Exit Chat">
-          <IconButton bg={'none'} fontSize={'30px'} _hover={{ bg: 'none'}} color={'primary'}  aria-label="Mood Tracker" icon={<IoLogOutOutline />} />
+          <IconButton
+            bg={"none"}
+            fontSize={"30px"}
+            _hover={{ bg: "none" }}
+            color={"primary"}
+            aria-label="Mood Tracker"
+            onClick={() => router.push("/dashboard")}
+            icon={<IoLogOutOutline />}
+          />
         </Tooltip>
       </Flex>
     </Flex>
   );
-}
+};
+
+export default ChatNavBar;
