@@ -9,8 +9,9 @@ import { AiOutlineMail } from "react-icons/ai";
 import * as Yup from "yup";
 import { MdLockOutline } from "react-icons/md";
 import { CiUser, CiCalendarDate, CiPhone } from "react-icons/ci";
-import FloatingLabel from "@/components/FloatingLabel";
+import FloatingLabel from "@/components/floatingLabel/FloatingLabel";
 import NavBar from "@/components/Navbars/navBar";
+
 
 
 const validationSchema = Yup.object({

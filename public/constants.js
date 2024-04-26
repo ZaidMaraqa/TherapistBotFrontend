@@ -44,3 +44,23 @@ export const chatPageQuestions = [
   "What can I expect from these therapy sessions?",
   "I feel like I need help but don't know where to start",
 ]  
+
+
+export const sessions = [
+  {
+    title: "Mindfulness and Relaxation",
+    borderColor: "green",
+  },
+  {
+    title: "Stress Management",
+    borderColor: "orange",
+  },
+];
+
+export const dataset = [
+  { month: 'Jan', sessions: 11 },
+  { month: 'Feb', sessions: 13 },
+  { month: 'Mar', sessions: 15 },
+  { month: 'Apr', sessions: 17 },
+  { month: 'May', sessions: 19 },
+];
