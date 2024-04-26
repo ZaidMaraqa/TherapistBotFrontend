@@ -1,11 +1,11 @@
 "use client";
-import TickPlacementBars from "@/components/barChart";
+import TickPlacementBars from "@/components/barChart/barChart";
 import DateCalendarServerRequest from "@/components/calendarPicker";
 import DatePickerOpenTo from "@/components/datePicker";
 import GaugeChart from "@/components/gaugeChart/gaugeChart";
 import SessionItem from "@/components/sessionItem/sessionItem";
 import SidebarWithHeader from "@/components/sideBar";
-import { sessions } from "../../../public/constants";
+import { sessions ,dataset} from "../../../public/constants";
 import { Typography, Box, Divider, Avatar, Button } from "@mui/material";
 import Stack from "@mui/material/Stack";
 
@@ -74,21 +74,14 @@ export default function DashBoard() {
                 <Box>
                   <Typography
                     component="div"
-                    sx={{ color: "#231E5B", fontWeight: "bold", mb: 2 }}
-                    variant="h4"
+                    sx={{ color: "#231E5B", fontWeight: "bold", mb: 3 }}
+                    variant="h5"
                   >
-                    hi
-                  </Typography>
-                  <Typography
-                    component="div"
-                    sx={{ color: "#231E5B", fontWeight: "bold", mb: 2 }}
-                    variant="h6"
-                  >
-                    fzdsadz
+                    Your Activity
                   </Typography>
                 </Box>
-                <Box sx={{ flex: 1 }}>
-                  <TickPlacementBars />
+                <Box>
+                  <TickPlacementBars dataset={dataset} />
                 </Box>
               </Box>
               <Box sx={{ width: "100%" }}>
