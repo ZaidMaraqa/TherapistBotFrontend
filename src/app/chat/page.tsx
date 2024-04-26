@@ -350,7 +350,7 @@ const ChatPage = () => {
             {messages.length === 0 && (
               <Flex direction={"column"} h={"100%"} px={4} py={0}>
                 <Center mb={4} flex={1}>
-                  <Text fontSize="2xl" fontWeight={300}>
+                  <Text fontSize={['1rem','1rem','1rem','2xl']} fontWeight={300}>
                     How can I help you today?
                   </Text>
                 </Center>
@@ -369,6 +369,7 @@ const ChatPage = () => {
                       justifyContent="center"
                       display={"flex"}
                       alignItems={"center"}
+                      fontSize={['0.6rem','1rem','1rem','1rem']}
                     >
                       <Text>{message}</Text>
                     </Box>
