@@ -5,8 +5,8 @@ const { definePartsStyle, defineMultiStyleConfig } = createMultiStyleConfigHelpe
 
 const baseStyle = definePartsStyle({
   field: {
-    border: '2px solid',
-    borderColor: 'primary', // Using a color from the theme
+    border: '.125rem solid',
+    borderColor: 'primary',
     borderRadius: '1rem',
     height: '3.75rem',
     _focus: {

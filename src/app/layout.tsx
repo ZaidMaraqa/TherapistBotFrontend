@@ -16,7 +16,7 @@ export default async function RootLayout({
     <html lang='en'>
       <body>
         <Providers>
-          <NavBar />
+          {/* <NavBar /> */}
           {children}
         </Providers>
       </body>
