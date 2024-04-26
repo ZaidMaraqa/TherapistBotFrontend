@@ -2,15 +2,22 @@ import { Flex, IconButton, Text, Tooltip } from "@chakra-ui/react";
 import { IoHappyOutline } from "react-icons/io5";
 import { RiChatNewLine } from "react-icons/ri";
 import { IoLogOutOutline } from "react-icons/io5";
+import { AiOutlineGlobal } from "react-icons/ai";
+
 import { useRouter } from "next/navigation";
-import RecordVoiceOverOutlinedIcon from '@mui/icons-material/RecordVoiceOverOutlined';
+import RecordVoiceOverOutlinedIcon from "@mui/icons-material/RecordVoiceOverOutlined";
 
 interface ChatNavBarProps {
   onMoodClick: () => void;
   onSpeechClick: () => void;
+  onLangaugeClick: () => void;
 }
 
-const ChatNavBar: React.FC<ChatNavBarProps> = ({ onMoodClick, onSpeechClick }) => {
+const ChatNavBar: React.FC<ChatNavBarProps> = ({
+  onMoodClick,
+  onSpeechClick,
+  onLangaugeClick,
+}) => {
   const router = useRouter();
   return (
     <Flex
@@ -54,6 +61,17 @@ const ChatNavBar: React.FC<ChatNavBarProps> = ({ onMoodClick, onSpeechClick }) =
             icon={<RiChatNewLine />}
           />
         </Tooltip>
+        <Tooltip label="Change Langauge">
+          <IconButton
+            bg={"none"}
+            fontSize={"1.6rem"}
+            _hover={{ bg: "none" }}
+            color={"primary"}
+            aria-label="Mood Tracker"
+            onClick={onLangaugeClick}
+            icon={<AiOutlineGlobal />}
+          />
+        </Tooltip>
         <Tooltip label="Mood?">
           <IconButton
             bg={"none"}
@@ -72,7 +90,7 @@ const ChatNavBar: React.FC<ChatNavBarProps> = ({ onMoodClick, onSpeechClick }) =
             _hover={{ bg: "none" }}
             color={"primary"}
             aria-label="Mood Tracker"
-            onClick={() => router.push("/dashboard")}
+            onClick={() => router.push("/")}
             icon={<IoLogOutOutline />}
           />
         </Tooltip>
