@@ -9,9 +9,9 @@ import config from "@/config";
 import AuthContext from "@/context/auth";
 import useToastNotification from "@/components/toast";
 import { useRouter } from "next/navigation";
+import withAuth from "@/components/PrivateRoute";
 
-
-export default function OnBoarding() {
+const OnBoarding = () => {
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const { user } = useContext(AuthContext);
   const toast = useToastNotification();
@@ -109,3 +109,5 @@ export default function OnBoarding() {
     </>
   );
 }
+
+export default withAuth(OnBoarding);

@@ -9,6 +9,7 @@ import { AiOutlineMail } from "react-icons/ai";
 import * as Yup from "yup";
 import { MdLockOutline } from "react-icons/md";
 import FloatingLabel from "@/components/FloatingLabel";
+import NavBar from "@/components/dialogs/Navbars/navBar";
 
 const validationSchema = Yup.object({
   email: Yup.string().required("Email is required"),
@@ -36,6 +37,7 @@ const Login = () => {
   return (
     <Flex w={"100vw"} h={"100vh"} overflow={"hidden"}>
       <Flex w={["100%", "100%", "50%"]} direction={"column"}>
+      <NavBar />
         <Flex
           justifyContent={"center"}
           direction={"column"}

@@ -10,6 +10,7 @@ import * as Yup from "yup";
 import { MdLockOutline } from "react-icons/md";
 import { CiUser, CiCalendarDate, CiPhone } from "react-icons/ci";
 import FloatingLabel from "@/components/FloatingLabel";
+import NavBar from "@/components/dialogs/Navbars/navBar";
 
 
 const validationSchema = Yup.object({
@@ -65,6 +66,7 @@ const SignUp = () => {
   return (
     <Flex w={"100vw"} h={"100vh"} overflow={"hidden"}>
       <Flex w={["100%", "100%", "50%"]} direction={"column"}>
+      <NavBar />
         <Flex
           justifyContent={"center"}
           direction={"column"}
