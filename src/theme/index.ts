@@ -1,7 +1,6 @@
 import { Theme, extendTheme, baseTheme, withDefaultColorScheme } from '@chakra-ui/react';
 import { inputStyle } from './components/input';
 import { AlertStyles } from './components/alert';
-// import { ModalStyles } from './components/model';
 
 
 
@@ -113,7 +112,6 @@ export const theme: Theme = extendTheme(
         },
       },
       Alert: AlertStyles,
-      // Model:ModalStyles
     },
     config: {
       initialColorMode: 'dark',

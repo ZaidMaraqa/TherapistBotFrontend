@@ -6,7 +6,6 @@ import {
     ModalBody,
     Flex,
     Image,
-    useDisclosure,
     Button,
     Text,
     VStack,
