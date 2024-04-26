@@ -10,7 +10,7 @@ import * as Yup from "yup";
 import { MdLockOutline } from "react-icons/md";
 import { CiUser, CiCalendarDate, CiPhone } from "react-icons/ci";
 import FloatingLabel from "@/components/FloatingLabel";
-import NavBar from "@/components/dialogs/Navbars/navBar";
+import NavBar from "@/components/Navbars/navBar";
 
 
 const validationSchema = Yup.object({

@@ -9,7 +9,7 @@ import { AiOutlineMail } from "react-icons/ai";
 import * as Yup from "yup";
 import { MdLockOutline } from "react-icons/md";
 import FloatingLabel from "@/components/FloatingLabel";
-import NavBar from "@/components/dialogs/Navbars/navBar";
+import NavBar from "@/components/Navbars/navBar";
 
 const validationSchema = Yup.object({
   email: Yup.string().required("Email is required"),

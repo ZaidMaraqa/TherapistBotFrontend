@@ -1,6 +1,6 @@
 import type { Metadata } from 'next';
 import { Providers } from './providers';
-import NavBar from '../components/dialogs/Navbars/navBar';
+import NavBar from '../components/Navbars/navBar';
 
 export const metadata: Metadata = {
   title: 'Therapist ChatBot',

@@ -1,7 +1,7 @@
 "use client";
 import ChatInput from "@/components/ChatInput";
 import withAuth from "@/components/PrivateRoute";
-import ChatNavBar from "@/components/dialogs/Navbars/ChatNavBar";
+import ChatNavBar from "@/components/Navbars/ChatNavBar";
 import { Flex, Input, InputGroup, Text, VStack } from "@chakra-ui/react";
 import { useState } from "react";
 
