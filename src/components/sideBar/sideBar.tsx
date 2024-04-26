@@ -19,9 +19,29 @@ import { Badge, Menu, MenuItem } from "@mui/material";
 import AccountCircle from "@mui/icons-material/AccountCircle";
 import NotificationsIcon from "@mui/icons-material/Notifications";
 import MoreIcon from "@mui/icons-material/MoreVert";
-import {Props} from "../sideBar/sideBar.interface"
+import { Props } from "../sideBar/sideBar.interface";
+import DashboardIcon from "@mui/icons-material/Dashboard";
+import ArticleIcon from "@mui/icons-material/Article";
+import PersonIcon from "@mui/icons-material/Person";
+import SettingsIcon from "@mui/icons-material/Settings";
+import LogoutIcon from "@mui/icons-material/Logout";
 
 const drawerWidth = 190;
+
+interface IconMapping {
+  [key: string]: {
+    icon: JSX.Element;
+    active: boolean;
+  };
+}
+
+const iconMapping: IconMapping = {
+  Dashboard: { icon: <DashboardIcon />, active: true },
+  Appointments: { icon: <ArticleIcon />, active: false },
+  Doctors: { icon: <PersonIcon />, active: false },
+  Settings: { icon: <SettingsIcon />, active: false },
+  Logout: { icon: <LogoutIcon />, active: false },
+};
 
 export default function ResponsiveDrawer(props: Props) {
   const { window, children } = props;
@@ -144,16 +164,39 @@ export default function ResponsiveDrawer(props: Props) {
       <Toolbar />
       <Divider />
       <List>
-        {["DashBoard", "Appointments", "Doctors", "Settings","Logout"].map((text, index) => (
-          <ListItem key={text} disablePadding>
-            <ListItemButton>
-              <ListItemIcon>
-                {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-              </ListItemIcon>
-              <ListItemText primary={text} />
-            </ListItemButton>
-          </ListItem>
-        ))}
+        {["Dashboard", "Appointments", "Doctors", "Settings", "Logout"].map(
+          (text, index) => (
+            <ListItem key={text} disablePadding>
+              <ListItemButton
+                sx={{
+                  backgroundColor: iconMapping[text as keyof IconMapping].active
+                    ? "#231E5B"
+                    : "inherit",
+                  color: iconMapping[text as keyof IconMapping].active
+                    ? "white"
+                    : "inherit",
+                  "&:hover": {
+                    backgroundColor: iconMapping[text as keyof IconMapping]
+                      .active
+                      ? "#231E5B"
+                      : "inherit",
+                  },
+                }}
+              >
+                <ListItemIcon
+                  sx={{
+                    color: iconMapping[text as keyof IconMapping].active
+                      ? "white"
+                      : "inherit",
+                  }}
+                >
+                  {iconMapping[text as keyof IconMapping].icon}
+                </ListItemIcon>
+                <ListItemText primary={text} />
+              </ListItemButton>
+            </ListItem>
+          )
+        )}
       </List>
     </div>
   );
@@ -187,7 +230,12 @@ export default function ResponsiveDrawer(props: Props) {
             variant="h4"
             noWrap
             component="div"
-            sx={{ color: "#231E5B", fontWeight: "bold" }}
+            sx={{
+              color: "#231E5B",
+              fontFamily: "'Poppins', sans-serif",
+              fontWeight: 600,
+              mt: 2,
+            }}
           >
             Good Morning, Yazan
           </Typography>

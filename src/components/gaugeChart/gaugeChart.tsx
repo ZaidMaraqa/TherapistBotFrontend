@@ -1,9 +1,9 @@
 import React from "react";
 import { Gauge } from "@mui/x-charts/Gauge";
 import { Box } from "@mui/material";
-import { GaugeChartProps } from "../gaugeChart/gaugeChart";
+import { GaugeChartProps } from "../gaugeChart/gaugeChart.interface";
 
-export default function GaugeChart({ value,max }: GaugeChartProps) {
+export default function GaugeChart({ value, max }: GaugeChartProps) {
   return (
     <Box
       sx={{
@@ -11,6 +11,9 @@ export default function GaugeChart({ value,max }: GaugeChartProps) {
         height: "13.5rem",
         position: "relative",
         fontSize: "3rem",
+        "& .css-b9rdri-MuiGauge-referenceArc": {
+          fill: "#231E5B",
+        },
       }}
     >
       <Gauge
@@ -19,7 +22,6 @@ export default function GaugeChart({ value,max }: GaugeChartProps) {
         endAngle={360}
         innerRadius="80%"
         outerRadius="100%"
-        color="#231E5B"
         label={null}
         max={max}
       />

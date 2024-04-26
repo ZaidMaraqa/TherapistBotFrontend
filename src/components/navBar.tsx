@@ -12,7 +12,7 @@ export default function NavBar() {
                 py={'0rem'}
                 color={"#231E5B"}
             >
-                Solace
+                ECHO
             </Text>
         </Flex>
     );

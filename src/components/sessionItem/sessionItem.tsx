@@ -1,7 +1,7 @@
-import React from 'react';
-import { Box, Stack, IconButton } from '@mui/material';
-import ArrowRightIcon from '@mui/icons-material/ArrowRight';
-import { SessionItemProps } from '../sessionItem/sessionitem.interface';
+import React from "react";
+import { Box, Stack, IconButton } from "@mui/material";
+import ArrowRightIcon from "@mui/icons-material/ArrowRight";
+import { SessionItemProps } from "../sessionItem/sessionitem.interface";
 
 const SessionItem: React.FC<SessionItemProps> = ({ title, borderColor }) => {
   return (
@@ -29,7 +29,7 @@ const SessionItem: React.FC<SessionItemProps> = ({ title, borderColor }) => {
         <Box sx={{ color: "#333" }}>{title}</Box>
         <Box>
           <IconButton aria-label="arrow-right" sx={{ color: "#616161" }}>
-            <ArrowRightIcon />
+            <ArrowRightIcon/>
           </IconButton>
         </Box>
       </Stack>
