@@ -12,12 +12,20 @@ export default function DatePickerOpenTo() {
     <LocalizationProvider dateAdapter={AdapterDayjs}>
       <DemoContainer components={['DatePicker', 'DatePicker']}>
         <DatePicker
-          label="Select Month"
           openTo="month"
           views={['month']}
           value={dayjs().set('year', currentYear)}
           onChange={(newValue) => {
             console.log(newValue);
+          }}
+          sx={{
+            '& .MuiOutlinedInput-root': {
+              borderRadius: '.5rem',
+              height: '2.5rem',
+              '& .MuiOutlinedInput-input': {
+                padding: '0.5rem',
+              },
+            },
           }}
         />
       </DemoContainer>

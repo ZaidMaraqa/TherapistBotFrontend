@@ -2,7 +2,7 @@
 import TickPlacementBars from "@/components/barChart";
 import DateCalendarServerRequest from "@/components/calendarPicker";
 import DatePickerOpenTo from "@/components/datePicker";
-import GaugeChart from "@/components/gaugeChart";
+import GaugeChart from "@/components/gaugeChart/gaugeChart";
 import SessionItem from "@/components/sessionItem/sessionItem";
 import SidebarWithHeader from "@/components/sideBar";
 import { sessions } from "../../../public/constants";
@@ -69,8 +69,8 @@ export default function DashBoard() {
               orientation="horizontal"
               sx={{ my: "1rem", width: "85%" }}
             />
-            <Stack direction={"row"} sx={{ flex: 1, overflow: "hidden" }}>
-              <Box sx={{ width: "26.9rem", height: "100%", overflow: "auto" }}>
+            <Stack direction={"row"}>
+              <Box sx={{ width: "100%" }}>
                 <Box>
                   <Typography
                     component="div"
@@ -91,11 +91,21 @@ export default function DashBoard() {
                   <TickPlacementBars />
                 </Box>
               </Box>
-              <Box sx={{ width: "20rem", overflow: "auto" }}>
-                <Stack alignItems="center" justifyContent="center" spacing={5}>
+              <Box sx={{ width: "100%" }}>
+                <Stack alignItems="center" justifyContent="center" spacing={2}>
                   <DatePickerOpenTo />
-                  <GaugeChart />
-                  <Box>Daily progress</Box>
+                  <GaugeChart value={5} max={20} />
+                  <Box>
+                    <Typography
+                      fontSize={"1.3rem"}
+                      align="center"
+                      sx={{ color: "#231E5B" }}
+                    >
+                      You've taken <span style={{ fontWeight: "bold" }}>5</span>{" "}
+                      out of <span style={{ fontWeight: "bold" }}>20</span>{" "}
+                      sessions this month.
+                    </Typography>
+                  </Box>
                 </Stack>
               </Box>
             </Stack>
