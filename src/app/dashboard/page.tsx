@@ -3,15 +3,17 @@ import TickPlacementBars from "@/components/barChart";
 import DateCalendarServerRequest from "@/components/calendarPicker";
 import DatePickerOpenTo from "@/components/datePicker";
 import GaugeChart from "@/components/gaugeChart";
+import SessionItem from "@/components/sessionItem/sessionItem";
 import SidebarWithHeader from "@/components/sideBar";
+import { sessions } from "../../../public/constants";
 import { Typography, Box, Divider, Avatar, Button } from "@mui/material";
 import Stack from "@mui/material/Stack";
 
 export default function DashBoard() {
   return (
     <SidebarWithHeader>
-      <Stack direction={"row"} sx={{ height: "100vh"}}>
-        <Box sx={{ flex: 1}}>
+      <Stack direction={"row"} sx={{ height: "100vh" }}>
+        <Box sx={{ flex: 1 }}>
           <Stack sx={{ height: "100%" }}>
             <Box
               sx={{
@@ -63,7 +65,10 @@ export default function DashBoard() {
                 </Box>
               </Stack>
             </Box>
-            <Divider orientation="horizontal" sx={{ my: "1rem" }} />
+            <Divider
+              orientation="horizontal"
+              sx={{ my: "1rem", width: "85%" }}
+            />
             <Stack direction={"row"} sx={{ flex: 1, overflow: "hidden" }}>
               <Box sx={{ width: "26.9rem", height: "100%", overflow: "auto" }}>
                 <Box>
@@ -77,9 +82,9 @@ export default function DashBoard() {
                   <Typography
                     component="div"
                     sx={{ color: "#231E5B", fontWeight: "bold", mb: 2 }}
-                    variant="h4"
+                    variant="h6"
                   >
-                    hi
+                    fzdsadz
                   </Typography>
                 </Box>
                 <Box sx={{ flex: 1 }}>
@@ -96,46 +101,51 @@ export default function DashBoard() {
             </Stack>
           </Stack>
         </Box>
-        <Box sx={{ width: "30rem", height: "100vh", overflow: "auto" }}>
-          <Stack
-            alignItems="center"
-            justifyContent="center"
-            sx={{ height: "100%" }}
-          >
+        <Box sx={{ overflow: "auto" }}>
+          <Stack alignItems="center" justifyContent="center">
             <Box
               sx={{
                 width: "100%",
-                height: "85vh",
                 display: "flex",
                 flexDirection: "column",
-                alignItems: "center",
+                alignItems: "flex-start",
+                ml: 0,
+                mr: "auto",
+                pl: 4,
+                pr: 4,
               }}
             >
               <Typography
                 component="div"
-                sx={{ color: "#231E5B", fontWeight: "bold", mb: 2 }}
-                variant="h4"
+                sx={{
+                  color: "#231E5B",
+                  fontWeight: "bold",
+                  mb: 2,
+                  fontSize: "1.5rem",
+                }}
               >
-                hi
+                List of previous sessions
               </Typography>
               <DateCalendarServerRequest />
-              <Stack spacing={2} sx={{ mt: 2 }}>
-                <Box
+              <Stack spacing={2} sx={{ width: "100%" }}>
+                <Typography
+                  component="div"
                   sx={{
-                    width: "18.75rem",
-                    height: "4.375rem",
-                    bgcolor: "blue",
-                    borderRadius: ".625rem",
+                    color: "#231E5B",
+                    fontWeight: "bold",
+                    mb: 2,
+                    fontSize: "1.5rem",
                   }}
-                />
-                <Box
-                  sx={{
-                    width: "18.75rem",
-                    height: "4.375rem",
-                    bgcolor: "blue",
-                    borderRadius: ".625rem",
-                  }}
-                />
+                >
+                  Take themed sessions
+                </Typography>
+                {sessions.map((session, index) => (
+                  <SessionItem
+                    key={index}
+                    title={session.title}
+                    borderColor={session.borderColor}
+                  />
+                ))}
               </Stack>
             </Box>
           </Stack>

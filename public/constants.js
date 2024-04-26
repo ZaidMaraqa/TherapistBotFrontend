@@ -44,3 +44,15 @@ export const chatPageQuestions = [
   "What can I expect from these therapy sessions?",
   "I feel like I need help but don't know where to start",
 ]  
+
+
+export const sessions = [
+  {
+    title: "Mindfulness and Relaxation",
+    borderColor: "green",
+  },
+  {
+    title: "Stress Management",
+    borderColor: "orange",
+  },
+];
