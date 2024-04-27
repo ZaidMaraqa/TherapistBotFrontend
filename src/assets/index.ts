@@ -5,6 +5,7 @@ export const ASSETS = {
     crisisgif:'/assets/crisissupport.gif',
     moodgif:'/assets/mood.gif',
     icons: {
-      bot:'/assets/bot.jpeg'
+      bot:'/assets/bot.jpeg',
+      speak: '/assets/speak.png',
     },
   };

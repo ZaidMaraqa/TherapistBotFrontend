@@ -12,7 +12,9 @@ import CallIcon from "@mui/icons-material/Call";
 import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
 import AccessAlarmIcon from "@mui/icons-material/AccessAlarm";
 import GaugeChart from "@/components/gaugeChart/gaugeChart";
+import { useRouter } from "next/navigation";
 export default function DashBoard() {
+  const router = useRouter();
   return (
     <ResponsiveDrawer>
       <Stack direction={"row"} sx={{ height: "100vh" }}>
@@ -54,6 +56,7 @@ export default function DashBoard() {
                     </Box>
                     <Button
                       variant="contained"
+                      onClick={() => (router.push("/chat"))}
                       sx={{
                         backgroundColor: "#231E5B",
                         color: "white",
@@ -62,6 +65,7 @@ export default function DashBoard() {
                         left: 10,
                         right: 10,
                         transform: "none",
+                  
                         boxShadow: "none",
                         "&:hover": {
                           backgroundColor: "#231E5B",

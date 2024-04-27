@@ -10,6 +10,7 @@ import AuthContext from "@/context/auth";
 import useToastNotification from "@/components/toast";
 import { useRouter } from "next/navigation";
 import withAuth from "@/components/PrivateRoute";
+import NavBar from "@/components/Navbars/navBar";
 
 const OnBoarding = () => {
   const [currentQuestion, setCurrentQuestion] = useState(0);
@@ -84,6 +85,7 @@ const OnBoarding = () => {
   return (
     <>
       <Box>
+        <NavBar />
         <ProgressBar
           currentQuestion={currentQuestion}
           totalQuestions={questionsData.length}

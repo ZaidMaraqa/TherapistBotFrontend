@@ -65,16 +65,6 @@ interface HeadphonesModalProps {
   onStart: () => void;
 }
 
-const fadeIn = keyframes`
-  0% {
-    opacity: 0;
-    transform: scale(0.8);
-  }
-  100% {
-    opacity: 1;
-    transform: scale(1);
-  }
-`;
 
 
 const translations = {
@@ -120,6 +110,11 @@ const HeadphonesModal: React.FC<HeadphonesModalProps> = ({
   onClose,
   onStart,
 }) => {
+  const { user } = useContext(AuthContext);
+
+
+
+
   return (
     <Modal isOpen={isOpen} onClose={onClose} isCentered>
       <Slide in={isOpen} direction="bottom">
@@ -137,7 +132,6 @@ const HeadphonesModal: React.FC<HeadphonesModalProps> = ({
               <Box
                 as={HeadphonesIcon}
                 sx={{ fontSize: 128, color: "#231E5B" }}
-                animation={`${fadeIn} 0.5s ease-in-out`}
               />
               <Text color="#231E5B" textAlign={"center"}>
                 For a better speech-to-speech experience, please wear
@@ -235,7 +229,7 @@ const ChatPage = () => {
     setMessages((prevMessages) => [...prevMessages, newMessage]);
 
     if (data.self_harm_flag === "True") {
-      onOpenCrisisSupport(); // Trigger crisis support modal if flag is true
+      onOpenCrisisSupport();
     }
   };
 
@@ -246,12 +240,16 @@ const ChatPage = () => {
       const webSocket = new WebSocket(config.wsUrl);
 
       webSocket.onopen = (event) => {
+        console.log(user?.uuid)
         if (user && user.uuid) {
+          console.log('wo')
           webSocket.send(JSON.stringify({ uuid: user.uuid }));
         }
+        console.log("WebSocket Open", event);
       };
 
       webSocket.onmessage = (event) => {
+        setIsLoading(false);
         console.log("WebSocket Message", event);
         const data = JSON.parse(event.data);
         if (active) {
@@ -349,6 +347,7 @@ const ChatPage = () => {
       ) : (
         <>
           <MoodTracker open={isMoodModalOpen} onClose={onCloseMoodModal} />
+          <CrisisSupport open={isCrisisSupportOpen} onClose={onCloseCrisisSupport} />
           <Flex flex="1" px={4} overflowY="auto" direction="column" gap={3}>
             <VStack spacing={4} align="stretch">
               {messages.map((message, index) => (

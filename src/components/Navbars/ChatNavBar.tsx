@@ -7,6 +7,7 @@ import { AiOutlineGlobal } from "react-icons/ai";
 import { useRouter } from "next/navigation";
 import RecordVoiceOverOutlinedIcon from "@mui/icons-material/RecordVoiceOverOutlined";
 
+
 interface ChatNavBarProps {
   onMoodClick: () => void;
   onSpeechClick: () => void;
@@ -18,6 +19,7 @@ const ChatNavBar: React.FC<ChatNavBarProps> = ({
   onSpeechClick,
   onLangaugeClick,
 }) => {
+
   const router = useRouter();
   return (
     <Flex
@@ -48,7 +50,7 @@ const ChatNavBar: React.FC<ChatNavBarProps> = ({
             color={"primary"}
             aria-label="Talk to Echo"
             icon={<RecordVoiceOverOutlinedIcon />}
-            onClick={onSpeechClick}
+            onClick={() => router.push("/speak")}
           />
         </Tooltip>
         <Tooltip label="New Chat">

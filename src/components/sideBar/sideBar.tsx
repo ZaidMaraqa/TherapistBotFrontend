@@ -25,6 +25,8 @@ import ArticleIcon from "@mui/icons-material/Article";
 import PersonIcon from "@mui/icons-material/Person";
 import SettingsIcon from "@mui/icons-material/Settings";
 import LogoutIcon from "@mui/icons-material/Logout";
+import AuthContext from "@/context/auth";
+
 
 const drawerWidth = 190;
 
@@ -48,6 +50,8 @@ export default function ResponsiveDrawer(props: Props) {
   const [mobileOpen, setMobileOpen] = React.useState(false);
   const [isClosing, setIsClosing] = React.useState(false);
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
+  const { logout } = React.useContext(AuthContext)
+
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] =
     React.useState<null | HTMLElement>(null);
 
@@ -182,6 +186,7 @@ export default function ResponsiveDrawer(props: Props) {
                       : "inherit",
                   },
                 }}
+                onClick={logout}
               >
                 <ListItemIcon
                   sx={{
