@@ -10,14 +10,15 @@ import * as Yup from "yup";
 import { MdLockOutline } from "react-icons/md";
 import FloatingLabel from "@/components/floatingLabel/FloatingLabel";
 import NavBar from "@/components/Navbars/navBar";
-const validationSchema = Yup.object({
-  email: Yup.string().required("Email is required"),
-  password: Yup.string().required("Password is required"),
-});
+
 
 const Login = () => {
   const t = useTranslations('LogIn')
   const { login } = useContext(AuthContext);
+  const validationSchema = Yup.object({
+    email: Yup.string().required(t('emailRequired')),
+    password: Yup.string().required(t('passwordRequired')),
+  });
 
   const { handleSubmit, errors, values, handleChange, handleBlur, touched, isSubmitting, setSubmitting } =
     useFormik({

@@ -6,7 +6,9 @@
         "here": "here",
         "forgot": "Forgot Password?",
         "email": "Email",
-        "password":"Password"
+        "password":"Password",
+        "emailRequired": "Email is required",
+        "passwordRequired": "Password is required"
     },
     "Chat":{
         "How": "How can I help you today?",
