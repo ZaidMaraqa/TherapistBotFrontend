@@ -7,19 +7,21 @@ interface SearchInputProps {
   setInputValue: (value: string) => void;
   handleKeyDown: (e: React.KeyboardEvent<HTMLInputElement>) => void;
   sendMessage: () => void;
+  placeholder: string;
 }
 
 const ChatInput: React.FC<SearchInputProps> = ({
   inputValue,
   setInputValue,
   handleKeyDown,
-  sendMessage
+  sendMessage,
+  placeholder
 }) => {
   return (
     <Box m="1rem" w="100%" pr={0}>
       <InputGroup>
         <Input
-          placeholder="Type your thoughts here..."
+          placeholder={placeholder}
           h="4.375rem"
           value={inputValue}
           onChange={(e) => setInputValue(e.target.value)}

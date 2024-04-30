@@ -1,6 +1,6 @@
 "use client";
 
-import { ASSETS } from "@/assets";
+import { ASSETS } from "@/app/[locale]/assets";
 import AuthContext from "@/context/auth";
 import { Box, Button, Flex, Image, Link, Text } from "@chakra-ui/react";
 import { useFormik } from "formik";
@@ -11,6 +11,7 @@ import { MdLockOutline } from "react-icons/md";
 import { CiUser, CiCalendarDate, CiPhone } from "react-icons/ci";
 import FloatingLabel from "@/components/floatingLabel/FloatingLabel";
 import NavBar from "@/components/Navbars/navBar";
+import { useTranslations } from "next-intl";
 
 
 
@@ -40,6 +41,7 @@ const validationSchema = Yup.object({
 
 
 const SignUp = () => {
+  const t  = useTranslations("Signup");
   const { signup } = useContext(AuthContext);
 
   const { handleSubmit, errors, values, handleChange, handleBlur, touched, isSubmitting, setSubmitting } =
@@ -77,10 +79,10 @@ const SignUp = () => {
         >
           <Box>
             <Text color={"#231E5B"} fontSize={"2rem"} align={"center"}>
-              Create an account
+              {t('title')}
             </Text>
             <Text color={"gray"} fontSize={"1rem"} align={"center"}>
-              A step towards a better emitional health.
+              {t('subTitle')}
             </Text>
           </Box>
 
@@ -92,7 +94,7 @@ const SignUp = () => {
             >
                 <FloatingLabel
                   id="first_name"
-                  label="First Name"
+                  label={t("firstName")}
                   type="text"
                   icon={CiUser}
                   formik={{
@@ -105,7 +107,7 @@ const SignUp = () => {
                 />
                 <FloatingLabel
                   id="last_name"
-                  label="Last Name"
+                  label={t("lastName")}
                   type="text"
                   icon={CiUser}
                   formik={{
@@ -119,7 +121,7 @@ const SignUp = () => {
             </Flex>
             <FloatingLabel
               id="email"
-              label="Email"
+              label={t("email")}
               type="email"
               icon={AiOutlineMail}
               formik={{
@@ -132,7 +134,7 @@ const SignUp = () => {
             />
             <FloatingLabel
               id="date_of_birth"
-              label="Date of Birth"
+              label={t("dob")}
               type="text"
               icon={CiCalendarDate}
               formik={{
@@ -145,7 +147,7 @@ const SignUp = () => {
             />
             <FloatingLabel
               id="phone_number"
-              label="Phone Number"
+              label={t("phone")}
               type="text"
               icon={CiPhone}
               formik={{
@@ -159,7 +161,7 @@ const SignUp = () => {
             <Flex direction={{ base: "column", md: "row" }} gap="1rem">
                 <FloatingLabel
                   id="password"
-                  label="Password"
+                  label={t("password")}
                   type="password"
                   icon={MdLockOutline}
                   formik={{
@@ -172,7 +174,7 @@ const SignUp = () => {
                 />
                 <FloatingLabel
                   id="passwordC"
-                  label="Password Confirmation"
+                  label={t("confirmPassword")}
                   type="password"
                   icon={MdLockOutline}
                   formik={{
@@ -198,15 +200,15 @@ const SignUp = () => {
                 color={"white"}
                 _hover={{ cursor: "pointer", opacity: "80%" }}
               >
-                Sign Up
+                {t('signUp')}
               </Button>
             </Flex>
           </form>
 
           <Text align={"center"}>
-            Already have an account? Log in{" "}
+            {t('already')}{" "}
             <Link color={"#231E5B"} fontWeight={"bold"} href="/login">
-              here
+              {t('here')}
             </Link>
           </Text>
         </Flex>
@@ -229,10 +231,9 @@ const SignUp = () => {
           borderRadius={".625rem"}
         />
         <Text fontSize={"1.5625rem"} color={"#231E5B"} maxW={"100%"}>
-          A place where you will be{" "}
-          <span style={{ fontWeight: "bold" }}>loved</span> and{" "}
-          <span style={{ fontWeight: "bold" }}>supported</span>, you are not
-          alone here.
+          {t('place')}{" "}
+          <span style={{ fontWeight: "bold" }}>{t('loved')}</span> {t('and')}{" "}
+          <span style={{ fontWeight: "bold" }}>{t('supported')}</span>, {t('alone')}
         </Text>
       </Flex>
     </Flex>

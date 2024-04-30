@@ -1,6 +1,6 @@
 "use client";
-
-import { ASSETS } from "@/assets";
+import { useTranslations } from "next-intl"
+import { ASSETS } from "@/app/[locale]/assets";
 import AuthContext from "@/context/auth";
 import { Button, Flex, Image, Link, Text } from "@chakra-ui/react";
 import { useFormik } from "formik";
@@ -16,6 +16,7 @@ const validationSchema = Yup.object({
 });
 
 const Login = () => {
+  const t = useTranslations('LogIn')
   const { login } = useContext(AuthContext);
 
   const { handleSubmit, errors, values, handleChange, handleBlur, touched, isSubmitting, setSubmitting } =
@@ -45,12 +46,12 @@ const Login = () => {
           px={"1rem"}
         >
           <Text color={"primary"} fontSize={"2.5rem"} align={"center"}>
-            Welcome Back
+            {t('title')}
           </Text>
           <form onSubmit={handleSubmit}>
             <FloatingLabel
               id="email"
-              label="Email"
+              label={t("email")}
               type="email"
               icon={AiOutlineMail}
               formik={{
@@ -63,7 +64,7 @@ const Login = () => {
             />
             <FloatingLabel
               id="password"
-              label="Password"
+              label={t("password")}
               type="password"
               icon={MdLockOutline}
               formik={{
@@ -75,7 +76,7 @@ const Login = () => {
               }}
             />
             <Flex justifyContent={"flex-end"} py={".2rem"}>
-              <Link color={'primary'} href="/forgot-password">Forgot Password?</Link>
+              <Link color={'primary'} href="/forgot-password">{t('forgot')}</Link>
             </Flex>
             <Flex
               w={"100%"}
@@ -91,15 +92,15 @@ const Login = () => {
                 isLoading={isSubmitting}
                 _hover={{ cursor: "pointer", opacity: "80%" }}
               >
-                Log In
+                {t('logIn')}
               </Button>
             </Flex>
           </form>
 
           <Text align={"center"}>
-            Don't have an account? Sign up{" "}
+            {t('dont')}{" "}
             <Link color={"primary"} href="/sign-up">
-              here
+               {t('here')}
             </Link>
           </Text>
         </Flex>

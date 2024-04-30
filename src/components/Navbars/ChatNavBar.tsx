@@ -11,13 +11,11 @@ import RecordVoiceOverOutlinedIcon from "@mui/icons-material/RecordVoiceOverOutl
 interface ChatNavBarProps {
   onMoodClick: () => void;
   onSpeechClick: () => void;
-  onLangaugeClick: () => void;
 }
 
 const ChatNavBar: React.FC<ChatNavBarProps> = ({
   onMoodClick,
   onSpeechClick,
-  onLangaugeClick,
 }) => {
 
   const router = useRouter();
@@ -61,17 +59,6 @@ const ChatNavBar: React.FC<ChatNavBarProps> = ({
             color={"primary"}
             aria-label="Mood Tracker"
             icon={<RiChatNewLine />}
-          />
-        </Tooltip>
-        <Tooltip label="Change Langauge">
-          <IconButton
-            bg={"none"}
-            fontSize={"1.6rem"}
-            _hover={{ bg: "none" }}
-            color={"primary"}
-            aria-label="Mood Tracker"
-            onClick={onLangaugeClick}
-            icon={<AiOutlineGlobal />}
           />
         </Tooltip>
         <Tooltip label="Mood?">

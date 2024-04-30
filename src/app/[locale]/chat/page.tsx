@@ -25,7 +25,7 @@ import {
 import { useContext, useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import config from "@/config";
-import { ASSETS } from "@/assets";
+import { ASSETS } from "@/app/[locale]/assets";
 import withAuth from "@/components/PrivateRoute";
 import AuthContext from "@/context/auth";
 import MoodTracker from "@/components/dialogs/moodTracker";
@@ -35,22 +35,10 @@ import { Button } from "@chakra-ui/react";
 import { keyframes } from "@emotion/react";
 import useToastNotification from "@/components/toast";
 import CrisisSupport from "@/components/dialogs/crisisSupport";
+import { useTranslations } from "next-intl";
 
-type Language = 'en' | 'ar';
 
 
-interface Translation {
-  wearHeadphones: string;
-  forBetterExperience: string;
-  start: string;
-  clickMicrophone: string;
-  howCanIHelp: string;
-  permissionError: string;
-  suggestedMessages: string[];
-  switchToArabic: string;
-  switchToEnglish: string;
-  typeMessage: string;
-}
 
 
 
@@ -67,43 +55,7 @@ interface HeadphonesModalProps {
 
 
 
-const translations = {
-  en: {
-    wearHeadphones: " Click the microphone to start talking with Echo",
-    forBetterExperience: "For a better speech-to-speech experience, please wear headphones.",
-    start: "Start",
-    clickMicrophone: "Click the microphone to start talking with Echo",
-    howCanIHelp: "How can I help you today?",
-    permissionError: "Error getting microphone permission",
-    suggestedMessages: [
-      "I've been feeling really overwhelmed lately and don't know what to do.",
-      "I'm trying to be more positive but find it challenging",
-      "What can I expect from these therapy sessions?",
-      "I feel like I need help but don't know where to start",
-    ],
-    switchToArabic: "Switch to Arabic",
-    switchToEnglish: "Switch to English",
-    typeMessage: "Type your thoughts here",
-  },
-  ar: {
-    wearHeadphones: "ارتدِ السماعات",
-    forBetterExperience: "لتجربة تحدث أفضل، يرجى ارتداء السماعات.",
-    start: "ابدأ",
-    clickMicrophone: "انقر على الميكروفون لبدء التحدث مع Echo",
-    howCanIHelp: "كيف يمكنني مساعدتك اليوم؟",
-    permissionError: "خطأ في الحصول على إذن الميكروفون",
-    suggestedMessages: [
-      "لقد شعرت بالإرهاق الشديد مؤخرًا ولا أعرف ماذا أفعل.",
-      "أحاول أن أكون أكثر إيجابية لكني أجد ذلك تحديًا",
-      "ما الذي يمكنني توقعه من هذه الجلسات العلاجية؟",
-      "أشعر أنني بحاجة إلى المساعدة لكن لا أعرف من أين أبدأ",
-    ],
-    switchToArabic: "تحويل إلى العربية",
-    switchToEnglish: "Switch to English",
-    typeMessage: "تحويل إلى العربية",
 
-  }
-};
 
 const HeadphonesModal: React.FC<HeadphonesModalProps> = ({
   isOpen,
@@ -157,11 +109,9 @@ const HeadphonesModal: React.FC<HeadphonesModalProps> = ({
 };
 
 const ChatPage = () => {
-  const [language, setLanguage] = useState('en'); // Default language
-  const text = translations[language];
-  const isRTL = language === 'ar';
   const [inputValue, setInputValue] = useState<string>("");
   const [messages, setMessages] = useState<Message[]>([]);
+  const t = useTranslations('Chat');
   const [ws, setWs] = useState<WebSocket | null>(null);
   const { user } = useContext(AuthContext);
   console.log(user);
@@ -305,11 +255,15 @@ const ChatPage = () => {
     setIsLoading(true);
   };
 
-  const toggleLanguage = () => {
-    console.log("wpo")
-    setLanguage((prev) => (prev === 'en' ? 'ar' : 'en'));
-  };
+  let suggestedMessages = [];
+  try {
+    suggestedMessages = JSON.parse(t('suggestedMessages'));
+  } catch (error) {
+    console.error('Failed to parse suggestedMessages:', error);
+  }
+  
 
+  
 
 
   return (
@@ -317,34 +271,9 @@ const ChatPage = () => {
       <ChatNavBar
         onMoodClick={onOpenMoodModal}
         onSpeechClick={toggleSpeechMode}
-        onLangaugeClick={toggleLanguage}
       />
 
 
-      {isSpeechMode ? (
-        <Flex
-          flex="1"
-          direction="column"
-          align="center"
-          justify="center"
-          bg="rgba(255, 255, 255, 0.8)"
-          backdropFilter="blur(10px)"
-        >
-          <IconButton
-            icon={<FaMicrophone />}
-            aria-label="Start Speech"
-            size="lg"
-            colorScheme="primary"
-            color="white"
-            isRound
-            onClick={handleStartSpeech}
-            isLoading={isRequestingMicPermission}
-          />
-          <Text mt={4} fontSize="xl">
-            {text.clickMicrophone}
-          </Text>
-        </Flex>
-      ) : (
         <>
           <MoodTracker open={isMoodModalOpen} onClose={onCloseMoodModal} />
           <CrisisSupport open={isCrisisSupportOpen} onClose={onCloseCrisisSupport} />
@@ -414,11 +343,11 @@ const ChatPage = () => {
               <Flex direction={"column"} h={"100%"} px={4} py={0}>
                 <Center mb={4} flex={1}>
                   <Text fontSize={['1rem','1rem','1rem','2xl']} fontWeight={300}>
-                  {text.howCanIHelp}
+                  {t('How')}
                   </Text>
                 </Center>
                 <Grid templateColumns="repeat(2, 1fr)" gap={2}>
-                  {text.suggestedMessages.map((message: string, index: number) => (
+                {suggestedMessages.map((message: string, index: number) => (
                     <Box
                       key={index}
                       p={4}
@@ -447,10 +376,10 @@ const ChatPage = () => {
               setInputValue={handleInputChange}
               handleKeyDown={handleKeyDown}
               sendMessage={sendMessage}
+              placeholder={t('thought')}
             />
           </Flex>
         </>
-      )}
       <HeadphonesModal
         isOpen={isHeadphonesModalOpen}
         onClose={onCloseHeadphonesModal}
