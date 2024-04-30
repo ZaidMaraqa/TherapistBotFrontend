@@ -1,4 +1,4 @@
-import DashBoard from "@/app/page";
+import DashBoard from "@/app/[locale]/page";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
 
 const muiTheme = createTheme({});

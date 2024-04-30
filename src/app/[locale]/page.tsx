@@ -3,16 +3,16 @@ import TickPlacementBars from "@/components/barChart/barChart";
 import DateCalendarServerRequest from "@/components/calendarPicker";
 import DatePickerOpenTo from "@/components/datePicker";
 import SessionItem from "@/components/sessionItem/sessionItem";
-import { sessions, dataset } from "../../public/constants";
+import { sessions, dataset } from "../../../public/constants";
 import { Typography, Box, Divider, Avatar, Button } from "@mui/material";
 import Stack from "@mui/material/Stack";
 import ResponsiveDrawer from "@/components/sideBar/sideBar";
-import { ASSETS } from "@/assets";
 import CallIcon from "@mui/icons-material/Call";
 import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
 import AccessAlarmIcon from "@mui/icons-material/AccessAlarm";
 import GaugeChart from "@/components/gaugeChart/gaugeChart";
 import { useRouter } from "next/navigation";
+import { ASSETS } from "./assets";
 export default function DashBoard() {
   const router = useRouter();
   return (

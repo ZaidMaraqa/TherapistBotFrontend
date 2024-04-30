@@ -1,10 +1,10 @@
 "use client";
 import { useContext, useState } from "react";
 import { Box, Flex } from "@chakra-ui/react";
-import WelcomeSection from "../../components/onBoarding/welcome";
-import ProgressBar from "../../components/onBoarding/progressBar";
-import Questionnaire from "../../components/onBoarding/Questionnaire";
-import { questions as questionsData } from "../../../public/constants";
+import WelcomeSection from "../../../components/onBoarding/welcome";
+import ProgressBar from "../../../components/onBoarding/progressBar";
+import Questionnaire from "../../../components/onBoarding/Questionnaire";
+import { questions as questionsData } from "../../../../public/constants";
 import config from "@/config";
 import AuthContext from "@/context/auth";
 import useToastNotification from "@/components/toast";

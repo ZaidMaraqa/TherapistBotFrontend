@@ -1,0 +1,37 @@
+{
+    "LogIn":{
+        "title": "Welcome Back",
+        "logIn": "Log In",
+        "dont": "Don't have an account? Sign up",
+        "here": "here",
+        "forgot": "Forgot Password?",
+        "email": "Email",
+        "password":"Password"
+    },
+    "Chat":{
+        "How": "How can I help you today?",
+        "thought": "Type your thoughts here...",
+        "suggestedMessages": "[\"I've been feeling really overwhelmed lately and don't know what to do.\", \"I'm trying to be more positive but find it challenging\", \"What can I expect from these therapy sessions?\", \"I feel like I need help but don't know where to start\"]",
+        "dont": "Don't have an account? Sign up"
+    },
+    "Signup":{
+        "title": "Create an account",
+        "subTitle": "A step towards a better emitional health.",
+        "signUp": "Sign Up",
+        "already": "Already have an account? Log in",
+        "here": "here",
+        "forgot": "Forgot Password?",
+        "email": "Email",
+        "firstName": "First Name",
+        "lastName": "Last Name",
+        "phone": "Phone Number",
+        "confirmPassword": "Password Confirmation",
+        "dob": "Date of Birth",
+        "password":"Password",
+        "place": "A place where you will be",
+        "loved": "loved",
+        "and": "and",
+        "supported": "supported",
+        "alone": "you are not alone here."
+    }
+}

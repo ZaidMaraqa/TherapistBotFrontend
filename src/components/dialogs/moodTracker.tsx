@@ -12,7 +12,7 @@ import {
     VStack,
 } from '@chakra-ui/react'
 import React from "react";
-import { ASSETS } from "@/assets";
+import { ASSETS } from "@/app/[locale]/assets";
 
 interface MoodTrackerProps {
     open: boolean;
