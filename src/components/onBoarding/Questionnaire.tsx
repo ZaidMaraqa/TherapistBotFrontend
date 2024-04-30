@@ -2,14 +2,15 @@ import { useState, useEffect } from "react";
 import { VStack, Text, Button, HStack, Heading, Box } from "@chakra-ui/react";
 import { motion } from "framer-motion";
 import useToastNotification from "../toast";
+import { useTranslations } from "next-intl";
 
 interface Question {
     text: string;
-    options: string[];
+    options: any;
 }
 
 interface Props {
-    question: Question;
+    question: any;
     onNext: (selectedOptions: string[]) => void;
     onPrevious: (selectedOptions: string[]) => void;
     onFinish: (selectedOptions: string[]) => void;
@@ -33,6 +34,13 @@ export default function Questionnaire({
 }: Props) {
     const [selectedOptionsState, setSelectedOptionsState] = useState<string[]>([]);
     const showToast = useToastNotification();
+    const t = useTranslations('onboarding');
+
+    console.log(question);
+
+    
+
+
 
     useEffect(() => {
         setSelectedOptionsState(selectedOptions);
@@ -70,7 +78,7 @@ export default function Questionnaire({
     return (
         <VStack align="center" spacing={7} p={6}>
             <Text fontSize="lg">
-                Question {questionNumber} out of {totalQuestions}
+                {t('question')} {questionNumber} {t('of')} {totalQuestions}
             </Text>
             <motion.div
                 initial={{ opacity: 0 }}
@@ -82,12 +90,12 @@ export default function Questionnaire({
                         {question.text}
                     </Heading>
                     <Text textAlign="center" fontWeight="bold" color="primary" fontSize={'0.9rem'}>
-                        Select one or more options
+                        {t('select')}
                     </Text>
                 </VStack>
                 <VStack mt={10} spacing={5} width="100%">
                     <Box width="40%" textAlign="center">
-                        {question.options.map((option, index) => (
+                        {question.options.map((option: any, index: any) => (
                             <Button
                                 key={index}
                                 onClick={() => handleOptionClick(option)}
@@ -124,7 +132,7 @@ export default function Questionnaire({
                     px={'2rem'}
                     py={'1.5rem'}
                 >
-                    Previous
+                    {t('previous')}
                 </Button>
                 <Button
                     onClick={handleNextClick}
@@ -141,7 +149,7 @@ export default function Questionnaire({
                     py={'1.5rem'}
                     isLoading={isSubmitting}
                 >
-                    {isLast ? "Finish" : "Next"}
+                    {isLast ? t("finish") : t('next')}
                 </Button>
             </HStack>
         </VStack>

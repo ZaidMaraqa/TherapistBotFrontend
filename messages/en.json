@@ -33,5 +33,46 @@
         "and": "and",
         "supported": "supported",
         "alone": "you are not alone here."
+    },
+
+    "Welcome":{
+        "title": "Welcome to Echo, {name}",
+        "subTitle": "It's great to have you! Let's personalize your support journey with a few quick questions.",
+        "start": "Start your Journey"
+    },
+
+    "onboarding": {
+        "question1_text": "How do you prefer to spend your free time?",
+        "question1_option1": "Engaging in physical activities or sports",
+        "question1_option2": "Reading, writing, or engaging in other solitary activities",
+        "question1_option3": "Spending time with friends and family",
+        "question1_option4": "Other",
+
+        "question2_text": "What kind of support do you find most helpful when feeling down?",
+        "question2_option1": "Practical advice and solutions",
+        "question2_option2": "A listening ear and emotional support",
+        "question2_option3": "Distractions and ways to cheer up",
+        "question2_option4": "Space and time to process my feelings",
+
+        "question3_text": "Which of the following best describes your communication preference?",
+        "question3_option1": "Direct and to the point",
+        "question3_option2": "Thoughtful and reflective",
+        "question3_option3": "Open and expressive",
+        "question3_option4": "Reserved and private",
+
+        "question4_text": "What motivates you the most in challenging situations?",
+        "question4_option1": "Achieving personal goals and self-improvement",
+        "question4_option2": "Support and encouragement from others",
+        "question4_option3": "A desire to overcome obstacles and challenges",
+        "question4_option4": "Maintaining harmony and positive relationships",
+
+
+        "next": "Next",
+        "finish": "Finish",
+        "previous": "Previous",
+        "select": "Select one or more options",
+        "question": "Question",
+        "of": "out of"
+        
     }
 }

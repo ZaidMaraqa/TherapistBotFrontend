@@ -4,13 +4,18 @@ import { Box, Flex } from "@chakra-ui/react";
 import WelcomeSection from "../../../components/onBoarding/welcome";
 import ProgressBar from "../../../components/onBoarding/progressBar";
 import Questionnaire from "../../../components/onBoarding/Questionnaire";
-import { questions as questionsData } from "../../../../public/constants";
 import config from "@/config";
 import AuthContext from "@/context/auth";
 import useToastNotification from "@/components/toast";
 import { useRouter } from "next/navigation";
 import withAuth from "@/components/PrivateRoute";
 import NavBar from "@/components/Navbars/navBar";
+import { useTranslations } from "next-intl";
+
+interface Question {
+  text: string;
+  options: any;
+}
 
 const OnBoarding = () => {
   const [currentQuestion, setCurrentQuestion] = useState(0);
@@ -18,9 +23,41 @@ const OnBoarding = () => {
   const toast = useToastNotification();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const router = useRouter();
+  const t = useTranslations('onboarding');
+
+  const questions = [
+    {
+      key: 'question1',
+      optionsCount: 4
+    },
+    {
+      key: 'question2',
+      optionsCount: 4
+    },
+    {
+      key: 'question3',
+      optionsCount: 4
+    },
+    {
+      key: 'question4',
+      optionsCount: 4
+    }
+  ];
+
+  const questionsData = questions.map(question => ({
+    text: t(`${question.key}_text`),
+    options: Array.from({ length: question.optionsCount }, (_, i) =>
+      t(`${question.key}_option${i + 1}`)
+    )
+  }));
+
+
   const [selectedOptions, setSelectedOptions] = useState(
     Array(questionsData.length).fill([])
   );
+
+
+
 
   const startJourney = () => setCurrentQuestion(1);
 
@@ -38,6 +75,7 @@ const OnBoarding = () => {
   };
 
   const sendToServer = async () => {
+    console.log(selectedOptions);
     setIsSubmitting(true);
     if (!user) {
         toast({
@@ -47,6 +85,7 @@ const OnBoarding = () => {
         });
         return;
       }
+
 
     const response = await fetch(
       `${config.apiUrl}/update_onboarding_questions`,

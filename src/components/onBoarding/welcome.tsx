@@ -2,6 +2,7 @@ import { VStack, Text, Heading, Button, Box, HStack } from "@chakra-ui/react";
 import { useContext, useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import AuthContext from "@/context/auth";
+import { useTranslations } from "next-intl";
 
 interface WelcomeSectionProps {
     onStart: () => void; 
@@ -10,6 +11,7 @@ interface WelcomeSectionProps {
 const WelcomeSection: React.FC<WelcomeSectionProps> = ({ onStart }) => { 
     const [show, setShow] = useState(false);
     const { user } = useContext(AuthContext);
+    const t = useTranslations('Welcome');
 
     useEffect(() => {
         setTimeout(() => {
@@ -25,15 +27,14 @@ const WelcomeSection: React.FC<WelcomeSectionProps> = ({ onStart }) => {
                 transition={{ duration: 0.6, ease: "easeInOut" }}
             >
                 <VStack justifyContent={'center'} alignItems={'center'} spacing={6}>
-                    <Heading as='h1' size='xl' noOfLines={1} color={'#231e5b'}>Welcome to Echo, {user?.first_name}</Heading>
+                    <Heading as='h1' size='xl' noOfLines={1} color={'#231e5b'}>{ t('title', {name: user?.first_name}) }</Heading>
                     <Box textAlign={'center'} maxW={'37.5rem'}>
                         <Text fontSize='lg'>
-                            It's great to have you! Let's personalize your support journey with a
-                            few quick questions.
+                            {t('subTitle')}
                         </Text>
                     </Box>
                     <Button bg='#231e5b' color={'white'} borderRadius={'full'} size='lg' onClick={onStart}>
-                        Start your Journey
+                        {t('start')}
                     </Button>
                 </VStack>
             </motion.div>
