@@ -75,7 +75,7 @@ const OnBoarding = () => {
   };
 
   const sendToServer = async () => {
-    console.log(selectedOptions);
+    // localStorage.setItem('onBoardingQuestions', selectedOptions)
     setIsSubmitting(true);
     if (!user) {
         toast({

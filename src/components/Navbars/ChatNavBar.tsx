@@ -2,13 +2,10 @@ import { Flex, IconButton, Select, Text, Tooltip } from "@chakra-ui/react";
 import { IoHappyOutline } from "react-icons/io5";
 import { RiChatNewLine } from "react-icons/ri";
 import { IoLogOutOutline } from "react-icons/io5";
-import { AiOutlineGlobal } from "react-icons/ai";
-
 import { useRouter } from "next/navigation";
 import RecordVoiceOverOutlinedIcon from "@mui/icons-material/RecordVoiceOverOutlined";
 import { useLocale } from "next-intl";
 import { ChangeEvent, useTransition } from "react";
-
 
 interface ChatNavBarProps {
   onMoodClick: () => void;
@@ -19,20 +16,17 @@ const ChatNavBar: React.FC<ChatNavBarProps> = ({
   onMoodClick,
   onSpeechClick,
 }) => {
-
   const [isPending, startTransition] = useTransition();
   const localeActive = useLocale();
   const router = useRouter();
 
-
   const onSelectChange = (e: ChangeEvent<HTMLSelectElement>) => {
     const nextLocale = e.target.value;
     startTransition(() => {
-        window.location.pathname = `/${nextLocale}` + window.location.pathname.substr(3);
+      window.location.pathname =
+        `/${nextLocale}` + window.location.pathname.substr(3);
     });
   };
-
-
 
   return (
     <Flex
@@ -55,10 +49,14 @@ const ChatNavBar: React.FC<ChatNavBarProps> = ({
         Echo
       </Text>
       <Flex alignItems={"center"} gap={"1rem"}>
-            <Select defaultValue={localeActive} onChange={onSelectChange} w={'fit-content'} >
-                <option value='en'>English</option>
-                <option value='ar'>عربي</option>
-            </Select>
+        <Select
+          defaultValue={localeActive}
+          onChange={onSelectChange}
+          w={"fit-content"}
+        >
+          <option value="en">English</option>
+          <option value="ar">عربي</option>
+        </Select>
         <Tooltip label="Talk to Echo">
           <IconButton
             bg={"none"}
