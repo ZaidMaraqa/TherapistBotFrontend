@@ -15,33 +15,34 @@ import { useTranslations } from "next-intl";
 
 
 
-const validationSchema = Yup.object({
-  first_name: Yup.string().required("First name is required"),
-  last_name: Yup.string().required("Last name is required"),
-  phone_number: Yup.string().required("Phone Number is required"),
-  email: Yup.string()
-    .email("Invalid email address")
-    .required("Email is required"),
-  password: Yup.string()
-    .matches(/(?=.*[a-z])/, "One lowercase character")
-    .matches(/(?=.*[A-Z])/, "One uppercase character")
-    .matches(/(?=.*[0-9])/, "One number")
-    .min(8, "Password must be at least 8 characters long")
-    .required("Password is required"),
-  passwordC: Yup.string()
-    .oneOf([Yup.ref("password")], "Passwords must match")
-    .required("Password confirmation is required"),
-  date_of_birth: Yup.string()
-    // .matches(/^(0[1-9]|[12][0-9]|3[01])\/(0[1-9]|1[012])\/([0-9]{2})$/, {
-    //   message: "DOB must be in dd/mm/yy format",
-    //   excludeEmptyString: true
-    // })
-    .required("DOB is required")
-});
+
 
 
 const SignUp = () => {
   const t  = useTranslations("Signup");
+
+
+  const validationSchema = Yup.object({
+    first_name: Yup.string().required(t('firstNameRequired')),
+    last_name: Yup.string().required(t('LastNameRequired')),
+    phone_number: Yup.string().required(t('phoneRequired')),
+    email: Yup.string()
+      .email(t('InvalidEmail'))
+      .required(t('emailRequired')),
+    password: Yup.string()
+      .matches(/(?=.*[a-z])/, t('passswordLower'))
+      .matches(/(?=.*[A-Z])/, t('passswordUpper'))
+      .matches(/(?=.*[0-9])/, t('passwordNumber'))
+      .min(8, t('passwordLength'))
+      .required(t('passwordRequired')),
+    passwordC: Yup.string()
+      .oneOf([Yup.ref("password")], t("passwordMatch"))
+      .required(t('passwordCR')),
+    date_of_birth: Yup.string()
+      .required(t('DOBrequired'))
+  });
+
+
   const { signup } = useContext(AuthContext);
 
   const { handleSubmit, errors, values, handleChange, handleBlur, touched, isSubmitting, setSubmitting } =

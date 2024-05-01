@@ -11,6 +11,11 @@ const activeLabelStyles = {
 };
 
 
+const rtlActiveLabelStyles = {
+  transform: "scale(0.875) translateY(-30px) translateX(20px)",
+};
+
+
 export const theme: Theme = extendTheme(
   {
     styles: {

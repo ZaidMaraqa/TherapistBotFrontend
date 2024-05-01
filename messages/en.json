@@ -34,7 +34,20 @@
         "loved": "loved",
         "and": "and",
         "supported": "supported",
-        "alone": "you are not alone here."
+        "alone": "you are not alone here.",
+        "firstNameRequired": "First name is required",
+        "LastNameRequired": "Last name is required",
+        "phoneRequired": "Phone Number is required",
+        "InvalidEmail": "Invalid email address",
+        "emailRequired": "Email is required",
+        "passwordRequired": "Password is required",
+        "passwordMatch": "Passwords must match",
+        "passwordCR": "Confirm password is required",
+        "DOBrequired": "DOB is required",
+        "passswordLower": "Must contain one lowercase character",
+        "passswordUpper": "Must contain one uppercase character",
+        "passwordLength": "Password must be at least 8 characters",
+        "passwordNumber": "Must contain one number"
     },
 
     "Welcome":{
@@ -76,5 +89,19 @@
         "question": "Question",
         "of": "out of"
         
+    },
+
+    "OTP":{
+        "enter": "Enter OTP",
+        "descripition": "Please enter the four digit code sent to you via WhatsApp",
+        "Verify": "Verify",
+        "required": "OTP is required",
+        "match": "OTP must be exactly 4 digits",
+        "incorrect": "Incorrect OTP",
+        "error": "Verification Error",
+        "sucess": "Verification Successful",
+        "sde": "Your account has been successfully verified"
     }
+
+
 }

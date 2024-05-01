@@ -16,19 +16,20 @@ import AuthContext from "@/context/auth";
 import useToastNotification from "@/components/toast";
 import { useRouter } from "next/navigation";
 import Cookie from "js-cookie";
+import { useTranslations } from "next-intl";
 
 
 const Otp = () => {
   const { user, authTokens } = useContext(AuthContext);
   const toast = useToastNotification();
   const router = useRouter();
+  const t = useTranslations('OTP')
   console.log(user);
 
   const verifyOtp = async () => {
     if (!user || !authTokens ) {
       toast({
-        title: "Verification Error",
-        description: "No user data available for verification.",
+        title: t('error'),
         status: "error",
       });
       return;
@@ -46,8 +47,8 @@ const Otp = () => {
     if (!response.ok) throw new Error(data.message || "Verification failed");
 
     toast({
-      title: "Verification Successful",
-      description: "Your account has been successfully verified.",
+      title: t('sucess'),
+      description: t('sde'),
       status: "success",
     });
     Cookie.set("token", authTokens);
@@ -58,14 +59,14 @@ const Otp = () => {
     initialValues: { otp: "" },
     validationSchema: Yup.object({
       otp: Yup.string()
-        .required("OTP is required")
-        .matches(/^\d{4}$/, "OTP must be exactly 4 digits"),
+        .required(t('required'))
+        .matches(/^\d{4}$/, t('match')),
     }),
     onSubmit: (values) => {
       if (values.otp === user?.otp.toString()) {
         verifyOtp()
           .finally(() => {
-            setSubmitting(false); // Ensure isSubmitting is set to false after login attempt
+            setSubmitting(false); 
           });
       } else {
         setSubmitting(false);
@@ -103,7 +104,7 @@ const Otp = () => {
         gap={"30px"}
       >
         <Text fontWeight={700} fontSize={"1.875rem"} color={"primary"}>
-          Enter OTP
+          {t('enter')}
         </Text>
         <Text
           fontSize={"1.25rem"}
@@ -111,7 +112,7 @@ const Otp = () => {
           align={"center"}
           flexWrap={"wrap"}
         >
-          Please enter the four digit code sent to you via WhatsApp
+          {t('descripition')}
         </Text>
 
         <form onSubmit={handleSubmit}>
@@ -127,7 +128,7 @@ const Otp = () => {
             <Text color="red.500">{errors.otp}</Text>
           ) : null}
           <Button type="submit" isLoading={isSubmitting} w={"100%"} mt={8} mb={4}>
-            Verify
+            {t('Verify')}
           </Button>
         </form>
       </Flex>
