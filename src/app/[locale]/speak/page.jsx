@@ -8,19 +8,28 @@ import {
   Text,
   VStack,
   keyframes,
+  useDisclosure,
 } from "@chakra-ui/react";
-import { useContext, useEffect, useState } from "react";
+import { use, useContext, useEffect, useState } from "react";
 import SpeakNav from "@/components/Navbars/speakNav";
 import Vapi from "@vapi-ai/web";
+import MoodTracker from "@/components/dialogs/moodTracker";
+import { useTranslations } from "next-intl";
 
 const vapi = new Vapi("");
 
 const SpeakPage = () => {
   const { user } = useContext(AuthContext)
+  const {
+    isOpen: isMoodModalOpen,
+    onOpen: onOpenMoodModal,
+    onClose: onCloseMoodModal,
+  } = useDisclosure();
 
+  const t = useTranslations("speechPage");
   const [connecting, setConnecting] = useState(false);
   const [connected, setConnected] = useState(false);
-
+  const [introText, setIntroText] = useState(t('intro'));
   const [assistantIsSpeaking, setAssistantIsSpeaking] = useState(false);
   const [volumeLevel, setVolumeLevel] = useState(0);
 
@@ -29,23 +38,25 @@ const SpeakPage = () => {
       console.log("Call started");
       setConnecting(false);
       setConnected(true);
+      setIntroText(t('connected'));
+
     });
 
     vapi.on("call-end", () => {
-      console.log("Call ended");
-
+      console.log("Call ended")
+      setIntroText(t('ended'))
       setConnected(false);
       setConnecting(false);
     });
 
     vapi.on("speech-start", () => {
       console.log("Call started");
-
       setAssistantIsSpeaking(true);
     });
 
     vapi.on("speech-end", () => {
       setAssistantIsSpeaking(false);
+
     });
 
     vapi.on("volume-level", (level) => {
@@ -54,24 +65,28 @@ const SpeakPage = () => {
 
     vapi.on("error", (error) => {
       console.error("Vapi error:", error);
+      setIntroText("An error occurred, please try reconnecting.");
+
       setConnecting(false);
+      setConnected(false);
     });
-  }, []);
+  }, [connecting, connected]);
 
   const startAssistant = () => {
     console.log("Starting assistant");
-    setConnected(true);
+    setIntroText(t('setup'));
+
+    setConnecting(true);
     vapi.start(assistantOptions);
   };
 
   const endAssistant = () => {
     vapi.stop();
-    setConnected(false);
     console.log("ending assistant");
   };
 
   const assistantOptions = {
-    name: "Favorte Place Front Desk",
+    name: "Echo AI Therapist",
     firstMessage:
     `Hello ${user?.first_name || 'there'}, I'm Echo. What can I do to make you feel better today?`,
     transcriber: {
@@ -112,8 +127,9 @@ const SpeakPage = () => {
               ***
               Here is everything that you need to know about the patient.
 
-              The patient's name is ${user?.first_name || 'unknown'}
+              The patient's name is ${user?.first_name || 'unknown'}. DO NOT SAY THEIR NAME IN EVERY MESSAGE ONLY WHEN IT SEEMS APPROPRIATE.
               The patient was born ${user?.date_of_birth || 'unknown'}
+              The patient is from ${user?.country || 'unknown'}.
               ***
               ###RULES###:
                   - Your primary role is to provide emotional support. do not deviate to other roles or tasks.
@@ -137,7 +153,7 @@ const SpeakPage = () => {
                   - chat_history is only for context and never meant to be taken as user input
                   - Respond to the user in a way that incorporates the ON BOARDING QUESTIONS as context for your response, it further elaborates the mental state of the person involved.
                   - Respond to the user in a way that incorporates chat_history as context for your response
-                  - Expect the user to tell you about his feelings in the first few messages for example the user saying "I'm sad today", so answer the user to elaborate more on his issue.
+                  - Expect the user to tell you about his feelings in the first few messages for example the user saying "I'm sad today", so answer the user to elaborate more on his issue or if you have enough information provide suggestions.
                   - Use first-person expressions, everyday language, and even idioms or phrases that bring warmth and closeness to the conversation. 
                   - In your responses, use a tone and language that's friendly and casual, like a caring and understanding friend would.
                   - Mention the name of the user from time to time to make it even more personalized and to make him feel important, specially at the first message.
@@ -186,7 +202,7 @@ const SpeakPage = () => {
       bgGradient="linear(to-b, #231e5b, white)"
       h={"100vh"}
     >
-      <SpeakNav />
+      <SpeakNav onMoodClick={onOpenMoodModal} />
       <Flex
         direction={"column"}
         justifyContent={"center"}
@@ -195,7 +211,7 @@ const SpeakPage = () => {
       >
         <VStack justifyContent={"center"} spacing={"1.25rem"}>
           <Text color="white" textAlign={"center"}>
-            For a better speech-to-speech experience, please wear headphones.
+          {introText}
           </Text>
           <Button
             w={"12rem"}
@@ -203,7 +219,7 @@ const SpeakPage = () => {
             h={"12rem"}
             backgroundSize="cover"
             borderRadius="full"
-            boxShadow={assistantIsSpeaking ? "0 0 8px 2px red" : "none"}
+            boxShadow={assistantIsSpeaking ? "0 0 20px 20px rgba(255, 0, 0, 0.7)" : "none"}
             onClick={connected ? endAssistant : startAssistant}
             mb={"0.5rem"}
             animation={`${breatheAnimation} 1.5s ease-in-out infinite alternate`}
@@ -214,6 +230,7 @@ const SpeakPage = () => {
             }}
           ></Button>
         </VStack>
+        <MoodTracker open={isMoodModalOpen} onClose={onCloseMoodModal} />
       </Flex>
     </Flex>
   );

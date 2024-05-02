@@ -101,7 +101,27 @@
         "error": "Verification Error",
         "sucess": "Verification Successful",
         "sde": "Your account has been successfully verified"
+    },
+
+
+    "Nav": {
+        "speak": "Chat with Echo",
+        "mood": "Update mood",
+        "exit": "Exit chat"
+    },
+    "SpeakNav": {
+        "mood": "Update mood",
+        "exit": "Exit session"
+    },
+
+    "speechPage": {
+        "intro": "Ready to talk? Click the button below to start a conversation with Echo, your virtual therapy assistant.",
+        "connected": "Echo is ready to listen. Click the button below to end the conversation.",
+        "ended":"We hope you enjoyed the conversation. Click the button below to start a new one.",
+        "setup": "Echo is getting ready..."
     }
+
+
 
 
 }

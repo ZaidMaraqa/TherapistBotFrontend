@@ -7,20 +7,11 @@ import {
   Flex,
   Grid,
   HStack,
-  IconButton,
   Image,
-  Modal,
-  ModalBody,
-  ModalContent,
-  ModalFooter,
-  ModalHeader,
-  ModalOverlay,
   Spinner,
   Text,
   VStack,
   useDisclosure,
-  Slide,
-  Tooltip,
 } from "@chakra-ui/react";
 import { useContext, useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
@@ -29,17 +20,9 @@ import { ASSETS } from "@/app/[locale]/assets";
 import withAuth from "@/components/PrivateRoute";
 import AuthContext from "@/context/auth";
 import MoodTracker from "@/components/dialogs/moodTracker";
-import { FaGlobe, FaMicrophone } from "react-icons/fa";
-import HeadphonesIcon from "@mui/icons-material/Headphones";
-import { Button } from "@chakra-ui/react";
-import { keyframes } from "@emotion/react";
 import useToastNotification from "@/components/toast";
 import CrisisSupport from "@/components/dialogs/crisisSupport";
 import { useTranslations } from "next-intl";
-
-
-
-
 
 
 interface Message {
@@ -47,66 +30,7 @@ interface Message {
   content: string;
 }
 
-interface HeadphonesModalProps {
-  isOpen: boolean;
-  onClose: () => void;
-  onStart: () => void;
-}
 
-
-
-
-
-const HeadphonesModal: React.FC<HeadphonesModalProps> = ({
-  isOpen,
-  onClose,
-  onStart,
-}) => {
-  const { user } = useContext(AuthContext);
-
-
-
-
-  return (
-    <Modal isOpen={isOpen} onClose={onClose} isCentered>
-      <Slide in={isOpen} direction="bottom">
-        <ModalContent bg={"white"}>
-          <ModalHeader
-            as={Flex}
-            justifyContent={"center"}
-            fontSize={"1.5625rem"}
-            color={"primary"}
-          >
-            Wear Headphones
-          </ModalHeader>
-          <ModalBody>
-            <VStack justifyContent={"center"} spacing={"1.25rem"}>
-              <Box
-                as={HeadphonesIcon}
-                sx={{ fontSize: 128, color: "#231E5B" }}
-              />
-              <Text color="#231E5B" textAlign={"center"}>
-                For a better speech-to-speech experience, please wear
-                headphones.
-              </Text>
-              <Button
-                w={"100%"}
-                colorScheme="primary"
-                color={"white"}
-                onClick={onStart}
-                mb={"0.5rem"}
-                bg="#231E5B"
-                _hover={{ bg: "#231E5B" }}
-              >
-                Start
-              </Button>
-            </VStack>
-          </ModalBody>
-        </ModalContent>
-      </Slide>
-    </Modal>
-  );
-};
 
 const ChatPage = () => {
   const [inputValue, setInputValue] = useState<string>("");
@@ -116,10 +40,7 @@ const ChatPage = () => {
   const { user } = useContext(AuthContext);
   console.log(user);
   const [isOpen, setIsOpen] = useState(true);
-  const [streamingMessage, setStreamingMessage] = useState<string>("");
   const [isLoading, setIsLoading] = useState<boolean>(false);
-  const [isRequestingMicPermission, setIsRequestingMicPermission] =
-    useState(false);
   const toast = useToastNotification();
   const {
     isOpen: isCrisisSupportOpen,
@@ -131,45 +52,10 @@ const ChatPage = () => {
     onOpen: onOpenMoodModal,
     onClose: onCloseMoodModal,
   } = useDisclosure();
-  const router = useRouter();
-  const [isSpeechMode, setIsSpeechMode] = useState(false);
-  const {
-    isOpen: isHeadphonesModalOpen,
-    onOpen: onOpenHeadphonesModal,
-    onClose: onCloseHeadphonesModal,
-  } = useDisclosure();
 
-  const toggleSpeechMode = () => {
-    if (!isSpeechMode) {
-      onOpenHeadphonesModal();
-    } else {
-      setIsSpeechMode(false);
-    }
-  };
+  
 
-  const startSpeechMode = () => {
-    setIsSpeechMode(true);
-    onCloseHeadphonesModal();
-  };
-
-  const handleStartSpeech = () => {
-    setIsRequestingMicPermission(true);
-    getMicPermission();
-  };
-
-  const getMicPermission = async () => {
-    try {
-      await navigator.mediaDevices.getUserMedia({ audio: true });
-      startSpeechMode();
-    } catch (err) {
-      toast({
-        title: "Permission Error",
-        description: "Error getting microphone permission",
-        status: "error",
-      });
-      setIsSpeechMode(false);
-    }
-  };
+ 
 
   const handleIncomingMessage = (data: any) => {
     const newMessage: Message = {
@@ -270,7 +156,6 @@ const ChatPage = () => {
     <Flex direction={"column"} w={"100vw"} h={"100vh"}>
       <ChatNavBar
         onMoodClick={onOpenMoodModal}
-        onSpeechClick={toggleSpeechMode}
       />
 
 
@@ -380,13 +265,8 @@ const ChatPage = () => {
             />
           </Flex>
         </>
-      <HeadphonesModal
-        isOpen={isHeadphonesModalOpen}
-        onClose={onCloseHeadphonesModal}
-        onStart={startSpeechMode}
-      />
     </Flex>
   );
 };
 
-export default ChatPage;
+export default withAuth(ChatPage);

@@ -4,20 +4,19 @@ import { RiChatNewLine } from "react-icons/ri";
 import { IoLogOutOutline } from "react-icons/io5";
 import { useRouter } from "next/navigation";
 import RecordVoiceOverOutlinedIcon from "@mui/icons-material/RecordVoiceOverOutlined";
-import { useLocale } from "next-intl";
-import { ChangeEvent, useTransition } from "react";
+import { useLocale, useTranslations } from "next-intl";
+import { ChangeEvent, use, useTransition } from "react";
 
 interface ChatNavBarProps {
   onMoodClick: () => void;
-  onSpeechClick: () => void;
 }
 
 const ChatNavBar: React.FC<ChatNavBarProps> = ({
   onMoodClick,
-  onSpeechClick,
 }) => {
   const [isPending, startTransition] = useTransition();
   const localeActive = useLocale();
+  const t = useTranslations("Nav");
   const router = useRouter();
 
   const onSelectChange = (e: ChangeEvent<HTMLSelectElement>) => {
@@ -57,7 +56,7 @@ const ChatNavBar: React.FC<ChatNavBarProps> = ({
           <option value="en">English</option>
           <option value="ar">عربي</option>
         </Select>
-        <Tooltip label="Talk to Echo">
+        <Tooltip label={t('speak')}>
           <IconButton
             bg={"none"}
             fontSize={"1.875rem"}
@@ -68,7 +67,7 @@ const ChatNavBar: React.FC<ChatNavBarProps> = ({
             onClick={() => router.push("/speak")}
           />
         </Tooltip>
-        <Tooltip label="New Chat">
+        {/* <Tooltip label="New Chat">
           <IconButton
             bg={"none"}
             fontSize={"1.6rem"}
@@ -77,8 +76,8 @@ const ChatNavBar: React.FC<ChatNavBarProps> = ({
             aria-label="Mood Tracker"
             icon={<RiChatNewLine />}
           />
-        </Tooltip>
-        <Tooltip label="Mood?">
+        </Tooltip> */}
+        <Tooltip label={t('mood')}>
           <IconButton
             bg={"none"}
             fontSize={"1.7rem"}
@@ -89,7 +88,7 @@ const ChatNavBar: React.FC<ChatNavBarProps> = ({
             icon={<IoHappyOutline />}
           />
         </Tooltip>
-        <Tooltip label="Exit Chat">
+        <Tooltip label={t('exit')}>
           <IconButton
             bg={"none"}
             fontSize={"1.7rem"}
