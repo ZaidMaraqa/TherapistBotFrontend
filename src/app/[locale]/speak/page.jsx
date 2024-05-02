@@ -1,10 +1,8 @@
 "use client";
 import AuthContext from "@/context/auth";
 import {
-  Box,
   Button,
   Flex,
-  Heading,
   Text,
   VStack,
   keyframes,
@@ -16,7 +14,7 @@ import Vapi from "@vapi-ai/web";
 import MoodTracker from "@/components/dialogs/moodTracker";
 import { useTranslations } from "next-intl";
 
-const vapi = new Vapi("");
+const vapi = new Vapi("784b3a5f-be29-40b3-a64b-05ff5a9da1f7");
 
 const SpeakPage = () => {
   const { user } = useContext(AuthContext)
@@ -32,6 +30,28 @@ const SpeakPage = () => {
   const [introText, setIntroText] = useState(t('intro'));
   const [assistantIsSpeaking, setAssistantIsSpeaking] = useState(false);
   const [volumeLevel, setVolumeLevel] = useState(0);
+  const [questionsAndAnswers, setQuestionsAndAnswers] = useState([]);
+  const [formattedQuestionsAndAnswers, setFormattedQuestionsAndAnswers] = useState('');
+
+  useEffect(() => {
+    const loadedData = localStorage.getItem('onBoardingQuestions');
+    if (loadedData) {
+      const parsedData = JSON.parse(loadedData);
+      if (typeof parsedData === 'object' && parsedData !== null && !Array.isArray(parsedData)) {
+        const formattedData = Object.entries(parsedData).map(([question, answers]) => 
+          `\n- ${question}: ${answers.join(', ')}`
+        ).join('');
+        setFormattedQuestionsAndAnswers(formattedData);
+      } else {
+        console.error('Expected an object, got:', typeof parsedData);
+      }
+    }
+  }, []);
+  
+  
+
+  
+
 
   useEffect(() => {
     vapi.on("call-start", () => {
@@ -73,6 +93,8 @@ const SpeakPage = () => {
   }, [connecting, connected]);
 
   const startAssistant = () => {
+    console.log(formattedQuestionsAndAnswers); // Check the actual content
+
     console.log("Starting assistant");
     setIntroText(t('setup'));
 
@@ -88,7 +110,7 @@ const SpeakPage = () => {
   const assistantOptions = {
     name: "Echo AI Therapist",
     firstMessage:
-    `Hello ${user?.first_name || 'there'}, I'm Echo. What can I do to make you feel better today?`,
+    `Hello ${user?.first_name || 'there'}, ${questionsAndAnswers} I'm Echo. What can I do to make you feel better today?`,
     transcriber: {
       provider: "deepgram",
       model: "nova-2",
@@ -130,6 +152,7 @@ const SpeakPage = () => {
               The patient's name is ${user?.first_name || 'unknown'}. DO NOT SAY THEIR NAME IN EVERY MESSAGE ONLY WHEN IT SEEMS APPROPRIATE.
               The patient was born ${user?.date_of_birth || 'unknown'}
               The patient is from ${user?.country || 'unknown'}.
+              Here are some details from our initial onboarding session:${formattedQuestionsAndAnswers}
               ***
               ###RULES###:
                   - Your primary role is to provide emotional support. do not deviate to other roles or tasks.

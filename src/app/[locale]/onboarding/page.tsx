@@ -1,5 +1,5 @@
 "use client";
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { Box, Flex } from "@chakra-ui/react";
 import WelcomeSection from "../../../components/onBoarding/welcome";
 import ProgressBar from "../../../components/onBoarding/progressBar";
@@ -12,9 +12,8 @@ import withAuth from "@/components/PrivateRoute";
 import NavBar from "@/components/Navbars/navBar";
 import { useTranslations } from "next-intl";
 
-interface Question {
-  text: string;
-  options: any;
+interface Mapping {
+  [key: string]: string[]; // Define the value type based on what selectedOptions contains
 }
 
 const OnBoarding = () => {
@@ -41,6 +40,10 @@ const OnBoarding = () => {
     {
       key: 'question4',
       optionsCount: 4
+    },
+    {
+      key: 'question5',
+      optionsCount: 4
     }
   ];
 
@@ -55,6 +58,19 @@ const OnBoarding = () => {
   const [selectedOptions, setSelectedOptions] = useState(
     Array(questionsData.length).fill([])
   );
+
+
+  const getQuestionAnswerMapping = () => {
+    const mapping: Mapping = {}; 
+    questionsData.forEach((question, index) => {
+      mapping[question.text] = selectedOptions[index];
+    });
+  
+    console.log(mapping);
+    return mapping;
+  };
+
+
 
 
 
@@ -75,7 +91,9 @@ const OnBoarding = () => {
   };
 
   const sendToServer = async () => {
-    // localStorage.setItem('onBoardingQuestions', selectedOptions)
+    const questionAnswerMapping = getQuestionAnswerMapping();
+
+    localStorage.setItem('onBoardingQuestions', JSON.stringify(questionAnswerMapping));
     setIsSubmitting(true);
     if (!user) {
         toast({

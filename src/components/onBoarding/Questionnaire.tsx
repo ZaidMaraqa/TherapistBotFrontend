@@ -34,27 +34,27 @@ export default function Questionnaire({
 }: Props) {
     const [selectedOptionsState, setSelectedOptionsState] = useState<string[]>([]);
     const showToast = useToastNotification();
-    const t = useTranslations('onboarding');
-
-    console.log(question);
-
-    
+    const t = useTranslations('onboarding');    
 
 
 
     useEffect(() => {
-        setSelectedOptionsState(selectedOptions);
-    }, [selectedOptions]);
+        // Reset selected options whenever the question changes
+        setSelectedOptionsState(selectedOptions || []);
+    }, [selectedOptions, question]);  // Add `question` as a dependency
+    
+      
 
-    const handleOptionClick = (option: string) => {
-        setSelectedOptionsState(prevOptions => {
-            if (prevOptions.includes(option)) {
-                return prevOptions.filter(opt => opt !== option);
-            } else {
-                return [...prevOptions, option];
-            }
-        });
+      const handleOptionClick = (option: string) => {
+        if (selectedOptionsState.includes(option)) {
+            // Remove the option if it's already selected
+            setSelectedOptionsState(selectedOptionsState.filter(item => item !== option));
+        } else {
+            // Add the option if it's not selected
+            setSelectedOptionsState([...selectedOptionsState, option]);
+        }
     };
+    
 
     const handleNextClick = () => {
         if (isLast) {

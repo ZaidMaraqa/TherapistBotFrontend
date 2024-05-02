@@ -52,7 +52,7 @@ const Otp = () => {
       status: "success",
     });
     Cookie.set("token", authTokens);
-    router.push("/on-boarding");
+    router.push("/onboarding");
   };
 
   const { handleSubmit,setFieldValue, errors, values, handleChange, handleBlur, touched, isSubmitting, setSubmitting } =useFormik({
