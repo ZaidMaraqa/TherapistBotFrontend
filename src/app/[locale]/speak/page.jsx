@@ -14,7 +14,7 @@ import Vapi from "@vapi-ai/web";
 import MoodTracker from "@/components/dialogs/moodTracker";
 import { useTranslations } from "next-intl";
 
-const vapi = new Vapi("784b3a5f-be29-40b3-a64b-05ff5a9da1f7");
+const vapi = new Vapi("");
 
 const SpeakPage = () => {
   const { user } = useContext(AuthContext)

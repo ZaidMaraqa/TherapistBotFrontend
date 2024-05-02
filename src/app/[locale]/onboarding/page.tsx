@@ -92,52 +92,57 @@ const OnBoarding = () => {
 
   const sendToServer = async () => {
     const questionAnswerMapping = getQuestionAnswerMapping();
-
     localStorage.setItem('onBoardingQuestions', JSON.stringify(questionAnswerMapping));
-    setIsSubmitting(true);
-    if (!user) {
-        toast({
-          title: "Verification Error",
-          description: "No user data available for verification.",
-          status: "error",
+
+    try {
+        const response = await fetch(`${config.apiUrl}/update_onboarding_questions`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                questions: selectedOptions,
+                uuid: user?.uuid
+            }),
         });
-        return;
-      }
 
+        const data = await response.json();
 
-    const response = await fetch(
-      `${config.apiUrl}/update_onboarding_questions`,
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          questions: selectedOptions,
-          uuid: user.uuid
-        }),
-      });
+        if (!response.ok) {
+            throw new Error(data.message || "Verification failed");
+        }
 
-      const data = await response.json();
-
-      if (!response.ok) {
-        setIsSubmitting(false);
-        throw new Error(data.message || "Verification failed");
-      }else{
-        setIsSubmitting(false);
         router.push("/chat");
-      }
-  };
+    } catch (error) {
+        toast({
+            title: "Error",
+            status: "error",
+        });
+    } finally {
+        setIsSubmitting(false); // Reset the submitting state regardless of the outcome
+    }
+};
+
 
   const handleFinish = (options: string[]) => {
-    setSelectedOptions((prevSelectedOptions) => {
-      const newSelectedOptions = [...prevSelectedOptions];
-      newSelectedOptions[currentQuestion - 1] = options;
-      return newSelectedOptions;
-    });
-    sendToServer();
+    setIsSubmitting(true); // Indicate that submission is starting
 
-  };
+    // Update state
+    setSelectedOptions((prevSelectedOptions) => {
+        const newSelectedOptions = [...prevSelectedOptions];
+        newSelectedOptions[currentQuestion - 1] = options;
+        return newSelectedOptions;
+    });
+};
+
+// useEffect to handle what happens after the state updates
+useEffect(() => {
+  // Only attempt to send to the server if submitting is true and the user is defined
+  if (isSubmitting && user) {
+      sendToServer();
+  }
+}, [isSubmitting, selectedOptions]); // Depend on isSubmitting and selectedOptions
+
 
   return (
     <>
