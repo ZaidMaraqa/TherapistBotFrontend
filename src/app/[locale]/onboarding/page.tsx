@@ -13,7 +13,7 @@ import NavBar from "@/components/Navbars/navBar";
 import { useTranslations } from "next-intl";
 
 interface Mapping {
-  [key: string]: string[]; // Define the value type based on what selectedOptions contains
+  [key: string]: string[];
 }
 
 const OnBoarding = () => {
@@ -44,6 +44,18 @@ const OnBoarding = () => {
     {
       key: 'question5',
       optionsCount: 4
+    },
+    {
+      key: 'question6',
+      optionsCount: 4
+    },
+    {
+      key: 'question7',
+      optionsCount: 4
+    },
+    {
+      key: 'question8',
+      optionsCount: 4
     }
   ];
 
@@ -68,11 +80,6 @@ const OnBoarding = () => {
     return mapping;
   };
 
-
-
-
-
-
   const startJourney = () => setCurrentQuestion(1);
 
   const goToNextQuestion = (options: string[]) => {
@@ -89,43 +96,72 @@ const OnBoarding = () => {
   };
 
   const sendToServer = async () => {
-    const questionAnswerMapping = getQuestionAnswerMapping();
-    localStorage.setItem('onBoardingQuestions', JSON.stringify(questionAnswerMapping));
+    const questionAnswerMapping: Mapping = getQuestionAnswerMapping();
+
+    const questionAnswerArray = Object.entries(questionAnswerMapping);
+
+    const questions1to5: Mapping = questionAnswerArray.slice(0, 5).reduce((obj, [key, value]) => {
+        obj[key] = value;
+        return obj;
+    }, {} as Mapping);
+    const questions6to8: Mapping = questionAnswerArray.slice(5).reduce((obj, [key, value]) => {
+        obj[key] = value;
+        return obj;
+    }, {} as Mapping);
+
+    localStorage.setItem('onBoardingQuestions', JSON.stringify(questions1to5));
+    localStorage.setItem('goalsQuestions', JSON.stringify(questions6to8));
 
     try {
-        const response = await fetch(`${config.apiUrl}/update_onboarding_questions`, {
+        const questions1to5Response = await fetch(`${config.apiUrl}/update_onboarding_questions`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
             },
             body: JSON.stringify({
-                questions: selectedOptions,
+                questions: questions1to5,
                 uuid: user?.uuid
             }),
         });
 
-        const data = await response.json();
+        const questions1to5Data = await questions1to5Response.json();
 
-        if (!response.ok) {
-            throw new Error(data.message || "Verification failed");
+        if (!questions1to5Response.ok) {
+            throw new Error(questions1to5Data.message || "Verification failed");
         }
 
-        router.push("/chat");
+      //   const questions6to8Response = await fetch(`${config.apiUrl}/`, {
+      //     method: "POST",
+      //     headers: {
+      //         "Content-Type": "application/json",
+      //     },
+      //     body: JSON.stringify({
+      //         questions: questions6to8,
+      //         uuid: user?.uuid
+      //     }),
+      // });
+
+      // const questions6to8Data = await questions6to8Response.json();
+
+      // if (!questions6to8Response.ok) {
+      //     throw new Error(questions6to8Data.message || "Verification failed");
+      // }
+
+      // router.push("/chat");
     } catch (error) {
         toast({
             title: "Error",
             status: "error",
         });
     } finally {
-        setIsSubmitting(false); // Reset the submitting state regardless of the outcome
+        setIsSubmitting(false);
     }
 };
 
 
   const handleFinish = (options: string[]) => {
-    setIsSubmitting(true); // Indicate that submission is starting
+    setIsSubmitting(true);
 
-    // Update state
     setSelectedOptions((prevSelectedOptions) => {
         const newSelectedOptions = [...prevSelectedOptions];
         newSelectedOptions[currentQuestion - 1] = options;
@@ -133,13 +169,11 @@ const OnBoarding = () => {
     });
 };
 
-// useEffect to handle what happens after the state updates
 useEffect(() => {
-  // Only attempt to send to the server if submitting is true and the user is defined
   if (isSubmitting && user) {
       sendToServer();
   }
-}, [isSubmitting, selectedOptions]); // Depend on isSubmitting and selectedOptions
+}, [isSubmitting, selectedOptions]);
 
 
   return (
