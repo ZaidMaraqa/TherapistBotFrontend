@@ -59,11 +59,6 @@ const ChatPage = () => {
         return "#f0f0f7"; // Default background color
     }
   };
-
-
-
-
-
   
 
   const handleIncomingMessage = (data: any) => {
