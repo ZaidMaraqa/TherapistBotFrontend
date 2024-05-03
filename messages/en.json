@@ -53,7 +53,7 @@
     "Welcome":{
         "title": "Welcome to Echo, {name}",
         "subTitle": "It's great to have you! Let's personalize your support journey with a few quick questions.",
-        "start": "Start your Journey"
+        "start": "Start your onboarding"
     },
 
     "FinishOnBoardingMessage": {
