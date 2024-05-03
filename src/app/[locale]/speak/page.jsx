@@ -13,6 +13,7 @@ import SpeakNav from "@/components/Navbars/speakNav";
 import Vapi from "@vapi-ai/web";
 import MoodTracker from "@/components/dialogs/moodTracker";
 import { useTranslations } from "next-intl";
+import { useSearchParams } from "next/navigation";
 
 const vapi = new Vapi("");
 
@@ -33,6 +34,9 @@ const SpeakPage = () => {
   const [questionsAndAnswers, setQuestionsAndAnswers] = useState([]);
   const [formattedQuestionsAndAnswers, setFormattedQuestionsAndAnswers] = useState('');
   const [formattedGoalsQuestions, setformattedGoalsQuestions] = useState('');
+
+  const searchParams = useSearchParams();
+  const title = searchParams.get("title");
 
   useEffect(() => {
     const onBoardingQuestions = localStorage.getItem('onBoardingQuestions');
@@ -160,6 +164,8 @@ const SpeakPage = () => {
 
               ***
               Here is everything that you need to know about the patient.
+
+              KEEP THE TOPIC AROUND THIS SUBJECT VERY IMPORTANT , IF THE SUBJECT IS NULL JUST FORGET ABOUT THIS COMMAND ${title ? title : 'NULL' }
 
               The patient's name is ${user?.first_name || 'unknown'}. DO NOT SAY THEIR NAME IN EVERY MESSAGE ONLY WHEN IT SEEMS APPROPRIATE.
               The patient was born ${user?.date_of_birth || 'unknown'}

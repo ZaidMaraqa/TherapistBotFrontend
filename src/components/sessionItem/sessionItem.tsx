@@ -1,9 +1,17 @@
-import React from "react";
-import { Box, Stack, IconButton } from "@mui/material";
+import React, { useState } from "react";
+import { Box, Stack, IconButton, CircularProgress } from "@mui/material";
 import ArrowRightIcon from "@mui/icons-material/ArrowRight";
 import { SessionItemProps } from "../sessionItem/sessionitem.interface";
 
-const SessionItem: React.FC<SessionItemProps> = ({ title, borderColor }) => {
+const SessionItem: React.FC<SessionItemProps> = ({ title, borderColor, onClick }) => {
+  const [loading, setLoading] = useState(false);
+
+  const handleClick = async () => {
+    setLoading(true);
+    await onClick(title);
+    setLoading(false);
+  };
+
   return (
     <Box
       sx={{
@@ -20,16 +28,21 @@ const SessionItem: React.FC<SessionItemProps> = ({ title, borderColor }) => {
         direction={"row"}
         justifyContent="space-between"
         alignItems="center"
-        sx={{
-          height: "100%",
-          paddingLeft: "1rem",
-          paddingRight: "1rem",
-        }}
+        sx={{ height: "100%", paddingLeft: "1rem", paddingRight: "1rem" }}
       >
         <Box sx={{ color: "#333" }}>{title}</Box>
         <Box>
-          <IconButton aria-label="arrow-right" sx={{ color: "#616161" }}>
-            <ArrowRightIcon/>
+          <IconButton
+            aria-label="arrow-right"
+            sx={{ color: "#616161" }}
+            onClick={handleClick}
+            disabled={loading}
+          >
+            {loading ? (
+              <CircularProgress size={24} />
+            ) : (
+              <ArrowRightIcon />
+            )}
           </IconButton>
         </Box>
       </Stack>

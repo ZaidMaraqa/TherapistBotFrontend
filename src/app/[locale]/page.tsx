@@ -15,6 +15,11 @@ import { useRouter } from "next/navigation";
 import { ASSETS } from "./assets";
 export default function DashBoard() {
   const router = useRouter();
+
+  const handleSessionClick = (title: string) => {
+    router.push(`/speak?title=${encodeURIComponent(title)}`);
+  };
+
   return (
     <ResponsiveDrawer>
       <Stack direction={"row"} sx={{ height: "100vh" }}>
@@ -56,7 +61,7 @@ export default function DashBoard() {
                     </Box>
                     <Button
                       variant="contained"
-                      onClick={() => (router.push("/chat"))}
+                      onClick={() => router.push("/chat")}
                       sx={{
                         backgroundColor: "#231E5B",
                         color: "white",
@@ -65,7 +70,7 @@ export default function DashBoard() {
                         left: 10,
                         right: 10,
                         transform: "none",
-                  
+
                         boxShadow: "none",
                         "&:hover": {
                           backgroundColor: "#231E5B",
@@ -255,6 +260,7 @@ export default function DashBoard() {
                     key={index}
                     title={session.title}
                     borderColor={session.borderColor}
+                    onClick={() => handleSessionClick(session.title)}
                   />
                 ))}
               </Stack>
