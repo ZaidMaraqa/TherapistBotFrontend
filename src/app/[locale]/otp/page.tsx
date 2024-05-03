@@ -24,7 +24,6 @@ const Otp = () => {
   const toast = useToastNotification();
   const router = useRouter();
   const t = useTranslations('OTP')
-  console.log(user);
 
   const verifyOtp = async () => {
     if (!user || !authTokens ) {

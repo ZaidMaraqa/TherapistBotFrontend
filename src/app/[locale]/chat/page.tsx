@@ -36,7 +36,6 @@ const ChatPage = () => {
   const t = useTranslations("Chat");
   const [ws, setWs] = useState<WebSocket | null>(null);
   const { user } = useContext(AuthContext);
-  console.log(user);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const toast = useToastNotification();
   const {

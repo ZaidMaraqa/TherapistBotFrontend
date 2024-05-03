@@ -93,7 +93,6 @@ const SpeakPage = () => {
   }, [connecting, connected]);
 
   const startAssistant = () => {
-    console.log(formattedQuestionsAndAnswers); // Check the actual content
 
     console.log("Starting assistant");
     setIntroText(t('setup'));

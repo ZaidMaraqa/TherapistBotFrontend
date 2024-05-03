@@ -6,7 +6,6 @@ import {
     ModalBody,
     Flex,
     Image,
-    useDisclosure,
     Button,
     Input,
     VStack,
@@ -21,7 +20,6 @@ interface MoodTrackerProps {
 
 export default function MoodTracker({ open, onClose: handleClose }: MoodTrackerProps) {
     const navigateToHelpline = () => {
-        console.log('woo')
         
     };
 

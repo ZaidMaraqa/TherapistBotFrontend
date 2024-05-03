@@ -21,7 +21,6 @@ const ChatInput: React.FC<SearchInputProps> = ({
 }) => {
 
   const locale = useLocale(); 
-  console.log(locale)
   const textDirection = useTextDirection(locale);
 
   const inputStyle = { 

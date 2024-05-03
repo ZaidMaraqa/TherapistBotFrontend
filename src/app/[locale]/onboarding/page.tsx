@@ -65,8 +65,6 @@ const OnBoarding = () => {
     questionsData.forEach((question, index) => {
       mapping[question.text] = selectedOptions[index];
     });
-  
-    console.log(mapping);
     return mapping;
   };
 
