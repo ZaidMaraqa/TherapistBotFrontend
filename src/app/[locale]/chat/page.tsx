@@ -36,7 +36,6 @@ const ChatPage = () => {
   const t = useTranslations("Chat");
   const [ws, setWs] = useState<WebSocket | null>(null);
   const { user } = useContext(AuthContext);
-  console.log(user);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const toast = useToastNotification();
   const {
@@ -60,11 +59,6 @@ const ChatPage = () => {
         return "#f0f0f7"; // Default background color
     }
   };
-
-
-
-
-
   
 
   const handleIncomingMessage = (data: any) => {

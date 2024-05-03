@@ -13,6 +13,8 @@ import SpeakNav from "@/components/Navbars/speakNav";
 import Vapi from "@vapi-ai/web";
 import MoodTracker from "@/components/dialogs/moodTracker";
 import { useTranslations } from "next-intl";
+import { useLocale } from 'next-intl';
+
 
 const vapi = new Vapi("");
 
@@ -30,8 +32,10 @@ const SpeakPage = () => {
   const [introText, setIntroText] = useState(t('intro'));
   const [assistantIsSpeaking, setAssistantIsSpeaking] = useState(false);
   const [volumeLevel, setVolumeLevel] = useState(0);
-  const [questionsAndAnswers, setQuestionsAndAnswers] = useState([]);
   const [formattedQuestionsAndAnswers, setFormattedQuestionsAndAnswers] = useState('');
+  const locale = useLocale(); 
+  const isArabic = locale === 'ar';
+  console.log('locale:', locale);
 
   useEffect(() => {
     const loadedData = localStorage.getItem('onBoardingQuestions');
@@ -47,10 +51,6 @@ const SpeakPage = () => {
       }
     }
   }, []);
-  
-  
-
-  
 
 
   useEffect(() => {
@@ -70,11 +70,12 @@ const SpeakPage = () => {
     });
 
     vapi.on("speech-start", () => {
-      console.log("Call started");
+      console.log("Speech started")
       setAssistantIsSpeaking(true);
     });
 
     vapi.on("speech-end", () => {
+      console.log("Speech ended")
       setAssistantIsSpeaking(false);
 
     });
@@ -93,7 +94,7 @@ const SpeakPage = () => {
   }, [connecting, connected]);
 
   const startAssistant = () => {
-    console.log(formattedQuestionsAndAnswers); // Check the actual content
+    console.log(formattedQuestionsAndAnswers); 
 
     console.log("Starting assistant");
     setIntroText(t('setup'));
@@ -109,16 +110,17 @@ const SpeakPage = () => {
 
   const assistantOptions = {
     name: "Echo AI Therapist",
-    firstMessage:
-    `Hello ${user?.first_name || 'there'}, ${questionsAndAnswers} I'm Echo. What can I do to make you feel better today?`,
+    firstMessage: isArabic ? 
+    `مرحبًا ${user?.first_name || 'هناك'}, أنا إيكو. ما الذي يمكنني فعله لجعلك تشعر بتحسن اليوم؟` : 
+    `Hello ${user?.first_name || 'there'}, I'm Echo. What can I do to make you feel better today?`,    
     transcriber: {
-      provider: "deepgram",
-      model: "nova-2",
-      language: "en-US",
+      provider: isArabic ? "talkscriber" : "deepgram",
+      model: isArabic ? "whisper" : "nova-2",
+      language: isArabic ? "ar" : "en-US",
     },
     voice: {
-      provider: "playht",
-      voiceId: "donna",
+      provider: isArabic ? "azure" : "playht",
+      voiceId: isArabic ? "ar-LB-LaylaNeural" : "donna",
     },
     model: {
       provider: "openai",

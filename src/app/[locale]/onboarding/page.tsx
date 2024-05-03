@@ -93,6 +93,7 @@ const OnBoarding = () => {
   const sendToServer = async () => {
     const questionAnswerMapping = getQuestionAnswerMapping();
     localStorage.setItem('onBoardingQuestions', JSON.stringify(questionAnswerMapping));
+    console.log(questionAnswerMapping)
 
     try {
         const response = await fetch(`${config.apiUrl}/update_onboarding_questions`, {
