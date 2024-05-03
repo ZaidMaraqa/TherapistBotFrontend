@@ -59,7 +59,6 @@ const SignUp = () => {
       },
       validationSchema,
       onSubmit: (values) => {
-        console.log(values);
         signup(values)
           .finally(() => {
             setSubmitting(false); // Ensure isSubmitting is set to false after login attempt

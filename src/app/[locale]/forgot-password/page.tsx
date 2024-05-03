@@ -27,10 +27,10 @@ const ForgotPass = () => {
     validationSchema: Yup.object(schema),
     onSubmit: (values) => {
       if (!isOtpSent) {
-        console.log("Sending OTP to:", values.number);
+        console.log("Sending OTP");
         setIsOtpSent(true);  // Simulate sending OTP
       } else {
-        console.log("Submitted OTP:", values.otp);
+        console.log("Submitted OTP");
         // Handle OTP verification
       }
     },

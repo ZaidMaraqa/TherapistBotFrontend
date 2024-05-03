@@ -13,7 +13,7 @@ import NavBar from "@/components/Navbars/navBar";
 import { useTranslations } from "next-intl";
 
 interface Mapping {
-  [key: string]: string[]; // Define the value type based on what selectedOptions contains
+  [key: string]: string[];
 }
 
 const OnBoarding = () => {
@@ -22,58 +22,61 @@ const OnBoarding = () => {
   const toast = useToastNotification();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const router = useRouter();
-  const t = useTranslations('onboarding');
+  const t = useTranslations("onboarding");
 
   const questions = [
     {
-      key: 'question1',
-      optionsCount: 4
+      key: "question1",
+      optionsCount: 4,
     },
     {
-      key: 'question2',
-      optionsCount: 4
+      key: "question2",
+      optionsCount: 4,
     },
     {
-      key: 'question3',
-      optionsCount: 4
+      key: "question3",
+      optionsCount: 4,
     },
     {
-      key: 'question4',
-      optionsCount: 4
+      key: "question4",
+      optionsCount: 4,
     },
     {
-      key: 'question5',
-      optionsCount: 4
-    }
+      key: "question5",
+      optionsCount: 4,
+    },
+    {
+      key: "question6",
+      optionsCount: 4,
+    },
+    {
+      key: "question7",
+      optionsCount: 4,
+    },
+    {
+      key: "question8",
+      optionsCount: 4,
+    },
   ];
 
-  const questionsData = questions.map(question => ({
+  const questionsData = questions.map((question) => ({
     text: t(`${question.key}_text`),
     options: Array.from({ length: question.optionsCount }, (_, i) =>
       t(`${question.key}_option${i + 1}`)
-    )
+    ),
   }));
-
 
   const [selectedOptions, setSelectedOptions] = useState(
     Array(questionsData.length).fill([])
   );
 
-
   const getQuestionAnswerMapping = () => {
-    const mapping: Mapping = {}; 
+    const mapping: Mapping = {};
     questionsData.forEach((question, index) => {
       mapping[question.text] = selectedOptions[index];
     });
-  
-    console.log(mapping);
     return mapping;
   };
-
-
-
-
-
 
   const startJourney = () => setCurrentQuestion(1);
 
@@ -91,59 +94,95 @@ const OnBoarding = () => {
   };
 
   const sendToServer = async () => {
-    const questionAnswerMapping = getQuestionAnswerMapping();
-    localStorage.setItem('onBoardingQuestions', JSON.stringify(questionAnswerMapping));
-    console.log(questionAnswerMapping)
+    const questionAnswerMapping: Mapping = getQuestionAnswerMapping();
+
+    const questionAnswerArray = Object.entries(questionAnswerMapping);
+
+    const questions1to5: Mapping = questionAnswerArray
+      .slice(0, 5)
+      .reduce((obj, [key, value]) => {
+        obj[key] = value;
+        return obj;
+      }, {} as Mapping);
+    const questions6to8: Mapping = questionAnswerArray
+      .slice(5)
+      .reduce((obj, [key, value]) => {
+        obj[key] = value;
+        return obj;
+      }, {} as Mapping);
+
+    localStorage.setItem("onBoardingQuestions", JSON.stringify(questions1to5));
+    localStorage.setItem("goalsQuestions", JSON.stringify(questions6to8));
+    console.log("questions1to5Data",questions1to5)
+    console.log("questions1to5Data",questions6to8)
 
     try {
-        const response = await fetch(`${config.apiUrl}/update_onboarding_questions`, {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify({
-                questions: selectedOptions,
-                uuid: user?.uuid
-            }),
-        });
-
-        const data = await response.json();
-
-        if (!response.ok) {
-            throw new Error(data.message || "Verification failed");
+      const questions1to5Response = await fetch(
+        `${config.apiUrl}/update_onboarding_questions`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            q_and_a: questions1to5,
+            uuid: user?.uuid,
+          }),
         }
+      );
 
-        router.push("/chat");
+      const questions1to5Data = await questions1to5Response.json();
+
+      if (!questions1to5Response.ok) {
+        throw new Error(questions1to5Data.message || "Verification failed");
+      }
+
+      const questions6to8Response = await fetch(
+        `${config.apiUrl}/update_onboarding_goals`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            goals: questions6to8,
+            uuid: user?.uuid,
+          }),
+        }
+      );
+
+      const questions6to8Data = await questions6to8Response.json();
+
+      if (!questions6to8Response.ok) {
+        throw new Error(questions6to8Data.message || "Verification failed");
+      }
+
+      router.push("/chat");
     } catch (error) {
-        toast({
-            title: "Error",
-            status: "error",
-        });
+      toast({
+        title: "Error",
+        status: "error",
+      });
     } finally {
-        setIsSubmitting(false); // Reset the submitting state regardless of the outcome
+      setIsSubmitting(false);
     }
-};
-
+  };
 
   const handleFinish = (options: string[]) => {
-    setIsSubmitting(true); // Indicate that submission is starting
+    setIsSubmitting(true);
 
-    // Update state
     setSelectedOptions((prevSelectedOptions) => {
-        const newSelectedOptions = [...prevSelectedOptions];
-        newSelectedOptions[currentQuestion - 1] = options;
-        return newSelectedOptions;
+      const newSelectedOptions = [...prevSelectedOptions];
+      newSelectedOptions[currentQuestion - 1] = options;
+      return newSelectedOptions;
     });
-};
+  };
 
-// useEffect to handle what happens after the state updates
-useEffect(() => {
-  // Only attempt to send to the server if submitting is true and the user is defined
-  if (isSubmitting && user) {
+  useEffect(() => {
+    if (isSubmitting && user) {
       sendToServer();
-  }
-}, [isSubmitting, selectedOptions]); // Depend on isSubmitting and selectedOptions
-
+    }
+  }, [isSubmitting, selectedOptions]);
 
   return (
     <>
@@ -173,6 +212,6 @@ useEffect(() => {
       </Flex>
     </>
   );
-}
+};
 
 export default withAuth(OnBoarding);

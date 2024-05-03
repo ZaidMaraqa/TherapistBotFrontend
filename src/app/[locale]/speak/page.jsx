@@ -16,7 +16,7 @@ import { useTranslations } from "next-intl";
 import { useLocale } from 'next-intl';
 
 
-const vapi = new Vapi("");
+const vapi = new Vapi("44baa3f6-b229-4258-acab-af551d467952");
 
 const SpeakPage = () => {
   const { user } = useContext(AuthContext)
@@ -36,16 +36,29 @@ const SpeakPage = () => {
   const locale = useLocale(); 
   const isArabic = locale === 'ar';
   console.log('locale:', locale);
+  const [formattedGoalsQuestions, setformattedGoalsQuestions] = useState('');
 
   useEffect(() => {
-    const loadedData = localStorage.getItem('onBoardingQuestions');
-    if (loadedData) {
-      const parsedData = JSON.parse(loadedData);
+    const onBoardingQuestions = localStorage.getItem('onBoardingQuestions');
+    const goalsQuestions = localStorage.getItem('goalsQuestions');
+    if (onBoardingQuestions) {
+      const parsedData = JSON.parse(onBoardingQuestions);
       if (typeof parsedData === 'object' && parsedData !== null && !Array.isArray(parsedData)) {
         const formattedData = Object.entries(parsedData).map(([question, answers]) => 
           `\n- ${question}: ${answers.join(', ')}`
         ).join('');
         setFormattedQuestionsAndAnswers(formattedData);
+      } else {
+        console.error('Expected an object, got:', typeof parsedData);
+      }
+    }
+    if (goalsQuestions) {
+      const parsedData = JSON.parse(goalsQuestions);
+      if (typeof parsedData === 'object' && parsedData !== null && !Array.isArray(parsedData)) {
+        const formattedData = Object.entries(parsedData).map(([question, answers]) => 
+          `\n- ${question}: ${answers.join(', ')}`
+        ).join('');
+        setformattedGoalsQuestions(formattedData);
       } else {
         console.error('Expected an object, got:', typeof parsedData);
       }
@@ -94,7 +107,7 @@ const SpeakPage = () => {
   }, [connecting, connected]);
 
   const startAssistant = () => {
-    console.log(formattedQuestionsAndAnswers); 
+    console.log(formattedQuestionsAndAnswers); // Check the actual content
 
     console.log("Starting assistant");
     setIntroText(t('setup'));
@@ -155,6 +168,7 @@ const SpeakPage = () => {
               The patient was born ${user?.date_of_birth || 'unknown'}
               The patient is from ${user?.country || 'unknown'}.
               Here are some details from our initial onboarding session:${formattedQuestionsAndAnswers}
+              Here are the goals that the user shared out with us:${formattedGoalsQuestions}
               ***
               ###RULES###:
                   - Your primary role is to provide emotional support. do not deviate to other roles or tasks.
