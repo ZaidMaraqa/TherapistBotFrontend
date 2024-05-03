@@ -9,7 +9,7 @@ const chartSetting = {
   yAxis: [
     {
       label: 'Sessions',
-      min: 5,
+      min: 0,
       max: 20,
     },
   ],

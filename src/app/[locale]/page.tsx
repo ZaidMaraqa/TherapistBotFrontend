@@ -152,7 +152,7 @@ export default function DashBoard() {
                                 fontSize={"1.1rem"}
                                 sx={{ color: "#231E5B" }}
                               >
-                                14 mar 2022
+                                14 Jun 2024
                               </Box>
                             </Stack>
                           </Box>
@@ -195,15 +195,15 @@ export default function DashBoard() {
               <Box sx={{ width: "100%" }}>
                 <Stack alignItems="center" justifyContent="center" spacing={2}>
                   <DatePickerOpenTo />
-                  <GaugeChart value={5} max={20} />
+                  <GaugeChart value={0} max={5} />
                   <Box>
                     <Typography
                       fontSize={"1.2rem"}
                       align="center"
                       sx={{ color: "#231E5B" }}
                     >
-                      You've taken <span style={{ fontWeight: "bold" }}>5</span>{" "}
-                      out of <span style={{ fontWeight: "bold" }}>20</span>{" "}
+                      You've taken <span style={{ fontWeight: "bold" }}>0</span>{" "}
+                      out of <span style={{ fontWeight: "bold" }}>5</span>{" "}
                       sessions this month.
                     </Typography>
                   </Box>

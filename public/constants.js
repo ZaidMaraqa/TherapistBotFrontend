@@ -58,9 +58,9 @@ export const sessions = [
 ];
 
 export const dataset = [
-  { month: 'Jan', sessions: 11 },
-  { month: 'Feb', sessions: 13 },
-  { month: 'Mar', sessions: 15 },
-  { month: 'Apr', sessions: 17 },
-  { month: 'May', sessions: 19 },
+  { month: 'Jan', sessions: 2 },
+  { month: 'Feb', sessions: 4 },
+  { month: 'Mar', sessions: 1 },
+  { month: 'Apr', sessions: 1 },
+  { month: 'May', sessions: 3 },
 ];

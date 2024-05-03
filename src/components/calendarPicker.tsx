@@ -15,7 +15,7 @@ const CustomDateCalendar = styled(DateCalendar)({
 });
 
 export default function DateCalendarValue() {
-  const [value, setValue] = React.useState<Dayjs | null>(dayjs("2022-04-17"));
+  const [value, setValue] = React.useState<Dayjs | null>(dayjs("2024-06-14"));
 
   return (
     <LocalizationProvider dateAdapter={AdapterDayjs}>
