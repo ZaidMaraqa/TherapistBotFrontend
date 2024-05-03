@@ -4,12 +4,12 @@ import {
   Select,
   Text,
   Tooltip,
-  useDisclosure,
 } from "@chakra-ui/react";
 import { IoHappyOutline, IoLogOutOutline } from "react-icons/io5";
 import { useRouter } from "next/navigation";
 import { useLocale, useTranslations } from "next-intl";
 import { ChangeEvent, startTransition } from "react";
+import { TbMessageChatbot } from "react-icons/tb";
 
 interface SpeakNavBarProps {
   onMoodClick: () => void;
@@ -61,6 +61,17 @@ const SpeakNavBar: React.FC<SpeakNavBarProps> = ({ onMoodClick }) => {
             icon={<IoHappyOutline />}
           />
         </Tooltip>
+        <Tooltip label={t('chat')}>
+          <IconButton
+            bg={"none"}
+            fontSize={"2.2rem"}
+            _hover={{ bg: "none" }}
+            color={"primary"}
+            aria-label="Chat to Echo"
+            icon={<TbMessageChatbot color="white"/>}
+            onClick={() => router.push("/chat")}
+          />
+        </Tooltip>
         <Tooltip label={t('exit')}>
           <IconButton
             bg={"none"}
@@ -68,7 +79,7 @@ const SpeakNavBar: React.FC<SpeakNavBarProps> = ({ onMoodClick }) => {
             _hover={{ bg: "none" }}
             color={"white"}
             aria-label="Mood Tracker"
-            onClick={() => router.push("/")}
+            onClick={() => router.push("/en")}
             icon={<IoLogOutOutline />}
           />
         </Tooltip>

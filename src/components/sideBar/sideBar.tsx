@@ -50,7 +50,7 @@ export default function ResponsiveDrawer(props: Props) {
   const [mobileOpen, setMobileOpen] = React.useState(false);
   const [isClosing, setIsClosing] = React.useState(false);
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
-  const { logout } = React.useContext(AuthContext)
+  const { logout,user } = React.useContext(AuthContext)
 
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] =
     React.useState<null | HTMLElement>(null);
@@ -241,8 +241,9 @@ export default function ResponsiveDrawer(props: Props) {
               fontWeight: 600,
               mt: 2,
             }}
+            textTransform="capitalize"
           >
-            Good Morning, Yazan
+            Good Morning, {user?.first_name}
           </Typography>
           <Box sx={{ flexGrow: 1 }} />
           <Box sx={{ display: { xs: "none", md: "flex" } }}>

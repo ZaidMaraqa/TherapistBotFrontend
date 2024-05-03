@@ -11,6 +11,7 @@ import { useRouter } from "next/navigation";
 import withAuth from "@/components/PrivateRoute";
 import NavBar from "@/components/Navbars/navBar";
 import { useTranslations } from "next-intl";
+import FinishOnBoardingSection from "@/components/onBoarding/finishOnboarding";
 
 interface Mapping {
   [key: string]: string[];
@@ -18,6 +19,7 @@ interface Mapping {
 
 const OnBoarding = () => {
   const [currentQuestion, setCurrentQuestion] = useState(0);
+  const [showFinishSection, setShowFinishSection] = useState(false);
   const { user } = useContext(AuthContext);
   const toast = useToastNotification();
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -113,8 +115,6 @@ const OnBoarding = () => {
 
     localStorage.setItem("onBoardingQuestions", JSON.stringify(questions1to5));
     localStorage.setItem("goalsQuestions", JSON.stringify(questions6to8));
-    console.log("questions1to5Data",questions1to5)
-    console.log("questions1to5Data",questions6to8)
 
     try {
       const questions1to5Response = await fetch(
@@ -157,7 +157,7 @@ const OnBoarding = () => {
         throw new Error(questions6to8Data.message || "Verification failed");
       }
 
-      router.push("/chat");
+      setShowFinishSection(true);
     } catch (error) {
       toast({
         title: "Error",
@@ -166,6 +166,10 @@ const OnBoarding = () => {
     } finally {
       setIsSubmitting(false);
     }
+  };
+
+  const handleFinishOnBoarding = () => {
+    router.push("/speak");
   };
 
   const handleFinish = (options: string[]) => {
@@ -188,13 +192,17 @@ const OnBoarding = () => {
     <>
       <Box>
         <NavBar />
+        {!showFinishSection && (
         <ProgressBar
           currentQuestion={currentQuestion}
           totalQuestions={questionsData.length}
         />
+      )}
       </Box>
       <Flex alignItems="center" h="80vh" justify="center">
-        {currentQuestion === 0 ? (
+        {showFinishSection ? (
+          <FinishOnBoardingSection onStart={handleFinishOnBoarding} />
+        ) : currentQuestion === 0 ? (
           <WelcomeSection onStart={startJourney} />
         ) : (
           <Questionnaire

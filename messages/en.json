@@ -56,6 +56,12 @@
         "start": "Start your Journey"
     },
 
+    "FinishOnBoardingMessage": {
+        "title": "Congratulations, {name}! 🎉",
+        "subTitle": "You've completed the onboarding process! ECHO is now better equipped to understand your needs and provide personalized assistance.",
+        "start": "Let's Start Your Journey with ECHO! 🚀"
+      },
+
     "onboarding": {
         "question1_text": "What do you like to do in your free time?",
         "question1_option1": "Doing sports or physical activities",
