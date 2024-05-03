@@ -70,7 +70,6 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
 
   const signup = async (userData: any) => {
     setLoading(true);
-    console.log('yes')
     try {
       const response = await fetch(`${config.apiUrl}/user_signup`, {
         method: "POST",
@@ -81,7 +80,6 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
       });
 
       const data = await response.json();
-      console.log({data: data})
       
       if(response.status === 400){
         toast({
@@ -117,14 +115,10 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
         },
         body: JSON.stringify({ email, password }),
       });
-      console.log("Sending values:", { email, password });
 
-      console.log("Response:", response); 
 
 
       const data = await response.json();
-
-      console.log(response)
 
       if(response.status === 401){
         toast({

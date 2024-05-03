@@ -88,6 +88,23 @@
         "question5_option3": "I prefer to be alone",
         "question5_option4": "Professional helper like a counselor",
 
+        "question6_text": "What's one area of your life you would like to improve?",
+        "question6_option1": "My relationships with others",
+        "question6_option2": "My physical health and habits",
+        "question6_option3": "My career or studies",
+        "question6_option4": "My emotional well-being and stability",
+
+        "question7_text": "What's a small, achievable step you can take towards this improvement?",
+        "question7_option1": "Reach out to a friend I haven't spoken to in a while",
+        "question7_option2": "Go for a short walk today",
+        "question7_option3": "Look at job postings or course listings",
+        "question7_option4": "Journal for 10 minutes about my feelings",
+
+        "question8_text": "How would you feel if you accomplished this step?",
+        "question8_option1": "Proud of myself",
+        "question8_option2": "Motivated to keep going",
+        "question8_option3": "Hopeful about the future",
+        "question8_option4": "Less stressed and anxious",
 
         "next": "Next",
         "finish": "Finish",
