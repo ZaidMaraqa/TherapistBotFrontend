@@ -144,6 +144,23 @@
         "connected": "Echo جاهز للاستماع. اضغط على الزر أدناه لإنهاء المحادثة.",
         "ended": "نأمل أنك استمتعت بالمحادثة. اضغط على الزر أدناه لبدء محادثة جديدة.",
         "setup": "Echo يستعد..."
+    },
+
+    "Dashboard":{
+        "menuItems": "[\"لوحة التحكم\", \"المواعيد\", \"الأطباء\", \"الإعدادات\", \"تسجيل الخروج\"]",
+        "header":"دردش مع إيكو الآن",
+        "subHeaderOne":"سيستغرق الأمر بضع دقائق فقط لتشعر بتحسن",
+        "subHeaderTwo":"الفحص الدوري يساعد على تحسين صحتك",
+        "buttonText":"دردش مع إيكو ",
+        "doctorName":"يزن الشعراوي",
+        "doctorProfession":"طبيب نفسي",
+        "appointmentDate":"١٤ ٢٠٢٢ مارس",
+        "appointmentTime":"٩:٠٠ صباحا",
+        "activityHeader":"نشاطاتك",
+        "prevSessionHeader":"قائمة الجلسات السابقة",
+        "themedSessionsHeader":"خذ جلسات تحت موضوع محدد",
+        "sessionsOneTitle":"اليقظة والاسترخاء",
+        "sessionsTwoTitle":"التعامل مع الضغوط"
     }       
     
 }

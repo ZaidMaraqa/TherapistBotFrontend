@@ -143,9 +143,23 @@
         "connected": "Echo is ready to listen. Click the button below to end the conversation.",
         "ended":"We hope you enjoyed the conversation. Click the button below to start a new one.",
         "setup": "Echo is getting ready..."
+    },
+
+    "Dashboard":{
+        "menuItmes": "[\"Dashboard\", \"Appointments\", \"Doctors\", \"Settings\",\"Logout\"]",
+        "header":"Chat with ECHO Now",
+        "subHeaderOne":"It will take only few minutes to feel better",
+        "subHeaderTwo":"Checking regularly helps improve your wellbeing!",
+        "buttonText":"Chat with ECHO",
+        "doctorName":"Yazan Sharawi",
+        "doctorProfession":"Psychologists",
+        "appointmentDate":"14 mar 2022",
+        "appointmentTime":"9:00 AM",
+        "activityHeader":"Your Activity",
+        "prevSessionHeader":"List of previous sessions",
+        "themedSessionsHeader":"Take themed sessions",
+        "sessionsOneTitle":"Mindfulness and Relaxation",
+        "sessionsTwoTitle":"Stress Management"
     }
-
-
-
 
 }
