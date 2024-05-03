@@ -243,7 +243,7 @@ export default function ResponsiveDrawer(props: Props) {
             }}
             textTransform="capitalize"
           >
-            Good Morning, {user?.first_name}
+            Good Morning,{user?.first_name}
           </Typography>
           <Box sx={{ flexGrow: 1 }} />
           <Box sx={{ display: { xs: "none", md: "flex" } }}>
