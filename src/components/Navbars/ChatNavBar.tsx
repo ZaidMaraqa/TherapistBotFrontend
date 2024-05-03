@@ -95,7 +95,7 @@ const ChatNavBar: React.FC<ChatNavBarProps> = ({
             _hover={{ bg: "none" }}
             color={"primary"}
             aria-label="Mood Tracker"
-            onClick={() => router.push("/")}
+            onClick={() => router.push("/en")}
             icon={<IoLogOutOutline />}
           />
         </Tooltip>
