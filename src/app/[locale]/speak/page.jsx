@@ -16,7 +16,7 @@ import { useTranslations } from "next-intl";
 import { useLocale } from 'next-intl';
 
 
-const vapi = new Vapi("44baa3f6-b229-4258-acab-af551d467952");
+const vapi = new Vapi("");
 
 const SpeakPage = () => {
   const { user } = useContext(AuthContext)
